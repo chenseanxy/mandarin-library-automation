@@ -1,0 +1,12 @@
+# PR Labler
+
+documentation:
+  - 0_Architectural_Decision_Records/**/*
+  - 1_System_Specs/**/*
+  - Doc_Templates/**/*
+
+architecture:
+  - 0_Architectural_Decision_Records/**/*
+
+spec:
+  - 1_System_Specs/**/*
