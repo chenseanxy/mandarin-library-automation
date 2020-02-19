@@ -44,6 +44,8 @@ Commit为git版本管理的一个最小单元，git会追踪两次commit之间�
 
 任何形式的开发都应该在其他分支进行，在开发进行完一个阶段后创建Pull Request以合并到master分支中。
 
+开发分支命名应如`dev-name-of-branch`.
+
 ### Pull Request
 
 当开发分支完成一个任务点或功能时，应由该任务点/功能的负责人创建一个Pull Request以请求合并到master分支中。
