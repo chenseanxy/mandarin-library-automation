@@ -14,6 +14,11 @@
 - 确保终端位于`backend`文件夹内
 - 安装依赖：`pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple`
 
+#### 如果出现包没有找到之类的问题：
+
+- 升级Python至Python 3.7以上，或：
+- `pip install Flask Flask-RESTful Flask-SQLAlchemy pytest requests urllib3 -i https://pypi.tuna.tsinghua.edu.cn/simple`
+
 ### 测试
 
 - `python -m pytest`来确保测试框架可用。
