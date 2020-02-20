@@ -10,3 +10,9 @@ architecture:
 
 spec:
   - 1_System_Specs/**/*
+
+frontend:
+ - frontend/**/*
+ 
+backend:
+ - backend//**/*
