@@ -1,11 +1,13 @@
 FROM python:3.7.6-slim-buster
 
+ARG pythonrepo=https://pypi.tuna.tsinghua.edu.cn/simple/
+
 WORKDIR /app/backend 
 
 # Installing dependencies early to leverage caching
 COPY ./requirements.txt ./
 
-RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
+RUN pip install -r requirements.txt -i ${pythonrepo}
 
 # Copying project files
 COPY . .
