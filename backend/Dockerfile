@@ -10,7 +10,7 @@ RUN pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple/
 # Copying project files
 COPY . .
 
-RUN chmod +x ./deployment/wait-for-it.sh
+RUN chmod +x ./scripts/wait-for-it.sh
 
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
