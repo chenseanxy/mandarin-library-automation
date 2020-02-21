@@ -9,7 +9,7 @@ services:
         depends_on: 
           - api
         command: 
-          - "./deployment/wait-for-it.sh"
+          - "./scripts/wait-for-it.sh"
           - "api:5000"
           - "-t"
           - "0"
