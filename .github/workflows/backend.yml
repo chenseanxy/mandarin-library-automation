@@ -10,9 +10,6 @@ on:
   # Run tests for any PRs.
   pull_request:
 
-env:
-  IMAGE_NAME: librarybackend
-
 jobs:
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
@@ -26,7 +23,7 @@ jobs:
       - name: Build image & Run tests
         run: | 
           cd backend
-          docker build . --file Dockerfile --tag test
+          docker build . --file Dockerfile --tag librarybackend:test
           docker-compose -f ./scripts/docker-compose-test.yml up \
             --abort-on-container-exit \
             --exit-code-from testrunner
