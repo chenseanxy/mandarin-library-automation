@@ -39,4 +39,4 @@ services:
       - "--"
       - "npm"
       - "run"
-      - "test:e2e"
+      - "ci:e2e"

@@ -1,11 +1,8 @@
 {
     "selenium": {
-      "start_process": false
-      },
-    "test_settings": {
-      "chrome": {
-        "selenium_port": 4444,
-        "selenium_host": "selenium-hub"
-      }
+      "start_process": false,
+      "host": "selenium-hub",
+      "port": 4444,
+      "server_path": ""
     }
   }
