@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "docker-test": "vue-cli-service test:e2e --use-selenium "
   },
   "dependencies": {
     "core-js": "^3.6.4",
@@ -24,10 +25,11 @@
     "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.3",
     "chai": "^4.1.2",
-    "chromedriver": "80",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.1.2",
+    "chromedriver": "^80.0.1",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.2.1",
     "geckodriver": "^1.19.1",
+    "selenium-server": "^3.141.59",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
