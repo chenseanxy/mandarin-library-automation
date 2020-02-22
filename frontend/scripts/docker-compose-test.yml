@@ -31,6 +31,10 @@ services:
     image: libraryfrontend:test
     depends_on: 
       - api
+      - selenium-hub
+      - chrome
+    ports: 
+      - "8080:8080"
     command: 
       - "./scripts/wait-for-it.sh"
       - "api:5000"
