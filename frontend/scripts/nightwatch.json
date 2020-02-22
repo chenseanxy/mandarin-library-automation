@@ -1,21 +1,11 @@
 {
+    "selenium": {
+      "start_process": false
+      },
     "test_settings": {
-        "default": {
-            "selenium_port": 4444,
-            "selenium_host": "selenium-hub",
-            "silent": true,
-            "desiredCapabilities": {
-                "javascriptEnabled": true,
-                "acceptSslCerts": true,
-                "browserName": "chrome",
-                "chromeOptions": {
-                    "args": [
-                        "headless",
-                        "no-sandbox",
-                        "disable-gpu"
-                    ]
-                }
-            }
-        }
+      "chrome": {
+        "selenium_port": 4444,
+        "selenium_host": "selenium-hub"
+      }
     }
-}
+  }
