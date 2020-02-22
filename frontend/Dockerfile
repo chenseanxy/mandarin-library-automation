@@ -16,6 +16,7 @@ COPY . .
 
 RUN rm ./vue.config.js && \
     cp ./scripts/vue.config.testing.js ./vue.config.js && \
+    cp ./scripts/nightwatch.json ./nightwatch.json && \
     chmod +x ./scripts/wait-for-it.sh
 
 RUN npm run build
