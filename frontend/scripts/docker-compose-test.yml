@@ -37,6 +37,6 @@ services:
       - "-t"
       - "0"
       - "--"
-      - "npm"
-      - "run"
+      - "vue-cli-service"
       - "test:e2e"
+      - "--use-selenium"
