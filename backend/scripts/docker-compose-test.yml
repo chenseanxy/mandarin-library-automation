@@ -4,7 +4,7 @@ services:
         image: librarybackend:test
         ports: 
           - "5000:5000"
-    apitest:
+    testrunner:
         image: librarybackend:test
         depends_on: 
           - api
