@@ -14,7 +14,9 @@ RUN npm install --registry=${npmrepo}
 # Copying project files
 COPY . .
 
-COPY ./scripts/vue.config.testing.js ./vue.config.js
+RUN rm ./vue.config.js && \
+    cp ./scripts/vue.config.testing.js ./vue.config.js && \
+    chmod +x ./scripts/wait-for-it.sh
 
 RUN npm run build
 
