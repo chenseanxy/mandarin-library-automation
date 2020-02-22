@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh
 # From vishnubob/wait-for-it
