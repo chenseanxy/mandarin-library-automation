@@ -4,6 +4,6 @@ cd "$(dirname "$0")"
 
 docker-compose -f docker-compose-test.yml up \
     --abort-on-container-exit \
-    --exit-code-from apitest
+    --exit-code-from frontendtest
 
 docker-compose -f docker-compose-test.yml rm -f

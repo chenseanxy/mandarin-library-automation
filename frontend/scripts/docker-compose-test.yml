@@ -1,0 +1,21 @@
+version: "3"
+services: 
+    api:
+        build: ../../backend
+        ports: 
+          - "5000:5000"
+    frontendtest:
+        build: ..
+        depends_on: 
+            - api
+        command: 
+            - "./scripts/wait-for-it.sh"
+            - "api:5000"
+            - "-t"
+            - "0"
+            - "--"
+            - "npm"
+            - "run"
+            - "test:e2e"
+        
+        
