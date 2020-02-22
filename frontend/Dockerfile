@@ -9,7 +9,8 @@ WORKDIR /app
 # Installing dependencies early to leverage caching
 COPY package*.json ./
 
-RUN apt-get install libgconf-2-4 && \
+RUN apt-get update && \
+    apt-get install -y libgconf-2-4 && \
     npm install --registry=${npmrepo}
 
 # Copying project files
