@@ -1,6 +1,6 @@
 # Testing Dockerfile
 
-FROM node:12.16.1-alpine
+FROM node:12.16.1-stretch-slim
 
 ARG npmrepo=https://registry.npm.taobao.org
 
