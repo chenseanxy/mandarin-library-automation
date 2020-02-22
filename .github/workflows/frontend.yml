@@ -21,13 +21,13 @@ jobs:
         with:
           ref: ${{ github.ref }}
 
-      - name: Build backend image
+      - name: Build Backend Image
         run: | 
             cd backend
             docker build . --file Dockerfile --tag librarybackend:test \
                 --build-arg pythonrepo=https://pypi.python.org/pypi
 
-      - name: Build backend image
+      - name: Build Frontend Image & Unit Tests
         run: | 
             cd frontend
             docker build . --file Dockerfile --tag libraryfrontend:test \
