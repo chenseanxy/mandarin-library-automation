@@ -1,6 +1,6 @@
-# Testing Dockerfile
 
-FROM node:12.16.1-alpine
+# Building & Testing stage
+FROM node:12.16.1-alpine as build-stage
 
 ARG npmrepo=https://registry.npm.taobao.org
 
@@ -14,10 +14,10 @@ RUN npm install --registry=${npmrepo}
 # Copying project files
 COPY . .
 
-COPY ./scripts/vue.config.testing.js ./vue.config.js
-
 RUN npm run build
 
-RUN npm run test:unit
+# Production stage
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
 
-CMD [ "npm", "run", "test:e2e" ]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
