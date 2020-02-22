@@ -9,4 +9,4 @@ if port == None:
 if server == None:
     server = "localhost"
 
-base_url = f"http://{server}:{port}/"
+base_url = f"http://{server}:{port}/api/"
