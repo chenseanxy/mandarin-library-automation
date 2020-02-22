@@ -1,11 +1,11 @@
 version: "3"
 services: 
     api:
-        build: ..
+        image: librarybackend:test
         ports: 
           - "5000:5000"
     apitest:
-        build: ..
+        image: librarybackend:test
         depends_on: 
           - api
         command: 
