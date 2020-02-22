@@ -31,7 +31,8 @@ jobs:
         run: | 
             cd frontend
             docker build . --file Dockerfile --tag libraryfrontend:test \
-                --build-arg npmrepo=https://registry.npmjs.org
+                --build-arg npmrepo=https://registry.npmjs.org \
+                --build-arg aliyunmirror=0
 
       - name: E2E Tests
         run: |
