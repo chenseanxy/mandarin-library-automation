@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 RUN apt-get update && \
-    apt-get install -y libgconf-2-4 && \
+    apt-get install -y libnss3 libgconf-2-4 && \
     npm install --registry=${npmrepo}
 
 # Copying project files
