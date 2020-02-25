@@ -23,4 +23,4 @@ ENV FLASK_APP=app.py
 
 # Using flask built in server
 # Not a good production practice at the moment
-CMD [ "flask", "run" , "--host=0.0.0.0" ]
+CMD [ "python", "app.py" ]
