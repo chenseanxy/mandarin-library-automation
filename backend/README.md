@@ -19,6 +19,8 @@
 - 升级Python至Python 3.7以上，或：
 - `pip install Flask Flask-RESTful Flask-SQLAlchemy pytest requests urllib3 -i https://pypi.tuna.tsinghua.edu.cn/simple`
 
-### 测试
+### 开始开发
 
-- `python -m pytest`来确保测试框架可用。
+- 启动开发服务器：`python app.py`
+- 运行单元测试：`pytest resources/`
+- 运行端到端测试：`pytest test/` - 请确保测试时服务器正在运行

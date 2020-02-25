@@ -1,0 +1,37 @@
+version: "3"
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: testing
+      MYSQL_DATABASE: test
+    logging:
+      driver: none
+
+  api:
+    image: librarybackend:test
+    depends_on: 
+      - db
+    ports: 
+      - "5000:5000"
+    # environment:
+    #   FLASK_DB_URI: mysql://root:testing@db/test
+
+  testrunner:
+    image: librarybackend:test
+    depends_on: 
+      - api
+    command: 
+      - "./scripts/wait-for-it.sh"
+      - "api:5000"
+      - "-t"
+      - "0"
+      - "--"
+      - "pytest"
+      - "./tests"
+    environment: 
+      FLASK_TEST_SERVER: api
+      FLASK_TEST_PORT: 5000
+        

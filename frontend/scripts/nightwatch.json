@@ -1,0 +1,13 @@
+{
+  "selenium": {
+    "start_process": false,
+    "host": "selenium-hub",
+    "port": 4444,
+    "server_path": ""
+  },
+  "test_settings": {
+    "default": {
+      "launch_url": "http://testrunner:8080"
+    }
+  }
+}

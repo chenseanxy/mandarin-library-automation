@@ -1,0 +1,43 @@
+version: "3"
+services: 
+  selenium-hub:
+    image: selenium/hub:3.141.59-zinc
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    logging:
+      driver: none
+      
+  chrome:
+    image: selenium/node-chrome:3.141.59-zinc
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+    logging:
+      driver: none
+
+  api:
+    image: librarybackend:test
+    ports: 
+      - "5000:5000"
+  testrunner:
+    image: libraryfrontend:test
+    depends_on: 
+      - api
+      - selenium-hub
+      - chrome
+    ports: 
+      - "8080:8080"
+    command: 
+      - "./scripts/wait-for-it.sh"
+      - "api:5000"
+      - "-t"
+      - "0"
+      - "--"
+      - "npm"
+      - "run"
+      - "ci:e2e"
