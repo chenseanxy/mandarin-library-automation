@@ -2,15 +2,17 @@ from flask import Flask, Blueprint
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
-from backend.database import db, uri
+from backend.database import db
 from backend.resources.generators.create_db import create_db
+
+from backend.config import db_uri, stage, create_db_on_startup
 
 from backend.resources.version import Version
 
 app = Flask(__name__)
 
 # DB
-app.config["SQLALCHEMY_DATABASE_URI"] = uri()
+app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -26,6 +28,10 @@ app.register_blueprint(blueprint)
 
 if __name__ == "__main__":
 
-    create_db(app, db)
+    if create_db_on_startup == "TRUE":
+        create_db(app, db)
 
+    if stage == "dev":
+        app.run(host="0.0.0.0", debug=True, use_reloader=True)
+    
     app.run(host="0.0.0.0")
