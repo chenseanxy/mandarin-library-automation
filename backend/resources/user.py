@@ -54,6 +54,8 @@ class UserAPI(Resource):
             return error(e, 400)
         except ValueError as e:
             return error(e, 404)
+        
+        return user.json()
 
 class User(db.Model):
     __tablename__ = 'user'
