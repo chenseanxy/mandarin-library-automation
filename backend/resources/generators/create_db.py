@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from backend.resources.generators.version import VersionGenerator
+from backend.resources.generators.user import UsersGenerator
 
 def create_db(app: Flask, db: SQLAlchemy):
 
@@ -12,6 +13,7 @@ def create_db(app: Flask, db: SQLAlchemy):
         # Put your generators here, 
         # and please leave a "," behind
         VersionGenerator,
+        UsersGenerator
     ]
 
     max_initial_table_length = 20000
