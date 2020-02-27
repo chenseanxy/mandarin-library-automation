@@ -17,7 +17,7 @@ class User(db.Model):
     role = db.Column(db.String(10), nullable=False)
 
     @staticmethod
-    def new_user(username, password, role):
+    def new_user(username, password, role) -> User:
         if not role in roles:
             raise ValueError(f"Invalid role '{role}'")
 
@@ -31,7 +31,7 @@ class User(db.Model):
         )
 
     @staticmethod
-    def create_hash(password, salt=None):
+    def create_hash(password, salt=None) -> (bytes, bytes):
         if salt == None:
             salt = os.urandom(32)
 
@@ -44,15 +44,15 @@ class User(db.Model):
         return hash, salt
     
     @staticmethod
-    def username_available(username):
+    def username_available(username) -> bool:
         result = User.query.filter_by(username = username).all()
         return len(result) == 0
 
-    def check_password(self, password):
+    def check_password(self, password) -> bool:
         input_hash, salt = User.create_hash(password, self.salt)
         return self.hash == input_hash
         
-    def json(self):
+    def json(self) -> dict:
         return {
             "id": str(self.id),
             "username": self.username,
@@ -60,7 +60,7 @@ class User(db.Model):
         }
     
     @staticmethod
-    def get_by_id(id):
+    def get_by_id(id) -> User:
         if type(id) != UUID:
             try:
                 id = UUID(id)
@@ -75,7 +75,7 @@ class User(db.Model):
         return query.first()
     
     @staticmethod
-    def get_by_username(username):
+    def get_by_username(username) -> User:
         query = User.query.filter_by(username=username)
 
         if query.count() == 0:
