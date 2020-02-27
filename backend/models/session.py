@@ -1,5 +1,7 @@
 from uuid import uuid4, UUID
 from sqlalchemy_utils import UUIDType
+import os
+from base64 import b64encode, b64decode
 
 from backend.database import db
 from backend.models.user import User
@@ -13,6 +15,7 @@ class Session(db.Model):
     uid = db.Column(UUIDType(),db.ForeignKey('user.id'),nullable=False)
     user = db.relationship('User', backref=db.backref('sessions', lazy=True))
     expire = db.Column(db.DateTime(), nullable=False)
+    key = db.Column(db.BINARY(256), nullable=False)
 
     @staticmethod
     def new_session(username, expire=None):
@@ -25,7 +28,8 @@ class Session(db.Model):
         return Session(
             id=uuid4(),
             user=user,
-            expire=expire
+            expire=expire,
+            key=os.urandom(32)
         )
     
     @staticmethod
@@ -50,11 +54,27 @@ class Session(db.Model):
         
         return session
 
+    @staticmethod
+    def authenciate_session(id, key):
+        if type(key) != bytes:
+            try:
+                key = b64decode(key)
+            except:
+                raise AttributeError("Session key format error.")
+        
+        try:
+            sess = Session.get_by_id(id)
+        except ValueError:
+            return False
+        
+        return sess.key == key
+
     def json(self):
         return {
             "id": str(self.id),
             "user": self.user.json(),
-            "expire": int(self.expire.timestamp())
+            "expire": int(self.expire.timestamp()),
+            "key": b64encode(self.key).decode('utf-8')
         }
     
     def expired(self):
