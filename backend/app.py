@@ -3,7 +3,7 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
 from backend.database import db
-from backend.resources.generators.create_db import create_db
+from backend.models.generators.create_db import create_db
 
 from backend.config import db_uri, stage, create_db_on_startup
 

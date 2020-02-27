@@ -1,4 +1,4 @@
-from backend.resources.user import User
+from backend.models.user import User
 
 users = [
     ("admin", "pass", "admin"),

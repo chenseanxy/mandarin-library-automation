@@ -1,5 +1,5 @@
 from backend.resources.user import User
-from backend.resources.tests.utils import setup
+from backend.test_utils import setup
 
 def test_new_user():
     username = "test-new"

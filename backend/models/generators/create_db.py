@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from backend.resources.generators.version import VersionGenerator
-from backend.resources.generators.user import UsersGenerator
+from backend.models.generators.version import VersionGenerator
+from backend.models.generators.user import UsersGenerator
 
 def create_db(app: Flask, db: SQLAlchemy):
 

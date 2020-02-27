@@ -1,4 +1,4 @@
-from backend.resources.generators.create_db import create_db
+from backend.models.generators.create_db import create_db
 import pytest
 
 @pytest.fixture(scope="session")
