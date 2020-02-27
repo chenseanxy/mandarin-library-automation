@@ -9,6 +9,7 @@ from backend.config import db_uri, stage, create_db_on_startup
 
 from backend.resources.version import Version
 from backend.resources.user import UserRootAPI, UserAPI
+from backend.resources.session import LoginAPI
 
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ api = Api(blueprint)
 api.add_resource(Version, '/version')
 api.add_resource(UserRootAPI, '/user')
 api.add_resource(UserAPI, '/user/<string:id>')
+api.add_resource(LoginAPI, '/login')
 
 app.register_blueprint(blueprint)
 
