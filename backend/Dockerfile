@@ -20,7 +20,7 @@ ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 # Run unit tests only
 RUN if [ ${unittests} -eq 1 ]; then \
-    pytest --ignore=tests/ && \
+    pytest --ignore=tests/ ; \
     fi
 
 ENV FLASK_APP=app.py
