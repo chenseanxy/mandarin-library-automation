@@ -1,4 +1,4 @@
-from backend.resources.user import User
+from backend.models.user import User
 from backend.test_utils import setup
 
 def test_new_user():
