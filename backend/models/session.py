@@ -45,7 +45,7 @@ class Session(db.Model):
 
         if session.expired():
             db.session.delete(session)
-            db.commit()
+            db.session.commit()
             raise ValueError(f"Session {str(id)} not found.")
         
         return session
