@@ -44,8 +44,9 @@ Session会话：用于保存用户登陆状态相关信息。
 
 - `expired`: 返回该会话是否过期
 
-- 静态方法`authenticate_session`: 验证Session是否有效
+- 静态方法`authenticate_session`: 验证Session是否有效，并返回有效Session
   - 参数：id:会话ID，key:会话key(可为bytes或b64编码str)
-  - 行为：验证该Session是否有效，存在且有效返回True
+  - 行为：验证该Session是否有效，存在且有效返回session对象
     - 若给出的ID格式无效，则抛出`AttributeError: Invalid UUID`异常
     - 若给出的Key格式无效，则抛出`AttributeError: Session key format error.`异常
+    - 若给出的ID不存在或是Key不符，抛出`ValueError`

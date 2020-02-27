@@ -28,7 +28,8 @@ def test_expired_session(setup):
     with pytest.raises(ValueError):
         assert session.get_by_id(session.id)
     
-    assert not Session.authenciate_session(session.id, session.key)
+    with pytest.raises(ValueError):
+        assert Session.authenticate_session(session.id, session.key)
 
 def test_user_backref(setup):
     username = "lib"
@@ -64,7 +65,7 @@ def test_session_key(setup):
     setup.session.add(sess_2)
     setup.session.commit()
 
-    assert sess_1.authenciate_session(sess_1.id,sess_1.key)
-    assert sess_1.authenciate_session(sess_1.id,sess_1.json()["key"])
-    assert sess_2.authenciate_session(sess_2.id,sess_2.key)
-    assert sess_2.authenciate_session(sess_2.id,sess_2.json()["key"])
+    sess_1.authenticate_session(sess_1.id,sess_1.key)
+    sess_1.authenticate_session(sess_1.id,sess_1.json()["key"])
+    sess_2.authenticate_session(sess_2.id,sess_2.key)
+    sess_2.authenticate_session(sess_2.id,sess_2.json()["key"])

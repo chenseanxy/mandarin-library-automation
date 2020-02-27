@@ -55,19 +55,19 @@ class Session(db.Model):
         return session
 
     @staticmethod
-    def authenciate_session(id, key):
+    def authenticate_session(id, key):
         if type(key) != bytes:
             try:
                 key = b64decode(key)
             except:
                 raise AttributeError("Session key format error.")
         
-        try:
-            sess = Session.get_by_id(id)
-        except ValueError:
-            return False
+        sess = Session.get_by_id(id)
         
-        return sess.key == key
+        if sess.key != key:
+            raise ValueError("Authentication failed.")
+        
+        return sess
 
     def json(self):
         return {
