@@ -73,3 +73,12 @@ class User(db.Model):
             raise ValueError(f"User {str(id)} not found.")
 
         return query.first()
+    
+    @staticmethod
+    def get_by_username(username):
+        query = User.query.filter_by(username=username)
+
+        if query.count() == 0:
+            raise ValueError(f"User '{username}' not found.")
+
+        return query.first()

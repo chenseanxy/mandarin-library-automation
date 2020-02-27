@@ -31,3 +31,14 @@ User用户：用于保存用户的ID、用户名、密码和用户类型等登�
   - 行为：若密码正确返回True
 
 - `json`: 返回用户的json形式，包含id, username
+
+- 静态方法`get_by_id`: 返回id所对应的用户
+  - 参数：id:用户ID
+  - 行为：返回该id所对应的用户对象
+    - 若给出的ID格式无效，则抛出`AttributeError: Invalid UUID`异常
+    - 若未找到对应用户，抛出`ValueError: User {id} not found.`
+
+- 静态方法`get_by_username`
+  - 参数：username:用户名
+  - 行为：返回该用户名所对应的用户对象
+    - 若未找到对应用户，抛出`ValueError: User {username} not found.`
