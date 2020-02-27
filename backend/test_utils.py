@@ -6,4 +6,5 @@ def setup():
     print("setting up")
     from backend.app import app, db
     create_db(app, db)
+    return db
 
