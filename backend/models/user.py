@@ -17,7 +17,7 @@ class User(db.Model):
     role = db.Column(db.String(10), nullable=False)
 
     @staticmethod
-    def new_user(username, password, role) -> User:
+    def new_user(username, password, role) -> 'User':
         if not role in roles:
             raise ValueError(f"Invalid role '{role}'")
 
@@ -60,7 +60,7 @@ class User(db.Model):
         }
     
     @staticmethod
-    def get_by_id(id) -> User:
+    def get_by_id(id) -> 'User':
         if type(id) != UUID:
             try:
                 id = UUID(id)
@@ -75,7 +75,7 @@ class User(db.Model):
         return query.first()
     
     @staticmethod
-    def get_by_username(username) -> User:
+    def get_by_username(username) -> 'User':
         query = User.query.filter_by(username=username)
 
         if query.count() == 0:

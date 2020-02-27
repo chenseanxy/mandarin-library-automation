@@ -18,7 +18,7 @@ class Session(db.Model):
     key = db.Column(db.BINARY(256), nullable=False)
 
     @staticmethod
-    def new_session(username, expire=None) -> Session:
+    def new_session(username, expire=None) -> 'Session':
         if expire == None:
             expire = datetime.now() + timedelta(hours=3)
         if type(expire) in (int, float):
@@ -33,7 +33,7 @@ class Session(db.Model):
         )
     
     @staticmethod
-    def get_by_id(id) -> session:
+    def get_by_id(id) -> 'Session':
         if type(id) != UUID:
             try:
                 id = UUID(id)
@@ -55,7 +55,7 @@ class Session(db.Model):
         return session
 
     @staticmethod
-    def authenticate_session(id, key) -> session:
+    def authenticate_session(id, key) -> 'Session':
         if type(key) != bytes:
             try:
                 key = b64decode(key)
