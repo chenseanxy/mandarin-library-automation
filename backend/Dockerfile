@@ -17,7 +17,7 @@ RUN chmod +x ./scripts/wait-for-it.sh
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 # Run unit tests only
-RUN pytest ./resources
+RUN pytest --ignore=tests/
 
 ENV FLASK_APP=app.py
 
