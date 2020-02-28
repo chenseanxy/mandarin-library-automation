@@ -16,6 +16,8 @@
 郭少聪
 2020.2.28
 
+<img src="https://pic.guoshaocong.cn/uploads/big/bbd1b858930a17ddcb0a1ff69e78b482.jpg" alt="Screenshot" style="zoom:80%;" />
+
 ------
 
 
