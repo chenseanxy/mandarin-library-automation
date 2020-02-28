@@ -2,13 +2,16 @@
 
 基于Vue.js
 
-##AdminLogin页面更新
+## AdminLogin页面更新
 
 - 新增AdminLogin.vue，基于Element[^1]。
+- 新增了菜单栏。
+- 剔除了背景
+- 页面图片移至assets文件夹内
 
 [^1]: https://element.eleme.cn/#/zh-CN
 
-###如何使用
+### 如何使用
 
 - 安装：`npm install`
 - 运行开发服务器：`npm run serve`
@@ -16,7 +19,7 @@
 郭少聪
 2020.2.28
 
-<img src="https://pic.guoshaocong.cn/uploads/big/bbd1b858930a17ddcb0a1ff69e78b482.jpg" alt="Screenshot" style="zoom:80%;" />
+<img src="https://pic.guoshaocong.cn/uploads/small/01c984ecd3ddd480dd1ceba3c50cf8fa.jpg">
 
 ------
 
