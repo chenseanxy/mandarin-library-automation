@@ -2,6 +2,23 @@
 
 基于Vue.js
 
+##AdminLogin页面更新
+
+- 新增AdminLogin.vue，基于Element[^1]。
+
+[^1]: https://element.eleme.cn/#/zh-CN
+
+###如何使用
+
+- 安装：`npm install`
+- 运行开发服务器：`npm run serve`
+
+郭少聪
+2020.2.28
+
+------
+
+
 ## 环境配置
 
 ### 安装Node.js，换源
