@@ -42,7 +42,7 @@ def test_auth_faliure(setup, mocker):
         assert not 1 == 1  #This inner func should not be called
 
     wrapped_func = authenticated(inner_func)
-    resp, code = wrapped_func(username, role, sess.id, 
+    resp, code, headers = wrapped_func(username, role, sess.id, 
         testing_request=request
     )
 
