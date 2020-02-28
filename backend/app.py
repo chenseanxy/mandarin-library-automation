@@ -1,6 +1,7 @@
 from flask import Flask, Blueprint
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 
 from backend.database import db
 from backend.models.generators.create_db import create_db
@@ -12,6 +13,7 @@ from backend.resources.user import UserRootAPI, UserAPI
 from backend.resources.session import LoginAPI
 
 app = Flask(__name__)
+cors = CORS(app)
 
 # DB
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

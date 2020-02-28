@@ -33,3 +33,4 @@ sqlalchemy-utils==0.36.1
 pytest-flask-sqlalchemy==1.0.2
 pytest-mock==2.0.0
 mock==4.0.1
+flask-cors==3.0.8
