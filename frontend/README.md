@@ -2,6 +2,44 @@
 
 基于Vue.js
 
+## 前端整体框架构建
+
+- 新增AdminHome.vue，LibrarianHome.vue，ReaderLogin.vue，ReaderHome.vue。
+
+- 注：鉴于项目要求 **==Hide Admin login page==** ，管理员与读者登陆页面分开设置。
+
+  ![](https://pic.guoshaocong.cn/uploads/big/17867e1089c040ed539e688ea980fe63.jpg)
+
+- 框架结构如下：
+
+  ![](https://pic.guoshaocong.cn/uploads/small/7da58cd82113e1f7e0b2ddc93053e1ba.jpg)
+  
+- AdminLogin.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/09d8ec3b7801d12787a732ccee45a7e5.jpg)
+  
+- ReaderLogin.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/89464bbdc0f4ad66b3a068742dd55825.jpg)
+  
+- ReaderHome.vue （侧栏已覆盖项目要求，下同）
+
+  ![](https://pic.guoshaocong.cn/uploads/small/68bfc903d8dd4e45375f7e124aad4528.jpg)
+
+- AdminHome.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/49cc6c76615dfb769e4d69273abdccae.jpg)
+
+- LibrarianHome.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/6c9d696c6870515f62a97d1a5b1b14f7.jpg)
+
+郭少聪
+2020.02.29
+
+------
+
+
 ## AdminLogin页面更新
 
 - 新增AdminLogin.vue，基于Element[^1]。

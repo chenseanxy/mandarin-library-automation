@@ -3,8 +3,8 @@
     <el-container style="height: 100%">
         <el-header>
             <div class="header-box">
-                <img height="35px" width="35px" src="../assets/logo.png" alt="">
-                <span class="title-box">超级管理员后台管理系统</span>
+                <img height="35px" width="35px" src="../assets/reader.png" alt="">
+                <span class="title-box">图书馆阅览系统</span>
             </div>
             <el-button type="primary" @click="logout">退出</el-button>
         </el-header>
@@ -15,25 +15,25 @@
                 <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false">
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-user"></i>
-                        <span>图管账号管理</span>
+                        <i class="el-icon-reading"></i>
+                        <span>借阅信息</span>
                     </template>                    
-                        <el-menu-item index="1-1">注册账号</el-menu-item>
-                        <el-menu-item index="1-2">管理账号</el-menu-item>
-                        <el-menu-item index="1-3">找回密码</el-menu-item>                                       
+                        <el-menu-item index="1-1">当前借阅书籍</el-menu-item>
+                        <el-menu-item index="1-2">已归还书籍</el-menu-item>
+                        <el-menu-item index="1-3">待支付罚金</el-menu-item>                                       
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-school"></i>
-                        <span>图书馆管理</span>
+                        <i class="el-icon-user"></i>
+                        <span>账户管理</span>
                     </template>                    
-                        <el-menu-item index="2-1">设置逾期罚金</el-menu-item>
-                        <el-menu-item index="2-2">设置归还期限</el-menu-item>
+                        <el-menu-item index="2-1">修改个人信息</el-menu-item>
+                        <el-menu-item index="2-2">找回密码</el-menu-item>
                         <el-menu-item index="2-3">设置保证金</el-menu-item>                                       
                 </el-submenu>
                 <el-menu-item index="3">
-                    <i class="el-icon-key"></i>
-                    <span slot="title">修改超管密码</span>
+                    <i class="el-icon-search"></i>
+                    <span slot="title">搜索 · 预约图书</span>
                 </el-menu-item>
                 <el-menu-item index="4" disabled>
                     <i class="el-icon-setting"></i>
@@ -55,7 +55,7 @@ export default{
     methods: {
         logout(){
             window.sessionStorage.clear();
-            this.$router.push("/AdminLogin");
+            this.$router.push("/Login");
         },
         toggleCollapse(){
             this.isCollapse = !this.isCollapse;

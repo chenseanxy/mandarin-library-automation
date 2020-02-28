@@ -22,15 +22,15 @@
         <div class="login_box">
             <div class="avatar_box">
                 <div class="sign_box">
-                    <img height=70px width=70px border-radius=50% background-color=#eee src="../assets/logo.png" alt="">
+                    <img height=70px width=70px border-radius=50% background-color=#eee src="../assets/reader.png" alt="">
                 </div>
             </div>
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
                 <el-form-item prop="username">
-                    <el-input v-model="loginForm.username" prefix-icon="el-icon-user" placeholder="请输入管理员账号（默认admin或librarian）" clearable></el-input>
+                    <el-input v-model="loginForm.username" prefix-icon="el-icon-user" placeholder="请输入读者账号（默认user）" clearable></el-input>
                 </el-form-item>
                 <el-form-item prop="password">
-                    <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" placeholder="请输入管理员密码（默认admin或librarian）" show-password clearable></el-input>
+                    <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" placeholder="请输入读者密码（默认user）" show-password clearable></el-input>
                 </el-form-item >
                 <el-form-item class = "btns">
                     <el-button type="primary" @click="login">登录</el-button>
@@ -51,8 +51,8 @@ export default {
                 password: ''
             },
             loginFormRules:{
-                username:[{required: true, message: '请输入管理员账号', trigger: 'blur'}], 
-                password:[{required: true, message: '请输入密码', trigger: 'blur'},{min: 5, max: 20, message: '长度应在 5 至 20 字符之间', trigger: 'blur' }]
+                username:[{required: true, message: '请输入读者账号', trigger: 'blur'}], 
+                password:[{required: true, message: '请输入密码', trigger: 'blur'},{min: 4, max: 20, message: '长度应在 4 至 20 字符之间', trigger: 'blur' }]
             }
         };
     },
@@ -64,13 +64,9 @@ export default {
         login(){            
             this.$refs.loginFormRef.validate(async valid => {
                 if(!valid) return;
-            if(this.loginForm.username=='admin'&&this.loginForm.password=='admin'){
-                this.$message.success('超级管理员登录成功');
-                return this.$router.push("/AdminHome");                
-            }
-            if(this.loginForm.username=='librarian'&&this.loginForm.password=='librarian'){
-                this.$message.success('图书管理员登录成功');
-                return this.$router.push("/LibrarianHome");                
+            if(this.loginForm.username=='user'&&this.loginForm.password=='user'){
+                this.$router.push("/ReaderHome");
+                return this.$message.success('登录成功');
             }
             return this.$message.error('账号或密码错误');
             //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面

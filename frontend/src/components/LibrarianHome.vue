@@ -3,8 +3,8 @@
     <el-container style="height: 100%">
         <el-header>
             <div class="header-box">
-                <img height="35px" width="35px" src="../assets/logo.png" alt="">
-                <span class="title-box">超级管理员后台管理系统</span>
+                <img height="35px" width="35px" src="../assets/librarian.png" alt="">
+                <span class="title-box">图书管理员后台管理系统</span>
             </div>
             <el-button type="primary" @click="logout">退出</el-button>
         </el-header>
@@ -15,27 +15,35 @@
                 <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false">
                 <el-submenu index="1">
                     <template slot="title">
-                        <i class="el-icon-user"></i>
-                        <span>图管账号管理</span>
+                        <i class="el-icon-notebook-1"></i>
+                        <span>书籍管理</span>
                     </template>                    
-                        <el-menu-item index="1-1">注册账号</el-menu-item>
-                        <el-menu-item index="1-2">管理账号</el-menu-item>
-                        <el-menu-item index="1-3">找回密码</el-menu-item>                                       
+                        <el-menu-item index="1-1">添加书籍</el-menu-item>
+                        <el-menu-item index="1-2">搜索书籍</el-menu-item>
+                        <el-menu-item index="1-3">查看操作日志</el-menu-item>                                       
                 </el-submenu>
                 <el-submenu index="2">
                     <template slot="title">
-                        <i class="el-icon-school"></i>
-                        <span>图书馆管理</span>
+                        <i class="el-icon-user"></i>
+                        <span>读者账户管理</span>
                     </template>                    
-                        <el-menu-item index="2-1">设置逾期罚金</el-menu-item>
-                        <el-menu-item index="2-2">设置归还期限</el-menu-item>
-                        <el-menu-item index="2-3">设置保证金</el-menu-item>                                       
+                        <el-menu-item index="2-1">注册账户</el-menu-item>
+                        <el-menu-item index="2-2">编辑 · 删除账户</el-menu-item>
+                        <el-menu-item index="2-3">借还缴罚记录</el-menu-item>                                       
                 </el-submenu>
                 <el-menu-item index="3">
-                    <i class="el-icon-key"></i>
-                    <span slot="title">修改超管密码</span>
+                    <i class="el-icon-finished"></i>
+                    <span slot="title">办理借还手续</span>
                 </el-menu-item>
-                <el-menu-item index="4" disabled>
+                <el-menu-item index="4">
+                    <i class="el-icon-pie-chart"></i>
+                    <span slot="title">图书馆收入记录</span>
+                </el-menu-item>
+                <el-menu-item index="5">
+                    <i class="el-icon-data-board"></i>
+                    <span slot="title">公告管理</span>
+                </el-menu-item>
+                <el-menu-item index="6" disabled>
                     <i class="el-icon-setting"></i>
                     <span slot="title">其他功能</span>
                 </el-menu-item>

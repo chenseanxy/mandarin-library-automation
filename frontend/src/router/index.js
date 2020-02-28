@@ -2,11 +2,17 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminLogin from '../components/AdminLogin.vue'
 import AdminHome from '../components/AdminHome.vue'
+import ReaderLogin from '../components/ReaderLogin.vue'
+import ReaderHome from '../components/ReaderHome.vue'
+import LibrarianHome from '../components/LibrarianHome.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {path:'/', redirect: '/login'},
-  {path: '/login', component: AdminLogin},
+  {path:'/', redirect: '/Login'},
+  {path: '/Login', component: ReaderLogin},
+  {path: '/ReaderHome', component: ReaderHome},
+  {path: '/LibrarianHome', component: LibrarianHome},
+  {path: '/AdminLogin', component: AdminLogin},
   {path: '/AdminHome', component: AdminHome}
 ]
 
