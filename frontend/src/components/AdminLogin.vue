@@ -1,9 +1,28 @@
 <template>
-    <div class="login_container">
+<div class="login_container">
+    <div class="head_box">
+    <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
+    <el-menu-item index="1">菜单文本1</el-menu-item>
+    <el-submenu index="2">
+        <template slot="title">菜单文本2</template>
+        <el-menu-item index="2-1">选项文本1</el-menu-item>
+        <el-menu-item index="2-2">选项文本2</el-menu-item>
+        <el-menu-item index="2-3">选项文本3</el-menu-item>
+        <el-submenu index="2-4">
+            <template slot="title">选项文本4</template>
+                <el-menu-item index="2-4-1">次级选项文本1</el-menu-item>
+                <el-menu-item index="2-4-2">次级选项文本2</el-menu-item>
+                <el-menu-item index="2-4-3">次级选项文本3</el-menu-item>
+        </el-submenu>
+    </el-submenu>
+        <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
+    </el-menu>
+    </div>
+    <div>
         <div class="login_box">
             <div class="avatar_box">
                 <div class="sign_box">
-                    <img height=70px width=70px border-radius=50% background-color=#eee src="https://pic.guoshaocong.cn/uploads/big/bee847a55a428853f7224b295b64bb0c.png" alt="">
+                    <img height=70px width=70px border-radius=50% background-color=#eee src="../assets/logo.png" alt="">
                 </div>
             </div>
             <el-form ref="loginFormRef" :model="loginForm" :rules="loginFormRules" label-width="0px" class="login_form">
@@ -20,6 +39,7 @@
             </el-form>
         </div>
     </div>
+</div>
 </template>
 
 <script>
@@ -44,8 +64,10 @@ export default {
         login(){            
             this.$refs.loginFormRef.validate(async valid => {
                 if(!valid) return;
-            if(this.loginForm.username=='admin'&&this.loginForm.password=='admin')
+            if(this.loginForm.username=='admin'&&this.loginForm.password=='admin'){
+                this.$router.push("/AdminHome");
                 return this.$message.success('登录成功');
+            }
             return this.$message.error('账号或密码错误');
             //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
             //token应保存在 sessionStorage 中
@@ -60,7 +82,7 @@ export default {
 
 <style scoped>
 .login_container{
-    background: url('https://pic.guoshaocong.cn/uploads/big/8b42090f901eb389579f149896f5b0ce.jpg') center center no-repeat;
+    background-color: gainsboro;
     height: 100%;
 }
 .login_box{
