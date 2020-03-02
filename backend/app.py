@@ -29,6 +29,7 @@ api.add_resource(Version, '/version')
 api.add_resource(UserRootAPI, '/user')
 api.add_resource(UserAPI, '/user/<string:id>')
 api.add_resource(LoginAPI, '/login')
+api.add_resource(BookAPI, '/user/<string:id>/Book')
 
 app.register_blueprint(blueprint)
 

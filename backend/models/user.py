@@ -82,3 +82,7 @@ class User(db.Model):
             raise ValueError(f"User '{username}' not found.")
 
         return query.first()
+
+    def ChangeBookInformation(self) :
+
+        return

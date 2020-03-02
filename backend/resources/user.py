@@ -3,6 +3,7 @@ from flask_restful import Resource, reqparse
 from backend.database import db
 from backend.resources.utils import error
 from backend.models.user import User
+from backend.models.Book import Book
 
 class UserRootAPI(Resource):
     parser = reqparse.RequestParser()
@@ -50,4 +51,13 @@ class UserAPI(Resource):
             return error(e, 404)
         
         return user.json()
+
+class BookAPI(Resource):
+    def get(self, id, bookid):
+        user = User.get_by_id(id)
+        book = Book.get_by_id(id)
+        role = user.role
+        if role == "reader":
+            User.ChangeBookInformation()
+        return book.json()
 

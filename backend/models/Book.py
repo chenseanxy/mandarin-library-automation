@@ -36,16 +36,20 @@ class Book(db.Model) :
     def bookname_available(bookname) -> bool:
         result = Book.query.filter_by(bookname=bookname).all()
         return len(result) == 0
-'''   
+
 
     def json(self) -> dict:
         return {
             "bookid": str(self.bookid),
             "bookname": self.bookname,
             "Isdamaged": self.Isdamaged,
-            "Location" : Location,
+            "Location" : self.Location,
+            "Price" : self.Price,
+            "Kind" : self.Kind,
+            "Fine" : self.Fine,
+            "ReturnTime" : self.ReturnTime
         }
-
+'''
     @staticmethod
     def get_by_id(id) -> 'User':
         if type(id) != UUID:
