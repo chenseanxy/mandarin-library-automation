@@ -16,8 +16,10 @@ services:
       - db
     ports: 
       - "5000:5000"
-    # environment:
-    #   FLASK_DB_URI: mysql://root:testing@db/test
+    environment:
+      # FLASK_DB_URI: mysql://root:testing@db/test
+      FLASK_STAGE: test
+      FLASK_DB_CREATE: "TRUE"
 
   testrunner:
     image: librarybackend:test

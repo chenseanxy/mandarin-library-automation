@@ -1,5 +1,5 @@
 from backend.resources.version import Version
-from backend.resources.tests.utils import setup
+from backend.test_utils import setup
 
 def test_version(setup):
 

@@ -25,7 +25,8 @@ jobs:
         run: | 
             cd backend
             docker build . --file Dockerfile --tag librarybackend:test \
-                --build-arg pythonrepo=https://pypi.python.org/pypi
+                --build-arg pythonrepo=https://pypi.python.org/pypi \
+                --build-arg unittests=0
 
       - name: Build Frontend Image & Unit Tests
         run: | 

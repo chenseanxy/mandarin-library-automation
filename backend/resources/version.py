@@ -1,6 +1,6 @@
 from flask_restful import Resource
 
-from backend.database import db
+from backend.models.version import VersionModel
 
 class Version(Resource):
     def get(self):
@@ -11,8 +11,6 @@ class Version(Resource):
             "numOfVersions": len(versions)
         }
 
-class VersionModel(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    version = db.Column(db.String(10))
+
     
 
