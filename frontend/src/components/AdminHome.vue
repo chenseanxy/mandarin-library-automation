@@ -12,7 +12,7 @@
             <el-aside :width="isCollapse ? '65px' : '200px' ">
                 <div class = "toggle-button" @click="toggleCollapse">&gt;&gt;&gt;&emsp;&lt;&lt;&lt;</div>
                 <!-- 侧边栏菜单区域 -->                
-                <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false">
+                <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false" router>
                 <el-submenu index="1">
                     <template slot="title">
                         <i class="el-icon-user"></i>

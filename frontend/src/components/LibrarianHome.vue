@@ -12,13 +12,13 @@
             <el-aside :width="isCollapse ? '65px' : '200px' ">
                 <div class = "toggle-button" @click="toggleCollapse">&gt;&gt;&gt;&emsp;&lt;&lt;&lt;</div>
                 <!-- 侧边栏菜单区域 -->                
-                <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false">
+                <el-menu background-color="whitesmoke" unique-opened :collapse="isCollapse" :collapse-transition="false" router>
                 <el-submenu index="1">
                     <template slot="title">
                         <i class="el-icon-notebook-1"></i>
                         <span>书籍管理</span>
                     </template>                    
-                        <el-menu-item index="1-1">添加书籍</el-menu-item>
+                        <el-menu-item index="AddBook">添加书籍</el-menu-item>
                         <el-menu-item index="1-2">搜索书籍</el-menu-item>
                         <el-menu-item index="1-3">查看操作日志</el-menu-item>                                       
                 </el-submenu>
@@ -49,7 +49,11 @@
                 </el-menu-item>
                 </el-menu>
             </el-aside>
-            <el-main>Main</el-main>
+            <el-main>
+                <router-view>
+
+                </router-view>
+            </el-main>
         </el-container>
     </el-container>
 </div>

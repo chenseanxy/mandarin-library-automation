@@ -1,6 +1,19 @@
 # mandarin-library-automation 前端
 
-基于Vue.js
+基于Vue.js+Element
+
+## HomePage页面框架构建
+
+- 新增LibrarianWelcome.vue，Librarian/AddBook.vue。
+
+- 其他角色HomePage页面导航方式可依照上述页面创建，HomePage页面子页面文件放置在对应文件夹内。
+
+  ------
+
+
+- LibrarianWelcome.vue（LibrarianHome.vue的子页面）
+
+  ![](https://pic.guoshaocong.cn/uploads/small/4f03ad0b45355e9435a32e6ca7e0206d.jpg)
 
 ## 前端整体框架构建
 
