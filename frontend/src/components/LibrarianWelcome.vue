@@ -1,8 +1,15 @@
 <template>
     <el-container>
         <el-main>
-            <h2>现在时间是 {{currentTime}} </h2>
-            <h2>请在左侧选择你想要使用的功能</h2>
+            <el-card class="box-card" shadow="hover">
+              <div slot="header" class="clearfix">
+              <span>现在时间是 {{currentTime}} </span>
+              </div>
+              <div class="text-item">
+                <i class="el-icon-info"></i>
+                 请在左侧选择你想要使用的功能
+              </div>
+            </el-card>
         </el-main>
     </el-container>
 </template>
@@ -13,6 +20,16 @@
     text-align: center;
     line-height: 40px;
   }  
+  .box-card {
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    font-size: 20px;
+    margin: 0 auto;
+    height: 200px;
+    width: 700px;
+  }
+  .text-item {
+    line-height:80px;
+  }
 </style>
 
 <script>
@@ -38,7 +55,7 @@ created() {
         new Date().getMinutes() +
         ":" +
         new Date().getSeconds();
-    }, 1000);
+    }, 500);
   },
 beforeDestroy() {
     if (this.timer) {

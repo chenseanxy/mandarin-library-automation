@@ -9,6 +9,14 @@ import LibrarianWelcome from '../components/LibrarianWelcome.vue'
 import LibrarianAddBook from '../components/Librarian/AddBook.vue'
 import ReaderWelcome from '../components/ReaderWelcome.vue'
 import AdminWelcome from '../components/AdminWelcome.vue'
+import LibrarianSearchBook from '../components/Librarian/SearchBook.vue'
+import LibrarianViewLog from '../components/Librarian/ViewLog.vue'
+import LibrarianRegisterAccount from '../components/Librarian/RegisterAccount.vue'
+import LibrarianEditAccount from '../components/Librarian/EditAccount.vue'
+import LibrarianBookRecording from '../components/Librarian/BookRecording.vue'
+import LibrarianFromalities from '../components/Librarian/Fromalities.vue'
+import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
+import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
 
 Vue.use(VueRouter)
 
@@ -29,7 +37,15 @@ const routes = [
     redirect: '/LibrarianHome/Welcome',
     children:[
       {path: '/LibrarianHome/Welcome', component: LibrarianWelcome},
-      {path: '/LibrarianHome/AddBook', component: LibrarianAddBook}
+      {path: '/LibrarianHome/AddBook', component: LibrarianAddBook},
+      {path: '/LibrarianHome/SearchBook', component: LibrarianSearchBook},
+      {path: '/LibrarianHome/RegisterAccount', component: LibrarianRegisterAccount},
+      {path: '/LibrarianHome/EditAccount', component: LibrarianEditAccount},
+      {path: '/LibrarianHome/BookRecording', component: LibrarianBookRecording},
+      {path: '/LibrarianHome/Fromalities', component: LibrarianFromalities},
+      {path: '/LibrarianHome/IncomeRecord', component: LibrarianIncomeRecord},
+      {path: '/LibrarianHome/Announcement', component: LibrarianAnnouncement},
+      {path: '/LibrarianHome/ViewLog', component: LibrarianViewLog}
     ]
   },
   {path: '/AdminLogin', component: AdminLogin},

@@ -11,6 +11,31 @@
 
 ## 开发日志
 
+### 图书管理员主页内容构建
+
+- 新增图书管理员系统的所有页面。
+
+- 美化了标题栏。新增了回到主页按钮。
+
+- 为新增书籍页面（Librarian/AddBook.vue）新增了搜索框。
+
+------
+
+- LibrarianWelcome.vue（LibrarianHome.vue的子页面）
+
+  ![](https://pic.guoshaocong.cn/uploads/small/16db7c5cb55fc29e40542200b1d84c33.jpg)
+
+- Librarian/AddBook.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/8bba48fa7a26059e6354363c958c748a.jpg)
+  
+
+郭少聪
+2020.03.09
+
+------
+
+
 ### HomePage页面框架构建
 
 - 新增LibrarianWelcome.vue，Librarian/AddBook.vue。
