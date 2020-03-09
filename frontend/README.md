@@ -2,20 +2,35 @@
 
 基于Vue.js+Element
 
-## HomePage页面框架构建
+## 开发指南
+
+- 在阅读这一部分前，你应当已经完成了本文底部的[Vue.js的环境配置](#环境配置)。如果你遇到困难，向小组Leader或PM求助。
+- 如果你从未有过前端开发经验，建议阅读同目录下「[开发指南.md](./开发指南.md)」，它可能对你快速上手有所帮助。请相信Vue.js并没有看上去的那么高深莫测，开发本项目也并不需要你对Vue.js了如指掌。
+- 如果你已经有成熟的开发经验，请忽略上述步骤。
+
+
+## 开发日志
+
+### HomePage页面框架构建
 
 - 新增LibrarianWelcome.vue，Librarian/AddBook.vue。
 
 - 其他角色HomePage页面导航方式可依照上述页面创建，HomePage页面子页面文件放置在对应文件夹内。
 
-  ------
+------
 
 
 - LibrarianWelcome.vue（LibrarianHome.vue的子页面）
 
   ![](https://pic.guoshaocong.cn/uploads/small/4f03ad0b45355e9435a32e6ca7e0206d.jpg)
+  
 
-## 前端整体框架构建
+郭少聪
+2020.03.08
+
+------
+
+### 前端整体框架构建
 
 - 新增AdminHome.vue，LibrarianHome.vue，ReaderLogin.vue，ReaderHome.vue。
 
@@ -53,7 +68,7 @@
 ------
 
 
-## AdminLogin页面更新
+### AdminLogin页面更新
 
 - 新增AdminLogin.vue，基于Element[^1]。
 - 新增了菜单栏。
@@ -62,7 +77,7 @@
 
 [^1]: https://element.eleme.cn/#/zh-CN
 
-### 如何使用
+#### 如何使用
 
 - 安装：`npm install`
 - 运行开发服务器：`npm run serve`

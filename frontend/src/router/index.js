@@ -7,13 +7,22 @@ import ReaderHome from '../components/ReaderHome.vue'
 import LibrarianHome from '../components/LibrarianHome.vue'
 import LibrarianWelcome from '../components/LibrarianWelcome.vue'
 import LibrarianAddBook from '../components/Librarian/AddBook.vue'
+import ReaderWelcome from '../components/ReaderWelcome.vue'
+import AdminWelcome from '../components/AdminWelcome.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {path:'/', redirect: '/Login'},
   {path: '/Login', component: ReaderLogin},
-  {path: '/ReaderHome', component: ReaderHome},
+  {
+    path: '/ReaderHome', 
+    component: ReaderHome,
+    redirect: '/ReaderHome/Welcome',
+    children:[
+      {path: '/ReaderHome/Welcome', component: ReaderWelcome}
+    ]
+  },
   {
     path: '/LibrarianHome', 
     component: LibrarianHome, 
@@ -24,7 +33,14 @@ const routes = [
     ]
   },
   {path: '/AdminLogin', component: AdminLogin},
-  {path: '/AdminHome', component: AdminHome}
+  {
+    path: '/AdminHome', 
+    component: AdminHome,
+    redirect: '/AdminHome/Welcome',
+    children:[
+      {path: '/AdminHome/Welcome', component:AdminWelcome}
+    ]
+  }
 ]
 
 const router = new VueRouter({
