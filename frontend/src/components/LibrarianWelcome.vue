@@ -1,6 +1,8 @@
 <template>
-    <el-container>
-        <el-main>
+    <div>
+        <el-breadcrumb separator-class="el-icon-arrow-right">
+        <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
+        </el-breadcrumb>          
             <el-card class="box-card" shadow="hover">
               <div slot="header" class="clearfix">
               <span>现在时间是 {{currentTime}} </span>
@@ -10,22 +12,22 @@
                  请在左侧选择你想要使用的功能
               </div>
             </el-card>
-        </el-main>
-    </el-container>
+    </div>
 </template>
-<style>
+<style scoped>
+  .el-breadcrumb{
+    margin-bottom: 15px;
+  }
   .el-main {
     background-color: #eee;
     color: #333;
-    text-align: center;
-    line-height: 40px;
   }  
   .box-card {
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
     font-size: 20px;
     margin: 0 auto;
     height: 200px;
-    width: 700px;
+    /* width: 700px; */
   }
   .text-item {
     line-height:80px;

@@ -70,6 +70,7 @@ export default {
             }
             if(this.loginForm.username=='librarian'&&this.loginForm.password=='librarian'){
                 this.$message.success('图书管理员登录成功');
+                window.sessionStorage.setItem('authority','librarian');
                 return this.$router.push("/LibrarianHome");                
             }
             return this.$message.error('账号或密码错误');

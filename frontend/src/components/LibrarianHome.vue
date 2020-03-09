@@ -71,6 +71,11 @@ export default{
             }
     },
     created(){
+        if(window.sessionStorage.getItem('authority') != 'librarian')
+            {
+                this.$message.error('权限错误，请重新登录');
+                return this.$router.push("/Login");
+            }
         this.activePath = window.sessionStorage.getItem('activePath')
     },
     methods: {
