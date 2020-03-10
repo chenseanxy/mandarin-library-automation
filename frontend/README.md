@@ -11,6 +11,26 @@
 
 ## 开发日志
 
+### 完善美化添加书籍和搜索书籍页面
+
+- 完善美化添加书籍和搜索书籍页面。
+
+------
+
+- Librarian/SearchBook.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/5156f797e21fda67be7ffb77258444dc.jpg)
+
+- Librarian/AddBook.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/5a079641693923bad4d69edf282969de.jpg)
+  
+
+郭少聪
+2020.03.10
+
+------
+
 ### 图书管理员主页内容构建
 
 - 新增图书管理员系统的所有页面。
