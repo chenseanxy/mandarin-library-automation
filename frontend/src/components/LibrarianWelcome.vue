@@ -89,7 +89,6 @@ export default {
           time: "2020-03-01 11:04:07"
         }
       ];
-      this.$message.success("获取日志成功");
     }
   }
 };

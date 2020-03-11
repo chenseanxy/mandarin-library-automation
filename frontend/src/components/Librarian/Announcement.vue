@@ -12,9 +12,49 @@
         <el-col :span="6">
           <el-button type="primary">搜索公告</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success">发布新公告</el-button>
+          <el-button type="success" @click="dialogVisible = true">发布新公告</el-button>
         </el-col>
       </el-row>
+      <!-- 发布公告弹出框 -->
+      <el-dialog
+        title="发布新公告"
+        :visible.sync="dialogVisible"
+        width="50%"
+        :show-close="false"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+      >
+        <el-form ref="announcementFormRef" :rules="announcementFormRules" :model="announcementForm">
+          <el-form-item prop="announcementtitle">
+            <el-input
+              type="text"
+              placeholder="请输入公告标题"
+              v-model="announcementForm.announcementtitle"
+              clearable
+              maxlength="20"
+              show-word-limit
+            ></el-input>
+          </el-form-item>
+          <div style="margin: 20px 0;"></div>
+          <el-form-item prop="announcementcontent">
+            <el-input
+              type="textarea"
+              :autosize="{ minRows: 5 }"
+              placeholder="请输入内容"
+              maxlength="500"
+              show-word-limit
+              v-model="announcementForm.announcementcontent"
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <div>
+            <el-button @click="cancelAnnouncementForm">取 消</el-button>
+            <el-button type="success" @click="publishAnnouncement">发 布</el-button>
+          </div>
+        </span>
+      </el-dialog>
+
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="announcementlist">
         <el-table-column label="#" type="index"></el-table-column>
@@ -53,7 +93,20 @@ export default {
     return {
       announcementlist: [],
       pagenum: 1,
-      total: 0
+      total: 0,
+      dialogVisible: false,
+      announcementForm: {
+        announcementtitle: "",
+        announcementcontent: ""
+      },
+      announcementFormRules: {
+        announcementtitle: [
+          { required: true, message: "请输入公告标题", trigger: "blur" }
+        ],
+        announcementcontent: [
+          { required: true, message: "请输入公告内容", trigger: "blur" }
+        ]
+      }
     };
   },
   methods: {
@@ -121,6 +174,19 @@ export default {
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
       this.getAnnouncementList();
+    },
+    cancelAnnouncementForm() {
+      this.dialogVisible = false;
+      this.$refs.announcementFormRef.resetFields();
+    },
+    publishAnnouncement() {
+      this.$refs.announcementFormRef.validate(async valid => {
+        if (!valid) return;
+        this.dialogVisible = false;
+        this.announcementForm.announcementtitle = "";
+        this.announcementForm.announcementcontent = "";
+        return this.$message.success("新公告发布成功");
+      });
     }
   }
 };

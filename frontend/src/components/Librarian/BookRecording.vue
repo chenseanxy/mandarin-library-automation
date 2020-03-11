@@ -8,11 +8,14 @@
 
     <el-card class="viewlog-card" shadow="hover">
       <el-row :gutter="20">
-        <el-col :span="20">
+        <el-col :span="18">
           <el-input placeholder="请输入 操作人 / 读者账户 / 书籍名称 / 书籍ID / 操作时间 / 操作类别"></el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary">搜索日志</el-button>
+        <el-col :span="6">
+          <el-button-group>
+          <el-button type="primary">搜索借还记录</el-button>
+          <el-button type="primary">搜索缴罚记录</el-button>
+          </el-button-group>
         </el-col>
       </el-row>
       <el-divider></el-divider>
