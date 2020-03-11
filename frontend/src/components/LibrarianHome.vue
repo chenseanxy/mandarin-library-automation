@@ -13,7 +13,7 @@
       </el-header>
       <el-container>
         <el-aside :width="isCollapse ? '65px' : '200px' ">
-          <div class="toggle-button" @click="toggleCollapse">&gt;&gt;&gt;&emsp;&lt;&lt;&lt;</div>
+          <div class="toggle-button" @click="toggleCollapse">{{collapsetext}}</div>
           <!-- 侧边栏菜单区域 -->
           <el-menu
             background-color="whitesmoke"
@@ -72,7 +72,8 @@ export default {
   data() {
     return {
       isCollapse: false,
-      activePath: ""
+      activePath: "",
+      collapsetext: "<<<<<<"
     };
   },
   created() {
@@ -95,6 +96,7 @@ export default {
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
+      this.collapsetext = this.isCollapse ? ">>>" : "<<<<<<";
     },
     saveNavState(activePath) {
       window.sessionStorage.setItem("activePath", activePath);
