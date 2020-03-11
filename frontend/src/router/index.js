@@ -21,40 +21,40 @@ import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {path:'/', redirect: '/Login'},
-  {path: '/Login', component: ReaderLogin},
+  { path: '/', redirect: '/Login' },
+  { path: '/Login', component: ReaderLogin },
   {
-    path: '/ReaderHome', 
+    path: '/ReaderHome',
     component: ReaderHome,
     redirect: '/ReaderHome/Welcome',
-    children:[
-      {path: '/ReaderHome/Welcome', component: ReaderWelcome}
+    children: [
+      { path: '/ReaderHome/Welcome', component: ReaderWelcome }
     ]
   },
   {
-    path: '/LibrarianHome', 
-    component: LibrarianHome, 
+    path: '/LibrarianHome',
+    component: LibrarianHome,
     redirect: '/LibrarianHome/Welcome',
-    children:[
-      {path: '/LibrarianHome/Welcome', component: LibrarianWelcome},
-      {path: '/LibrarianHome/AddBook', component: LibrarianAddBook},
-      {path: '/LibrarianHome/SearchBook', component: LibrarianSearchBook},
-      {path: '/LibrarianHome/RegisterAccount', component: LibrarianRegisterAccount},
-      {path: '/LibrarianHome/EditAccount', component: LibrarianEditAccount},
-      {path: '/LibrarianHome/BookRecording', component: LibrarianBookRecording},
-      {path: '/LibrarianHome/Fromalities', component: LibrarianFromalities},
-      {path: '/LibrarianHome/IncomeRecord', component: LibrarianIncomeRecord},
-      {path: '/LibrarianHome/Announcement', component: LibrarianAnnouncement},
-      {path: '/LibrarianHome/ViewLog', component: LibrarianViewLog}
+    children: [
+      { path: '/LibrarianHome/Welcome', component: LibrarianWelcome },
+      { path: '/LibrarianHome/AddBook', component: LibrarianAddBook },
+      { path: '/LibrarianHome/SearchBook', component: LibrarianSearchBook },
+      { path: '/LibrarianHome/RegisterAccount', component: LibrarianRegisterAccount },
+      { path: '/LibrarianHome/EditAccount', component: LibrarianEditAccount },
+      { path: '/LibrarianHome/BookRecording', component: LibrarianBookRecording },
+      { path: '/LibrarianHome/Fromalities', component: LibrarianFromalities },
+      { path: '/LibrarianHome/IncomeRecord', component: LibrarianIncomeRecord },
+      { path: '/LibrarianHome/Announcement', component: LibrarianAnnouncement },
+      { path: '/LibrarianHome/ViewLog', component: LibrarianViewLog }
     ]
   },
-  {path: '/AdminLogin', component: AdminLogin},
+  { path: '/AdminLogin', component: AdminLogin },
   {
-    path: '/AdminHome', 
+    path: '/AdminHome',
     component: AdminHome,
     redirect: '/AdminHome/Welcome',
-    children:[
-      {path: '/AdminHome/Welcome', component:AdminWelcome}
+    children: [
+      { path: '/AdminHome/Welcome', component: AdminWelcome }
     ]
   }
 ]
