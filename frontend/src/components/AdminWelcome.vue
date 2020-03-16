@@ -1,49 +1,87 @@
 <template>
-  <el-container>
-    <el-main>
-      <h2>现在时间是 {{currentTime}}</h2>
-      <h2>在AdminWelcome.vue中完善本页内容</h2>
-    </el-main>
-  </el-container>
+<div>
+   <el-breadcrumb separator-class="el-icon-arrow-right">
+  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+  <el-breadcrumb-item>欢迎页</el-breadcrumb-item>
+</el-breadcrumb>
+
+  
+
+
+
+
+
+<h1 id="app">
+     {{date}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <el-button type="text"   @click="dialogVisible = true">摘要</el-button>
+</h1>
+<el-dialog
+  title="摘要"
+  :visible.sync="dialogVisible"
+  width="80%"
+  :before-close="handleClose">
+  <span>超管能够对图书管理员账号进行管理，对图书馆进行管理，以及对超管密码进行修改，希望左边栏能够对你有帮助</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="dialogVisible = false">我知道了</el-button>
+  </span>
+</el-dialog>
+
+<h1>DEAR ADMIN,HAVE A NICE DAY!</h1>
+
+
+<div class="demo-image__placeholder">
+  <div class="block">
+    <span class="demonstration"></span>
+    <el-image :src="src" ></el-image>
+  </div>
+  
+</div>
+
+</div>
 </template>
+
 <style>
-.el-main {
-  background-color: #eee;
-  color: #333;
-  text-align: center;
-  line-height: 40px;
+.demo-image__placeholder
+{
+height: 300pt;
+
 }
+
+.app{
+  font-size: 100px;
+  color: aqua;
+}
+
+  .el-table .warning-row {
+    background: oldlace;
+  }
+
+  .el-table .success-row {
+    background: #f0f9eb;
+  }
 </style>
 
 <script>
-export default {
-  data() {
-    return {
-      timer: "", //定义一个定时器的变量
-      currentTime: "" // 获取当前时间
-    };
-  },
-  created() {
-    var _this = this; //声明一个变量指向Vue实例this，保证作用域一致
-    this.timer = setInterval(function() {
-      _this.currentTime = //修改数据date
-        new Date().getFullYear() +
-        "年" +
-        (new Date().getMonth() + 1) +
-        "月" +
-        new Date().getDate() +
-        "日  " +
-        new Date().getHours() +
-        ":" +
-        new Date().getMinutes() +
-        ":" +
-        new Date().getSeconds();
-    }, 1000);
+  export default {
+    data() {
+      return {
+        date: new Date(),
+        src: 'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+      
+        
+        }
+      },
+    
+    mounted() {
+    let _this = this; // 声明一个变量指向Vue实例this，保证作用域一致
+    this.timer = setInterval(() => {
+      _this.date = new Date(); // 修改数据date
+    }, 1000)
   },
   beforeDestroy() {
     if (this.timer) {
       clearInterval(this.timer); // 在Vue实例销毁前，清除我们的定时器
     }
   }
-};
+  };
 </script>

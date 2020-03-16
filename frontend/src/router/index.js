@@ -17,6 +17,7 @@ import LibrarianBookRecording from '../components/Librarian/BookRecording.vue'
 import LibrarianFromalities from '../components/Librarian/Fromalities.vue'
 import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
 import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
+import RegisterAdminAccount from '../components/Admin/1-1.vue'
 
 Vue.use(VueRouter)
 
@@ -54,7 +55,8 @@ const routes = [
     component: AdminHome,
     redirect: '/AdminHome/Welcome',
     children: [
-      { path: '/AdminHome/Welcome', component: AdminWelcome }
+      { path: '/AdminHome/Welcome', component: AdminWelcome },
+      { path: '/AdminHome/1-1', component: RegisterAdminAccount }
     ]
   }
 ]
