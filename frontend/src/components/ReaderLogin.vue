@@ -1,6 +1,6 @@
 <template>
   <div class="login_container">
-    <div class="head_box">
+  <!-- 注释 <div class="head_box">
       <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">菜单文本1</el-menu-item>
         <el-submenu index="2">
@@ -17,7 +17,7 @@
         </el-submenu>
         <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
       </el-menu>
-    </div>
+    </div>    注释  --> 
     <div>
       <div class="login_box">
         <div class="avatar_box">

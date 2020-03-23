@@ -1,6 +1,6 @@
 <template>
   <div class="login_container">
-    <div class="head_box">
+  <!-- 注释 <div class="head_box">
       <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
         <el-menu-item index="1">菜单文本1</el-menu-item>
         <el-submenu index="2">
@@ -17,7 +17,7 @@
         </el-submenu>
         <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
       </el-menu>
-    </div>
+    </div>   注释 --> 
     <div>
       <div class="login_box">
         <div class="avatar_box">
@@ -43,7 +43,7 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-              placeholder="请输入管理员账号（默认admin或librarian）"
+              placeholder="请输入管理员账号（默认admin）"
               clearable
             ></el-input>
           </el-form-item>
@@ -51,7 +51,7 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="请输入管理员密码（默认admin或librarian）"
+              placeholder="请输入管理员密码（默认admin）"
               show-password
               clearable
             ></el-input>
@@ -105,14 +105,7 @@ export default {
           this.$message.success("超级管理员登录成功");
           return this.$router.push("/AdminHome");
         }
-        if (
-          this.loginForm.username == "librarian" &&
-          this.loginForm.password == "librarian"
-        ) {
-          this.$message.success("图书管理员登录成功");
-          window.sessionStorage.setItem("authority", "librarian");
-          return this.$router.push("/LibrarianHome");
-        }
+        
         return this.$message.error("账号或密码错误");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中

@@ -6,6 +6,7 @@ import ReaderLogin from '../components/ReaderLogin.vue'
 import ReaderHome from '../components/ReaderHome.vue'
 import LibrarianHome from '../components/LibrarianHome.vue'
 import LibrarianWelcome from '../components/LibrarianWelcome.vue'
+import LibrarianLogin from '../components/LibrarianLogin.vue'
 import LibrarianAddBook from '../components/Librarian/AddBook.vue'
 import ReaderWelcome from '../components/ReaderWelcome.vue'
 import AdminWelcome from '../components/AdminWelcome.vue'
@@ -31,6 +32,7 @@ const routes = [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome }
     ]
   },
+  { path: '/librarianLogin', component: LibrarianLogin },
   {
     path: '/LibrarianHome',
     component: LibrarianHome,
