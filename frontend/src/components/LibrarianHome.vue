@@ -87,7 +87,7 @@ export default {
     logout() {
       window.sessionStorage.clear();
       this.$message.success("登出成功");
-      this.$router.push("/AdminLogin");
+      this.$router.push("/LibrarianLogin");
     },
     home() {
       window.sessionStorage.setItem("activePath", "");

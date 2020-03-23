@@ -17,11 +17,14 @@ import LibrarianBookRecording from '../components/Librarian/BookRecording.vue'
 import LibrarianFromalities from '../components/Librarian/Fromalities.vue'
 import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
 import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
+import LibrarianLogin from '../components/LibrarianLogin.vue'
+import MainPage from '../components/MainPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/Login' },
+  { path: '/', redirect: '/MainPage' },
+  { path: '/MainPage', component: MainPage },
   { path: '/Login', component: ReaderLogin },
   {
     path: '/ReaderHome',
@@ -31,6 +34,7 @@ const routes = [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome }
     ]
   },
+  { path: '/LibrarianLogin', component: LibrarianLogin },
   {
     path: '/LibrarianHome',
     component: LibrarianHome,

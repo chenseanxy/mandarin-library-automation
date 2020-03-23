@@ -27,7 +27,7 @@
               width="70px"
               border-radius="50%"
               background-color="#eee"
-              src="../assets/logo.png"
+              src="../assets/librarian.png"
               alt
             >
           </div>
@@ -43,7 +43,7 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-              placeholder="请输入超级管理员账号（默认admin）"
+              placeholder="请输入图书管理员账号（默认librarian）"
               clearable
             ></el-input>
           </el-form-item>
@@ -51,7 +51,7 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="请输入超级管理员密码（默认admin）"
+              placeholder="请输入图书管理员密码（默认librarian）"
               show-password
               clearable
             ></el-input>
@@ -99,11 +99,12 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
         if (
-          this.loginForm.username == "admin" &&
-          this.loginForm.password == "admin"
+          this.loginForm.username == "librarian" &&
+          this.loginForm.password == "librarian"
         ) {
-          this.$message.success("超级管理员登录成功");
-          return this.$router.push("/AdminHome");
+          this.$message.success("图书管理员登录成功");
+          window.sessionStorage.setItem("authority", "librarian");
+          return this.$router.push("/LibrarianHome");
         }
         return this.$message.error("账号或密码错误");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
@@ -162,4 +163,3 @@ export default {
   justify-content: flex-end;
 }
 </style>
-
