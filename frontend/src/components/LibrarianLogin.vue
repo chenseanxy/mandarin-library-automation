@@ -110,6 +110,7 @@ export default {
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
+        
         //判断复选框是否被勾选 勾选则调用配置cookie方法
         if (this.checked == true) {
             //传入账号名，密码，和保存天数3个参数
