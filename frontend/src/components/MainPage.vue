@@ -23,18 +23,7 @@
     </div>
     <div>
       <div class="maininfo_box">
-        <div class="avatar_box">
-          <div class="img_box">
-            <img
-              height="70px"
-              width="70px"
-              border-radius="50%"
-              background-color="#eee"
-              src="../assets/reader.png"
-              alt
-            >
-          </div>
-        </div>
+        <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
         <div class="word_box">
           <h1>Mandarin-Library Automation</h1>
           <p>Presenting Wonderful for You</p>
@@ -46,6 +35,9 @@
 
 <script>
 export default {
+  data() {
+    return {};
+  },
   methods: {
     readerLogin() {
       window.sessionStorage.clear();
@@ -74,28 +66,15 @@ export default {
   -moz-opacity: 0.95;
   opacity: 0.95;
 }
-.avatar_box {
-  height: 100px;
-  width: 100px;
-  border: 1px solid #eee;
-  border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0 0 10px #ddd;
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #eee;
-}
-.img_box {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+.maininfo_img_box {
+  text-align: center;
+  padding-left: 149px;
+  padding-top: 20px;
 }
 .word_box {
   text-align: center;
-  line-height: 50px;
-  padding-top: 60px;
+  line-height: 30px;
+  padding-top: 10px;
 }
 .head_box {
   filter: alpha(Opacity=95);
