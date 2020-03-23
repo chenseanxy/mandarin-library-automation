@@ -1,31 +1,20 @@
 <template>
   <div class="main_container">
-    <div class="head_box">
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">菜单文本1</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">菜单文本2</template>
-          <el-menu-item index="2-1">选项文本1</el-menu-item>
-          <el-menu-item index="2-2">选项文本2</el-menu-item>
-          <el-menu-item index="2-3">选项文本3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">选项文本4</template>
-            <el-menu-item index="2-4-1">次级选项文本1</el-menu-item>
-            <el-menu-item index="2-4-2">次级选项文本2</el-menu-item>
-            <el-menu-item index="2-4-3">次级选项文本3</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
-        <div class="login_box">
-          <el-button type="primary" @click="readerLogin">读者登录</el-button>
-        </div>
-      </el-menu>
-    </div>
+    <el-header>
+      <div class="header-box">
+        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <span class="title-box">Mandarin Library Automation</span>
+      </div>
+      <div class="login_box">
+        <el-button>公告</el-button>
+        <el-button type="primary" @click="readerLogin">读者登录</el-button>
+      </div>
+    </el-header>
     <div>
       <div class="maininfo_box">
         <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
         <div class="word_box">
-          <h1>Mandarin-Library Automation</h1>
+          <h1>Mandarin Library Automation</h1>
           <p>Presenting Wonderful for You</p>
         </div>
       </div>
@@ -76,15 +65,27 @@ export default {
   line-height: 30px;
   padding-top: 10px;
 }
-.head_box {
+.el-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  align-items: center;
+  color: black;
+  font-size: 20px;
   filter: alpha(Opacity=95);
   -moz-opacity: 0.95;
   opacity: 0.95;
 }
 .login_box {
-  position: absolute;
-  right: 20px;
-  padding: 10px;
+  float: right;
+}
+.header-box {
+  display: flex;
+  align-items: center;
+}
+.title-box {
+  margin-left: 12px;
 }
 </style>
 
