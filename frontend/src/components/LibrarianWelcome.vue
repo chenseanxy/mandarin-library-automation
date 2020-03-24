@@ -1,17 +1,17 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="box-card" shadow="hover">
-      <el-alert title="请在左侧选择你想要使用的功能" type="info" center show-icon></el-alert>
+      <el-alert title="Please select the function you want to use on the left side" type="info" center show-icon></el-alert>
       <div>
-        <p>现在时间是 {{currentTime}} ，检查最近5条登录记录以确认账户是否被盗</p>
+        <p>The time is now {{currentTime}} , Check the last 5 logins to confirm account security.</p>
       </div>
       <el-table stripe max-height="500" :data="loginlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="登录IP" prop="ip"></el-table-column>
-        <el-table-column label="登录时间" prop="time"></el-table-column>
+        <el-table-column label="Login IP" prop="ip"></el-table-column>
+        <el-table-column label="Login Time" prop="time"></el-table-column>
       </el-table>
     </el-card>
   </div>

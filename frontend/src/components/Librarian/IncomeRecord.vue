@@ -6,7 +6,7 @@
     </el-breadcrumb>
     <el-card class="profit-card" shadow="hover">
       <el-row :gutter="20">
-        <el-col :span="10">
+        <el-col :span="8">
           <el-input placeholder="请输入 缴费账户 / 收入金额 "></el-input>
         </el-col>
         <el-col :span="8">
@@ -21,7 +21,7 @@
             :picker-options="pickerOptions"
           ></el-date-picker>
         </el-col>
-        <el-col :span="6">
+        <el-col :span="8">
           <el-button-group>
             <el-button type="primary">搜索罚金记录</el-button>
             <el-button type="success">搜索保证金记录</el-button>

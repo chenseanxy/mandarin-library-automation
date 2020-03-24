@@ -1,13 +1,13 @@
 <template>
   <div class="main_container">
     <el-header>
-      <div class="header-box">
+      <div class="header_box">
         <img width="101px" height="47px" src="../assets/mandarin.png">
-        <span class="title-box">Mandarin Library Automation</span>
+        <span class="title_box">Mandarin Library Automation</span>
       </div>
       <div class="login_box">
-        <el-button>公告</el-button>
-        <el-button type="primary" @click="readerLogin">读者登录</el-button>
+        <el-button>Announcement</el-button>
+        <el-button type="primary" @click="readerLogin">Login</el-button>
       </div>
     </el-header>
     <div>
@@ -80,11 +80,11 @@ export default {
 .login_box {
   float: right;
 }
-.header-box {
+.header_box {
   display: flex;
   align-items: center;
 }
-.title-box {
+.title_box {
   margin-left: 12px;
 }
 </style>

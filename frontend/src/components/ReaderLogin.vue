@@ -1,23 +1,11 @@
 <template>
   <div class="login_container">
-    <div class="head_box">
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">菜单文本1</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">菜单文本2</template>
-          <el-menu-item index="2-1">选项文本1</el-menu-item>
-          <el-menu-item index="2-2">选项文本2</el-menu-item>
-          <el-menu-item index="2-3">选项文本3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">选项文本4</template>
-            <el-menu-item index="2-4-1">次级选项文本1</el-menu-item>
-            <el-menu-item index="2-4-2">次级选项文本2</el-menu-item>
-            <el-menu-item index="2-4-3">次级选项文本3</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
-      </el-menu>
-    </div>
+    <el-header>
+      <div class="header_box">
+        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <span class="title_box">Mandarin Library Automation</span>
+      </div>
+    </el-header>
     <div>
       <div class="login_box">
         <div class="avatar_box">
@@ -43,7 +31,7 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-              placeholder="请输入读者账号（默认user）"
+              placeholder="Please enter the user account (Default: user)"
               clearable
             ></el-input>
           </el-form-item>
@@ -51,14 +39,14 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="请输入读者密码（默认user）"
+              placeholder="Please enter the user password (Default: user)"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="info" @click="resetLoginForm">重置</el-button>
+            <el-button type="primary" @click="login">Login</el-button>
+            <el-button type="info" @click="resetLoginForm">Reset</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -76,14 +64,14 @@ export default {
       },
       loginFormRules: {
         username: [
-          { required: true, message: "请输入读者账号", trigger: "blur" }
+          { required: true, message: "Please enter the reader account", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { required: true, message: "Please enter the reader password", trigger: "blur" },
           {
             min: 4,
             max: 20,
-            message: "长度应在 4 至 20 字符之间",
+            message: "The length should be between 5 and 20 characters",
             trigger: "blur"
           }
         ]
@@ -103,9 +91,9 @@ export default {
           this.loginForm.password == "user"
         ) {
           this.$router.push("/ReaderHome");
-          return this.$message.success("登录成功");
+          return this.$message.success("Login successfully!");
         }
-        return this.$message.error("账号或密码错误");
+        return this.$message.error("Account or password error!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
@@ -160,6 +148,25 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
+}
+.header_box {
+  display: flex;
+  align-items: center;
+}
+.title_box {
+  margin-left: 12px;
+}
+.el-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  align-items: center;
+  color: black;
+  font-size: 20px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 </style>
 
