@@ -1,23 +1,11 @@
 <template>
   <div class="login_container">
-    <div class="head_box">
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">Menu text1</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">Menu text2</template>
-          <el-menu-item index="2-1">Text options1</el-menu-item>
-          <el-menu-item index="2-2">Text options2</el-menu-item>
-          <el-menu-item index="2-3">Text options3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">Text options4</template>
-            <el-menu-item index="2-4-1">Secondary option text1</el-menu-item>
-            <el-menu-item index="2-4-2">Secondary option text2</el-menu-item>
-            <el-menu-item index="2-4-3">Secondary option text3</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3" disabled>Menu text3</el-menu-item>
-      </el-menu>
-    </div>
+    <el-header>
+      <div class="header_box">
+        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <span class="title_box">Mandarin Library Automation</span>
+      </div>
+    </el-header>
     <div>
       <div class="login_box">
         <div class="avatar_box">
@@ -43,7 +31,11 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
+<<<<<<< HEAD
               placeholder="Please enter the reader account (default: user)"
+=======
+              placeholder="Please enter the user account (Default: user)"
+>>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
               clearable
             ></el-input>
           </el-form-item>
@@ -51,7 +43,11 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
+<<<<<<< HEAD
               placeholder="Please enter the reader password (default: user)"
+=======
+              placeholder="Please enter the user password (Default: user)"
+>>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
               show-password
               clearable
             ></el-input>
@@ -59,7 +55,10 @@
           <el-form-item class="btns">
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
+<<<<<<< HEAD
             <el-button type="primary" @click="changepassword">Change the password</el-button>
+=======
+>>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
           </el-form-item>
         </el-form>
       </div>
@@ -77,6 +76,7 @@ export default {
       },
       loginFormRules: {
         username: [
+<<<<<<< HEAD
           { required: true, message: "Please enter your reader account", trigger: "blur" }
         ],
         password: [
@@ -85,6 +85,16 @@ export default {
             min: 4,
             max: 20,
             message: "The length should be between 4 and 20 characters",
+=======
+          { required: true, message: "Please enter the reader account", trigger: "blur" }
+        ],
+        password: [
+          { required: true, message: "Please enter the reader password", trigger: "blur" },
+          {
+            min: 4,
+            max: 20,
+            message: "The length should be between 5 and 20 characters",
+>>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
             trigger: "blur"
           }
         ]
@@ -104,9 +114,15 @@ export default {
           this.loginForm.password == "user"
         ) {
           this.$router.push("/ReaderHome");
+<<<<<<< HEAD
           return this.$message.success("Login successful");
         }
         return this.$message.error("Wrong account number or password");
+=======
+          return this.$message.success("Login successfully!");
+        }
+        return this.$message.error("Account or password error!");
+>>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
@@ -165,6 +181,25 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
+}
+.header_box {
+  display: flex;
+  align-items: center;
+}
+.title_box {
+  margin-left: 12px;
+}
+.el-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  align-items: center;
+  color: black;
+  font-size: 20px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 </style>
 

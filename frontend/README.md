@@ -11,6 +11,19 @@
 
 ## 开发日志
 
+### 更新MainPage页面（主页）
+
+- 逐步将子页面翻译为英语
+
+- MainPage.vue
+
+  ![](https://pic.guoshaocong.cn/uploads/small/a324dacff84a51bf2e57f40aa203467e.jpg)
+
+郭少聪
+2020.03.24
+
+------
+
 ### 更新Librarian页面所有子页面
 
 - 完成对Librarian所有子页面的设计
