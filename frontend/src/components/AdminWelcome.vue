@@ -1,8 +1,8 @@
 <template>
 <div>
    <el-breadcrumb separator-class="el-icon-arrow-right">
-  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-  <el-breadcrumb-item>欢迎页</el-breadcrumb-item>
+  <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
+  <el-breadcrumb-item>welcome page</el-breadcrumb-item>
 </el-breadcrumb>
 
   
@@ -13,7 +13,7 @@
 
 <h1 id="app">
      {{date}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-     <el-button type="text"   @click="dialogVisible = true">摘要</el-button>
+     <el-button type="text"   @click="dialogVisible = true">Summary</el-button>
 </h1>
 <el-dialog
   title="摘要"

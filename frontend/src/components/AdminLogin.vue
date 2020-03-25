@@ -43,7 +43,7 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-              placeholder="请输入管理员账号（默认admin或librarian）"
+              placeholder="Please enter the administrator account (default admin or librarian)"
               clearable
             ></el-input>
           </el-form-item>
@@ -51,14 +51,14 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="请输入管理员密码（默认admin或librarian）"
+              placeholder="Please enter the administrator password (default admin or librarian)"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-button type="primary" @click="login">登录</el-button>
-            <el-button type="info" @click="resetLoginForm">重置</el-button>
+            <el-button type="primary" @click="login">log in</el-button>
+            <el-button type="info" @click="resetLoginForm">Reset</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -76,10 +76,12 @@ export default {
       },
       loginFormRules: {
         username: [
-          { required: true, message: "请输入管理员账号", trigger: "blur" }
+          { required: true, message: "\n" +
+                    "Please enter the administrator account", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { required: true, message: "\n" +
+                    "Please enter the password", trigger: "blur" },
           {
             min: 5,
             max: 20,
@@ -99,6 +101,7 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
         if (
+
           this.loginForm.username == "admin" &&
           this.loginForm.password == "admin"
         ) {
