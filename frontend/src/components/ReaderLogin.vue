@@ -47,7 +47,6 @@
           <el-form-item class="btns">
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
-            <el-button type="primary" @click="changePassword">Change the password</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -65,22 +64,14 @@ export default {
       },
       loginFormRules: {
         username: [
-          {
-            required: true,
-            message: "Please enter your reader account",
-            trigger: "blur"
-          }
+          { required: true, message: "Please enter the reader account", trigger: "blur" }
         ],
         password: [
-          {
-            required: true,
-            message: "Please enter your reader email",
-            trigger: "blur"
-          },
+          { required: true, message: "Please enter the reader password", trigger: "blur" },
           {
             min: 4,
             max: 20,
-            message: "The length should be between 4 and 20 characters",
+            message: "The length should be between 5 and 20 characters",
             trigger: "blur"
           }
         ]
@@ -88,7 +79,7 @@ export default {
     };
   },
   methods: {
-    resetloginForm() {
+    resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
@@ -100,19 +91,15 @@ export default {
           this.loginForm.password == "user"
         ) {
           this.$router.push("/ReaderHome");
-          return this.$message.success("Login successful");
+          return this.$message.success("Login successfully!");
         }
-        return this.$message.error("Wrong account number or password");
+        return this.$message.error("Account or password error!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
         //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
         //this.$router.push("/AdminHome");
       });
-    },
-    changePassword() {
-      this.$router.push("/ReaderChangePassword");
-      return this.$message.success("Go to modify");
     }
   }
 };

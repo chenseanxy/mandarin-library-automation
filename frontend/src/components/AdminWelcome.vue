@@ -6,7 +6,7 @@
     </el-main>
   </el-container>
 </template>
-<style scoped>
+<style>
 .el-main {
   background-color: #eee;
   color: #333;
