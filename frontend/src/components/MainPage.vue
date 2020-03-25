@@ -27,10 +27,142 @@ export default {
   data() {
     return {};
   },
+  created() {
+    this.$notify.info({
+      title: "开发指南",
+      duration: 0,
+      offset: 50,
+      dangerouslyUseHTMLString: true,
+      message: this.$createElement("div", null, [
+        this.$createElement("p", null, "此版本更新于2020年3月25日。"),
+        this.$createElement(
+          "p",
+          null,
+          "如果你无法看见最新的内容，你可能需要清除浏览器缓存。"
+        ),
+        this.$createElement(
+          "p",
+          null,
+          "通过下面的按钮，你可以快速抵达各个页面。主页按钮将自动完成登录操作。"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "primary", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToReaderLogin }
+          },
+          "读者登录"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "primary", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToLibrarianLogin }
+          },
+          "图管登录"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "primary", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToAdminLogin }
+          },
+          "超管登录"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "success", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToReaderHome }
+          },
+          "读者主页"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "success", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToLibrarianHome }
+          },
+          "图管主页"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "success", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToAdminHome }
+          },
+          "超管主页"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToMainPage }
+          },
+          "项目主页"
+        ),
+        this.$createElement(
+          "p",
+          null,
+          "如果你对Vue.js仍然有困惑，下面这个教学视频也许会帮助你。"
+        ),
+        this.$createElement(
+          "el-button",
+          {
+            props: { type: "danger", plain: "true" },
+            style: { width: "240px", margin: "5px" },
+            on: { click: this.goToVedio }
+          },
+          "Vue.js 实战入门教学"
+        )
+      ])
+    });
+  },
   methods: {
     readerLogin() {
       window.sessionStorage.clear();
       this.$router.push("/Login");
+    },
+    goToReaderLogin() {
+      window.sessionStorage.clear();
+      this.$router.push("/Login");
+    },
+    goToLibrarianLogin() {
+      window.sessionStorage.clear();
+      this.$router.push("/LibrarianLogin");
+    },
+    goToAdminLogin() {
+      window.sessionStorage.clear();
+      this.$router.push("/AdminLogin");
+    },
+    goToReaderHome() {
+      window.sessionStorage.setItem("authority", "reader");
+      this.$router.push("/ReaderHome");
+      return this.$message.success("Login successfully!");
+    },
+    goToLibrarianHome() {
+      window.sessionStorage.setItem("authority", "librarian");
+      this.$router.push("/LibrarianHome");
+      return this.$message.success("Librarian login successfully!");
+    },
+    goToAdminHome() {
+      window.sessionStorage.setItem("authority", "admin");
+      this.$router.push("/AdminHome");
+      return this.$message.success("Admin login successfully!");
+    },
+    goToMainPage() {
+      window.sessionStorage.clear();
+      this.$router.push("/MainPage");
+    },
+    goToVedio() {
+      window.open("https://www.bilibili.com/video/av74592164");
     }
   }
 };
