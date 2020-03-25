@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
-      <el-breadcrumb-item>读者账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>注册账户</el-breadcrumb-item>
+      <el-breadcrumb-item>Admin Homepage</el-breadcrumb-item>
+      <el-breadcrumb-item>Account management</el-breadcrumb-item>
+      <el-breadcrumb-item>Registered accounts</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="registeraccount-card" shadow="hover">
@@ -25,16 +25,16 @@
       
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-input v-model="input1" placeholder="请输入账户" clearable></el-input>
+          <el-input v-model="input1" placeholder="Please enter account" clearable></el-input>
         </el-col>
         <el-col :span="8">
-          <el-input v-model="input2" placeholder="请输入邮箱" clearable></el-input>
+          <el-input v-model="input2" placeholder="Please enter email" clearable></el-input>
         </el-col>
         <el-col :span="6">
-          <el-input placeholder="请输入密码" v-model="input3" show-password></el-input>
+          <el-input placeholder="Please input a password" v-model="input3" show-password></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" icon="el-icon-edit" @click="startHacking">注册账户</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="startHacking">Registered</el-button>
         </el-col>
       </el-row>
       
@@ -81,7 +81,7 @@ export default {
       this.$notify({
         title: 'It works!',
         type: 'success',
-        message: '您已成功地提交注册！！',
+        message: 'Succeed！！',
         duration: 5000
       })
     },
