@@ -1,10 +1,12 @@
 <template>
-  <el-container>
-    <el-main>
-      <h2>现在时间是 {{currentTime}}</h2>
-      <h2>在ReaderWelcome.vue中完善本页内容</h2>
-    </el-main>
-  </el-container>
+  <div class="main_container">
+    <el-container>
+      <el-main>
+        <h2>Now the time is {{currentTime}}</h2>
+        <h2>Welcome to Mandarin Library</h2>
+      </el-main>
+    </el-container>
+  </div>
 </template>
 <style scoped>
 .el-main {
@@ -12,6 +14,14 @@
   color: #333;
   text-align: center;
   line-height: 40px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
+}
+.main_container {
+  /* background: url(../assets/background1.jpg) center center
+    no-repeat; */
+    height: 100%;
 }
 </style>
 
@@ -28,11 +38,11 @@ export default {
     this.timer = setInterval(function() {
       _this.currentTime = //修改数据date
         new Date().getFullYear() +
-        "年" +
+        "-" +
         (new Date().getMonth() + 1) +
-        "月" +
+        "-" +
         new Date().getDate() +
-        "日  " +
+        "  " +
         new Date().getHours() +
         ":" +
         new Date().getMinutes() +
