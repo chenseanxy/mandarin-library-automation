@@ -2,20 +2,20 @@
   <div class="change_container">
     <div class="head_box">
       <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">菜单文本1</el-menu-item>
+        <el-menu-item index="1">Menu text1</el-menu-item>
         <el-submenu index="2">
-          <template slot="title">菜单文本2</template>
-          <el-menu-item index="2-1">选项文本1</el-menu-item>
-          <el-menu-item index="2-2">选项文本2</el-menu-item>
-          <el-menu-item index="2-3">选项文本3</el-menu-item>
+          <template slot="title">Menu tex2</template>
+          <el-menu-item index="2-1">Text options1</el-menu-item>
+          <el-menu-item index="2-2">Text options2</el-menu-item>
+          <el-menu-item index="2-3">Text options3</el-menu-item>
           <el-submenu index="2-4">
-            <template slot="title">选项文本4</template>
-            <el-menu-item index="2-4-1">次级选项文本1</el-menu-item>
-            <el-menu-item index="2-4-2">次级选项文本2</el-menu-item>
-            <el-menu-item index="2-4-3">次级选项文本3</el-menu-item>
+            <template slot="title">Text options4</template>
+            <el-menu-item index="2-4-1">Secondary option text1</el-menu-item>
+            <el-menu-item index="2-4-2">Secondary option text2</el-menu-item>
+            <el-menu-item index="2-4-3">Secondary option text3</el-menu-item>
           </el-submenu>
         </el-submenu>
-        <el-menu-item index="3" disabled>菜单文本3</el-menu-item>
+        <el-menu-item index="3" disabled>Menu tex3</el-menu-item>
       </el-menu>
     </div>
     <div>
@@ -43,7 +43,7 @@
             <el-input
               v-model="changeForm.username"
               prefix-icon="el-icon-user"
-              placeholder="请输入读者账号（默认user）"
+              placeholder="Please enter the reader account (default: user)"
               clearable
             ></el-input>
           </el-form-item>
@@ -51,7 +51,7 @@
             <el-input
               v-model="changeForm.email"
               prefix-icon="el-icon-message"
-              placeholder="请输入读者电子邮件（默认user@126.com）"
+              placeholder="Please enter the reader email (default: user@126.com）"
               clearable
             ></el-input>
           </el-form-item>
@@ -59,7 +59,7 @@
             <el-input
               v-model="changeForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="请输入读者密码（默认user）"
+              placeholder="Please enter the reader password (default: user)"
               show-password
               clearable
             ></el-input>
@@ -68,13 +68,13 @@
             <el-input
               v-model="changeForm.repassword"
               prefix-icon="el-icon-lock"
-              placeholder="请再次确认密码（默认user）"
+              placeholder="Please confirm the password again (default user)"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-button type="primary" @click="change">修改</el-button>
+            <el-button type="primary" @click="change">Modify</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -92,22 +92,22 @@ export default {
       },
       changeFormRules: {
         username: [
-          { required: true, message: "请输入读者账号", trigger: "blur" }
+          { required: true, message: "Please enter your reader account", trigger: "blur" }
         ],
         email: [
-          { required: true, message: "请输入电子邮件", trigger: "blur" }
+          { required: true, message: "Please enter your reader email", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "请输入密码", trigger: "blur" },
+          { required: true, message: "Please enter your reader password", trigger: "blur" },
           {
             min: 4,
             max: 20,
-            message: "长度应在 4 至 20 字符之间",
+            message: "The length should be between 4 and 20 characters",
             trigger: "blur"
           }
         ],
         repassword: [
-          { required: true, message: "请再次确认密码", trigger: "blur" }
+          { required: true, message: "Please confirm the password again", trigger: "blur" }
         ]
       }
     };
@@ -123,7 +123,7 @@ export default {
           this.changeForm.email == "user@126.com" 
         ) {
           this.$router.push("/Login");
-          return this.$message.success("密码修改成功");
+          return this.$message.success("Password changed successfully");
         }
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
