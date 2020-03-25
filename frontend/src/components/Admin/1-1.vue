@@ -50,13 +50,13 @@
         </el-table-column>
       </el-table>-->
 
-      <el-pagination
+      <!-- <el-pagination
         layout="total, prev, pager, next, jumper"
         @current-change="handleCurrentChange"
         :current-page="pagenum"
         :total="total"
         page-size="5"
-      ></el-pagination>
+      ></el-pagination> -->
     </el-card>
   </div>
 </template>
