@@ -123,12 +123,14 @@ export default {
   display: flex;
   align-items: center;
 }
-
 .el-aside {
   background-color: whitesmoke;
 }
 .el-main {
   background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 40px;
 }
 .title-box {
   margin-left: 12px;
