@@ -1,23 +1,11 @@
 <template>
   <div class="change_container">
-    <div class="head_box">
-      <el-menu class="el-menu-demo" mode="horizontal" @select="handleSelect">
-        <el-menu-item index="1">Menu text1</el-menu-item>
-        <el-submenu index="2">
-          <template slot="title">Menu tex2</template>
-          <el-menu-item index="2-1">Text options1</el-menu-item>
-          <el-menu-item index="2-2">Text options2</el-menu-item>
-          <el-menu-item index="2-3">Text options3</el-menu-item>
-          <el-submenu index="2-4">
-            <template slot="title">Text options4</template>
-            <el-menu-item index="2-4-1">Secondary option text1</el-menu-item>
-            <el-menu-item index="2-4-2">Secondary option text2</el-menu-item>
-            <el-menu-item index="2-4-3">Secondary option text3</el-menu-item>
-          </el-submenu>
-        </el-submenu>
-        <el-menu-item index="3" disabled>Menu tex3</el-menu-item>
-      </el-menu>
-    </div>
+    <el-header>
+      <div class="header_box">
+        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <span class="title_box">Mandarin Library Automation</span>
+      </div>
+    </el-header>
     <div>
       <div class="change_box">
         <div class="avatar_box">
@@ -179,6 +167,18 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
+}
+.el-header {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  align-items: center;
+  color: black;
+  font-size: 20px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 </style>
 

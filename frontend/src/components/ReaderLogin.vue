@@ -31,11 +31,7 @@
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-<<<<<<< HEAD
-              placeholder="Please enter the reader account (default: user)"
-=======
               placeholder="Please enter the user account (Default: user)"
->>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
               clearable
             ></el-input>
           </el-form-item>
@@ -43,11 +39,7 @@
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-<<<<<<< HEAD
-              placeholder="Please enter the reader password (default: user)"
-=======
               placeholder="Please enter the user password (Default: user)"
->>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
               show-password
               clearable
             ></el-input>
@@ -55,10 +47,7 @@
           <el-form-item class="btns">
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
-<<<<<<< HEAD
             <el-button type="primary" @click="changepassword">Change the password</el-button>
-=======
->>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
           </el-form-item>
         </el-form>
       </div>
@@ -76,7 +65,6 @@ export default {
       },
       loginFormRules: {
         username: [
-<<<<<<< HEAD
           { required: true, message: "Please enter your reader account", trigger: "blur" }
         ],
         password: [
@@ -85,16 +73,6 @@ export default {
             min: 4,
             max: 20,
             message: "The length should be between 4 and 20 characters",
-=======
-          { required: true, message: "Please enter the reader account", trigger: "blur" }
-        ],
-        password: [
-          { required: true, message: "Please enter the reader password", trigger: "blur" },
-          {
-            min: 4,
-            max: 20,
-            message: "The length should be between 5 and 20 characters",
->>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
             trigger: "blur"
           }
         ]
@@ -102,7 +80,7 @@ export default {
     };
   },
   methods: {
-    resetLoginForm() {
+    resetloginForm() {
       this.$refs.loginFormRef.resetFields();
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
@@ -114,15 +92,9 @@ export default {
           this.loginForm.password == "user"
         ) {
           this.$router.push("/ReaderHome");
-<<<<<<< HEAD
           return this.$message.success("Login successful");
         }
         return this.$message.error("Wrong account number or password");
-=======
-          return this.$message.success("Login successfully!");
-        }
-        return this.$message.error("Account or password error!");
->>>>>>> bd0156819bb3e92f89f27370f9a28eb9ccad00f5
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
