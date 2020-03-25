@@ -1,33 +1,39 @@
 <template>
-  <div class="main_container">
-    <el-header>
-      <div class="header_box">
-        <img width="101px" height="47px" src="../assets/mandarin.png">
-        <span class="title_box">Mandarin Library Automation</span>
-      </div>
-      <div class="login_box">
-        <el-button>Announcement</el-button>
-        <el-button type="primary" @click="readerLogin">Login</el-button>
-      </div>
-    </el-header>
-    <div>
-      <div class="maininfo_box">
-        <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
-        <div class="word_box">
-          <h1>Mandarin Library Automation</h1>
-          <p>Presenting Wonderful for You</p>
+  <el-carousel arrow="never" trigger="click" :height="carouselHeight+'px'">
+    <div class="main_container">
+      <el-carousel-item v-for="item in 4" :key="item"></el-carousel-item>
+      <el-header>
+        <div class="header_box">
+          <img width="101px" height="47px" src="../assets/mandarin.png">
+          <span class="title_box">Mandarin Library Automation</span>
+        </div>
+        <div class="login_box">
+          <el-button>Announcement</el-button>
+          <el-button type="primary" @click="readerLogin">Login</el-button>
+        </div>
+      </el-header>
+      <div>
+        <div class="maininfo_box">
+          <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
+          <div class="word_box">
+            <h1>Mandarin Library Automation</h1>
+            <p>Presenting Wonderful for You</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </el-carousel>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      carouselHeight: ""
+    };
   },
   created() {
+    this.carouselHeight = window.innerHeight;
     this.$notify.info({
       title: "开发指南",
       duration: 0,
@@ -170,8 +176,6 @@ export default {
 
 <style scoped>
 .main_container {
-  background: url(../assets/blur-book-stack-books-bookshel.jpg) center center
-    no-repeat;
   height: 100%;
 }
 .maininfo_box {
@@ -218,6 +222,22 @@ export default {
 }
 .title_box {
   margin-left: 12px;
+}
+.el-carousel__item:nth-child(1) {
+  background: url(../assets/background1.jpg) center center no-repeat;
+  z-index: -1;
+}
+.el-carousel__item:nth-child(2) {
+  background: url(../assets/background2.jpg) center center no-repeat;
+  z-index: -1;
+}
+.el-carousel__item:nth-child(3) {
+  background: url(../assets/background3.jpg) center center no-repeat;
+  z-index: -1;
+}
+.el-carousel__item:nth-child(4) {
+  background: url(../assets/background4.jpg) center center no-repeat;
+  z-index: -1;
 }
 </style>
 
