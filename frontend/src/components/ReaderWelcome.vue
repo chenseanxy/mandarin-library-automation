@@ -1,17 +1,25 @@
 <template>
-  <el-container>
-    <el-main>
-      <h2>现在时间是 {{currentTime}}</h2>
-      <h2>在ReaderWelcome.vue中完善本页内容</h2>
-    </el-main>
-  </el-container>
+  <div class="main_container">
+    <el-container>
+      <el-main>
+        <h2>Now the time is {{currentTime}}</h2>
+        <h2>Welcome to Mandarin Library</h2>
+      </el-main>
+    </el-container>
+  </div>
 </template>
-<style>
+<style scoped>
 .el-main {
   background-color: #eee;
   color: #333;
   text-align: center;
   line-height: 40px;
+  opacity: 0.8;
+}
+.main_container {
+  background: url(../assets/background1.jpg) center center
+    no-repeat;
+  height: 100%;
 }
 </style>
 
