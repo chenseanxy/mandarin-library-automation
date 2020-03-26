@@ -78,12 +78,38 @@ export default {
   },
   methods: {
     startHacking () {
-      this.$notify({
-        title: 'It works!',
-        type: 'success',
-        message: 'Succeed！！',
-        duration: 5000
-      })
+    this.$http.post('/api/user/search_id_exist',{//这里是将input1的值传给接口search_id_exist，这个接口add在serve文件夹下lilrarian_api.js里定义
+      id: this.input1,
+    },{}).then(function(data){
+            console.log("search请求成功！ ",data.body);
+            var content=data.body;
+            if (content.length != 0) {//判断账户是否存在
+              this.$notify({
+              title: 'Error',
+              type: 'success',
+              message: 'Account has been used!',
+              duration: 5000
+              })
+            }
+            else{
+              this.$http.post('/api/user/add', {//这里是将input123的值传给接口add，这个接口add在serve文件夹下lilrarian_api.js里定义
+              id: this.input1,
+              em: this.input2,
+              pw: this.input3
+              },{}).then((response) => {
+              console.log(response);
+              });
+              this.$notify({
+              title: 'It works!',
+              type: 'success',
+              message: 'Succeed!',
+              duration: 5000
+              })
+            }
+          },function(response){
+                console.log(response);
+            })
+      
     },
 
     getAccountList() {

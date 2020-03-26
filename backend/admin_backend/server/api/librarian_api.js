@@ -30,13 +30,20 @@ router.post('/add', (req, res) => {
     }
     if (result) {
       jsonWrite(res, result);
-      for(var i = 0; i < result.length; i++){//这几行感觉好像没用 。。。 暂时先不删了反正可以跑
-        console.log("请求回来！",result[i])
-        console.log("请求结果！",typeof result[i],result[i].userpsw);
-        if (result[i].userpsw == params.userpsw) {
-            res.send("返回回来了！");
-        }
     }
+  })
+})
+
+router.post('/search_id_exist', (req, res) => {
+  var sql = $sql.librarian_api.search_id_exist;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.id], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
     }
   })
 })
