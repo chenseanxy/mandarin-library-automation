@@ -9,7 +9,7 @@
         <div class="avatar-box">
           <el-popover placement="bottom-end" width="150" close-delay="500" trigger="hover">
             <el-avatar slot="reference" size="large" :src="avatarpic"></el-avatar>
-            <p style="text-align:center; margin: 10">
+            <p style="text-align:center; margin: 10px">
               Have a nice day!
               <br>Mr.Librarian
             </p>

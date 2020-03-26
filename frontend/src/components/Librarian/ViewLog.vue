@@ -20,7 +20,14 @@
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="操作人" prop="name"></el-table-column>
         <el-table-column label="书籍名称" prop="bookname"></el-table-column>
-        <el-table-column label="书籍ID" prop="bookid"></el-table-column>
+        <el-table-column label="书籍ID" prop="bookid">
+          <template slot-scope="scope">
+            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+              <el-link slot="reference">{{scope.row.bookid}}</el-link>
+              <barcode style="text-align:center" :value="scope.row.bookid">Fail to show barcode.</barcode>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column label="操作时间" prop="time"></el-table-column>
         <el-table-column label="操作类型">
           <template slot-scope="scope">
