@@ -5,6 +5,7 @@
         <img width="101px" height="47px" src="../assets/mandarin.png">
         <span class="title_box">Mandarin Library Automation</span>
       </div>
+      <el-button type="primary" @click="goToMainPage">MainPage</el-button>
     </el-header>
     <div>
       <div class="login_box">
@@ -89,6 +90,9 @@ export default {
   methods: {
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
+    },
+    goToMainPage() {
+      return this.$router.push("/MainPage");
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
     login() {
