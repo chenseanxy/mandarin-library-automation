@@ -16,7 +16,7 @@
         <div class="maininfo_box">
           <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
           <div class="word_box">
-            <h1>Mandarin Library Automation</h1>
+            <h1>Mandarin Library<br />Automation</h1>
             <p>Presenting Wonderful for You</p>
           </div>
         </div>
@@ -40,7 +40,7 @@ export default {
       offset: 50,
       dangerouslyUseHTMLString: true,
       message: this.$createElement("div", null, [
-        this.$createElement("p", null, "此版本更新于2020年3月25日。"),
+        this.$createElement("p", null, "此版本更新于2020年3月26日。"),
         this.$createElement(
           "p",
           null,
@@ -155,6 +155,7 @@ export default {
     },
     goToLibrarianHome() {
       window.sessionStorage.setItem("authority", "librarian");
+      window.sessionStorage.setItem("activePath", "Welcome");
       this.$router.push("/LibrarianHome");
       return this.$message.success("Librarian login successfully!");
     },

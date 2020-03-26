@@ -6,14 +6,29 @@
           <img height="35px" width="35px" src="../assets/librarian.png" alt>
           <span class="title-box">Librarian Background Management System</span>
         </div>
-        <div>
-          <el-button type="primary" @click="home">Librarian Home Page</el-button>
-          <el-button type="danger" @click="logout">Logout</el-button>
+        <div class="avatar-box">
+          <el-popover placement="bottom-end" width="150" close-delay="500" trigger="hover">
+            <el-avatar slot="reference" size="large" :src="avatarpic"></el-avatar>
+            <p style="text-align:center; margin: 10">
+              Have a nice day!
+              <br>Mr.Librarian
+            </p>
+            <div style="text-align: center; margin: 0">
+              <el-button type="danger" @click="logout">Logout</el-button>
+            </div>
+          </el-popover>
         </div>
       </el-header>
       <el-container>
-        <el-aside :width="isCollapse ? '65px' : '300px' ">
-          <div class="toggle-button" @click="toggleCollapse">{{collapsetext}}</div>
+        <el-aside
+          @mouseenter.native="enterAside()"
+          @mouseleave.native="leaveAside()"
+          :width="isCollapse ? '65px' : '300px' "
+        >
+          <div
+            :style="isCollapse ? 'visibility:' : 'visibility:hidden' "
+            class="toggle-button"
+          >{{collapsetext}}</div>
           <!-- 侧边栏菜单区域 -->
           <el-menu
             background-color="whitesmoke"
@@ -23,7 +38,11 @@
             router
             :default-active="activePath"
           >
-            <el-submenu index="1">
+            <el-menu-item index="Welcome" @click="saveNavState('Welcome')">
+              <i class="el-icon-house"></i>
+              <span slot="title">Library Homepage</span>
+            </el-menu-item>
+            <el-submenu index="BookManagement">
               <template slot="title">
                 <i class="el-icon-notebook-1"></i>
                 <span>Book management</span>
@@ -32,14 +51,23 @@
               <el-menu-item index="SearchBook" @click="saveNavState('SearchBook')">Search for Books</el-menu-item>
               <el-menu-item index="ViewLog" @click="saveNavState('ViewLog')">View operation log</el-menu-item>
             </el-submenu>
-            <el-submenu index="2">
+            <el-submenu index="AccountManagement">
               <template slot="title">
                 <i class="el-icon-user"></i>
                 <span>Reader account management</span>
               </template>
-              <el-menu-item index="RegisterAccount" @click="saveNavState('RegisterAccount')">Registered accounts</el-menu-item>
-              <el-menu-item index="EditAccount" @click="saveNavState('EditAccount')">Edit - Delete accounts</el-menu-item>
-              <el-menu-item index="BookRecording" @click="saveNavState('BookRecording')">Borrowing - Penalty records</el-menu-item>
+              <el-menu-item
+                index="RegisterAccount"
+                @click="saveNavState('RegisterAccount')"
+              >Registered accounts</el-menu-item>
+              <el-menu-item
+                index="EditAccount"
+                @click="saveNavState('EditAccount')"
+              >Edit - Delete accounts</el-menu-item>
+              <el-menu-item
+                index="BookRecording"
+                @click="saveNavState('BookRecording')"
+              >Borrowing - Penalty records</el-menu-item>
             </el-submenu>
             <el-menu-item index="Fromalities" @click="saveNavState('Fromalities')">
               <i class="el-icon-finished"></i>
@@ -72,8 +100,9 @@ export default {
   data() {
     return {
       isCollapse: true,
-      activePath: "",
-      collapsetext: ">>>"
+      activePath: "Welcome",
+      collapsetext: ">>>",
+      avatarpic: require("../assets/defaultavatar.png")
     };
   },
   created() {
@@ -89,14 +118,11 @@ export default {
       this.$message.success("Logout successfully");
       this.$router.push("/LibrarianLogin");
     },
-    home() {
-      window.sessionStorage.setItem("activePath", "");
-      this.activePath = "";
-      this.$router.push("/LibrarianHome/Welcome");
+    enterAside() {
+      this.isCollapse = false;
     },
-    toggleCollapse() {
-      this.isCollapse = !this.isCollapse;
-      this.collapsetext = this.isCollapse ? ">>>" : "< < < < < < < < < < < < < < < <";
+    leaveAside() {
+      this.isCollapse = true;
     },
     saveNavState(activePath) {
       window.sessionStorage.setItem("activePath", activePath);
@@ -143,6 +169,10 @@ export default {
   text-align: center;
   letter-spacing: 0.2em;
   cursor: pointer;
+}
+.avatar-box {
+  padding-top: 5px;
+  padding-right: 10px;
 }
 </style>
 

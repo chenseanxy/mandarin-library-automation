@@ -64,10 +64,18 @@ export default {
       },
       loginFormRules: {
         username: [
-          { required: true, message: "Please enter the librarian account", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter the librarian account",
+            trigger: "blur"
+          }
         ],
         password: [
-          { required: true, message: "Please enter the librarian password", trigger: "blur" },
+          {
+            required: true,
+            message: "Please enter the librarian password",
+            trigger: "blur"
+          },
           {
             min: 5,
             max: 20,
@@ -92,6 +100,7 @@ export default {
         ) {
           this.$message.success("Librarian login successfully!");
           window.sessionStorage.setItem("authority", "librarian");
+          window.sessionStorage.setItem("activePath", "Welcome");
           return this.$router.push("/LibrarianHome");
         }
         return this.$message.error("Account or password error!");
