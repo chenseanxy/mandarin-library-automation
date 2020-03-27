@@ -21,14 +21,15 @@
             >
           </div>
         </div>
+        <h1 class="word_box">Librarian Login</h1>
         <el-form
           ref="loginFormRef"
           :model="loginForm"
           :rules="loginFormRules"
-          label-width="0px"
+          label-width="150px"
           class="login_form"
         >
-          <el-form-item prop="username">
+          <el-form-item label="librarian account" prop="username">
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
@@ -36,7 +37,7 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item prop="password">
+          <el-form-item label="librarian password" prop="password">
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
@@ -125,8 +126,8 @@ export default {
   height: 100%;
 }
 .login_box {
-  width: 450px;
-  height: 300px;
+  width: 650px;
+  height: 350px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
@@ -181,5 +182,10 @@ export default {
   filter: alpha(Opacity=95);
   -moz-opacity: 0.95;
   opacity: 0.95;
+}
+.word_box {
+  text-align: center;
+  line-height: 30px;
+  padding-top: 75px;
 }
 </style>

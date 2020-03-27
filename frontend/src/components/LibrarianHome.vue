@@ -40,7 +40,7 @@
           >
             <el-menu-item index="Welcome" @click="saveNavState('Welcome')">
               <i class="el-icon-house"></i>
-              <span slot="title">Library Homepage</span>
+              <span slot="title">Librarian Homepage</span>
             </el-menu-item>
             <el-submenu index="BookManagement">
               <template slot="title">
@@ -59,7 +59,7 @@
               <el-menu-item
                 index="RegisterAccount"
                 @click="saveNavState('RegisterAccount')"
-              >Registered accounts</el-menu-item>
+              >Register accounts</el-menu-item>
               <el-menu-item
                 index="EditAccount"
                 @click="saveNavState('EditAccount')"

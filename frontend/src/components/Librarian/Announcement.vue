@@ -25,7 +25,7 @@
         :close-on-press-escape="false"
       >
         <el-form ref="announcementFormRef" :rules="announcementFormRules" :model="announcementForm">
-          <el-form-item prop="announcementtitle">
+          <el-form-item label="公告标题" prop="announcementtitle">
             <el-input
               type="text"
               placeholder="请输入公告标题"
@@ -35,12 +35,11 @@
               show-word-limit
             ></el-input>
           </el-form-item>
-          <div style="margin: 20px 0;"></div>
-          <el-form-item prop="announcementcontent">
+          <el-form-item label="公告内容" prop="announcementcontent">
             <el-input
               type="textarea"
               :autosize="{ minRows: 5 }"
-              placeholder="请输入内容"
+              placeholder="请输入公告内容"
               maxlength="500"
               show-word-limit
               v-model="announcementForm.announcementcontent"
