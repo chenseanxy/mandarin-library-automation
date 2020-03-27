@@ -1,7 +1,7 @@
 <template>
-  <el-carousel arrow="never" trigger="click" :height="carouselHeight+'px'">
+  <el-carousel arrow="never" direction="vertical" indicator-position="none" :interval="2000" :height="carouselHeight+'px'">
     <div class="main_container">
-      <el-carousel-item v-for="item in 4" :key="item"></el-carousel-item>
+      <el-carousel-item v-for="item in 4" :key="item" style="width:100%;"></el-carousel-item>
       <el-header>
         <div class="header_box">
           <img width="101px" height="47px" src="../assets/mandarin.png">
@@ -39,7 +39,7 @@ export default {
     const loading = this.$loading({
       lock: true
     });
-    this.carouselHeight = window.innerHeight;
+    this.carouselHeight = window.innerHeight+5;
     this.$notify.info({
       title: "开发指南",
       duration: 0,
@@ -234,19 +234,35 @@ export default {
   margin-left: 12px;
 }
 .el-carousel__item:nth-child(1) {
-  background: url(../assets/background1.jpg) center center no-repeat;
+  background: -webkit-linear-gradient(180deg, #078F99, #0484DA); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #078F99, #0484DA); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #078F99, #0484DA); /* IE10 */
+  background:      -o-linear-gradient(180deg, #078F99, #0484DA); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #078F99, #0484DA); /* W3C */
   z-index: -1;
 }
 .el-carousel__item:nth-child(2) {
-  background: url(../assets/background2.jpg) center center no-repeat;
+  background: -webkit-linear-gradient(180deg, #0484DA, #003366 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #0484DA, #003366 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #0484DA, #003366 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #0484DA, #003366 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #0484DA, #003366 ); /* W3C */
   z-index: -1;
 }
 .el-carousel__item:nth-child(3) {
-  background: url(../assets/background3.jpg) center center no-repeat;
+  background: -webkit-linear-gradient(180deg, #003366, #191970 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #003366, #191970 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #003366, #191970 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #003366, #191970 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #003366, #191970 ); /* W3C */
   z-index: -1;
 }
 .el-carousel__item:nth-child(4) {
-  background: url(../assets/background4.jpg) center center no-repeat;
+  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
   z-index: -1;
 }
 </style>

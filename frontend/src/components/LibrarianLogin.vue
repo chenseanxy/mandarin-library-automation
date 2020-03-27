@@ -122,7 +122,11 @@ export default {
 
 <style scoped>
 .login_container {
-  background-color: gainsboro;
+  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
   height: 100%;
 }
 .login_box {

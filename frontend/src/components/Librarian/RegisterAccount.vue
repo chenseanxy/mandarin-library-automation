@@ -45,7 +45,7 @@
             </el-select>
           </el-form-item>
         </el-form>
-        
+
         <span slot="footer">
           <div>
             <el-button @click="cancelAccountRegister">Cancel</el-button>
