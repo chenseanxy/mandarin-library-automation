@@ -16,7 +16,10 @@
         <div class="maininfo_box">
           <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
           <div class="word_box">
-            <h1>Mandarin Library<br />Automation</h1>
+            <h1>
+              Mandarin Library
+              <br>Automation
+            </h1>
             <p>Presenting Wonderful for You</p>
           </div>
         </div>
@@ -33,6 +36,9 @@ export default {
     };
   },
   created() {
+    const loading = this.$loading({
+      lock: true
+    });
     this.carouselHeight = window.innerHeight;
     this.$notify.info({
       title: "开发指南",
@@ -40,7 +46,7 @@ export default {
       offset: 50,
       dangerouslyUseHTMLString: true,
       message: this.$createElement("div", null, [
-        this.$createElement("p", null, "此版本更新于2020年3月26日。"),
+        this.$createElement("p", null, "此版本更新于2020年3月27日。"),
         this.$createElement(
           "p",
           null,
@@ -130,6 +136,9 @@ export default {
         )
       ])
     });
+    setTimeout(() => {
+      loading.close();
+    }, 500);
   },
   methods: {
     readerLogin() {

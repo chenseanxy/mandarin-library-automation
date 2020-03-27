@@ -87,7 +87,7 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main v-loading.lock="componentLoading">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -102,7 +102,8 @@ export default {
       isCollapse: true,
       activePath: "Welcome",
       collapsetext: ">>>",
-      avatarpic: require("../assets/defaultavatar.png")
+      avatarpic: require("../assets/defaultavatar.png"),
+      componentLoading: false
     };
   },
   created() {
@@ -111,6 +112,12 @@ export default {
       return this.$router.push("/Login");
     }
     this.activePath = window.sessionStorage.getItem("activePath");
+    const loading = this.$loading({
+      lock: true
+    });
+    setTimeout(() => {
+      loading.close();
+    }, 500);
   },
   methods: {
     logout() {
@@ -125,8 +132,12 @@ export default {
       this.isCollapse = true;
     },
     saveNavState(activePath) {
+      this.componentLoading = true;
       window.sessionStorage.setItem("activePath", activePath);
       this.activePath = activePath;
+      setTimeout(() => {
+        this.componentLoading = false;
+      }, 500);
     }
   }
 };
