@@ -1,5 +1,5 @@
 <template>
-  <el-carousel arrow="never" direction="vertical" indicator-position="none" :interval="2000" :height="carouselHeight+'px'">
+  <el-carousel arrow="never" direction="vertical" indicator-position="none" :interval="1000" :height="carouselHeight+'px'">
     <div class="main_container">
       <el-carousel-item v-for="item in 4" :key="item" style="width:100%;"></el-carousel-item>
       <el-header>
@@ -39,7 +39,7 @@ export default {
     const loading = this.$loading({
       lock: true
     });
-    this.carouselHeight = window.innerHeight+5;
+    this.carouselHeight = window.innerHeight+1;
     this.$notify.info({
       title: "开发指南",
       duration: 0,
