@@ -30,7 +30,14 @@
         <el-table-column label="图书名" prop="bookname"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="出版社" prop="publisher"></el-table-column>
-        <el-table-column label="ISBN" prop="isbn"></el-table-column>
+        <el-table-column label="ISBN" prop="isbn">
+          <template slot-scope="scope">
+            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+              <el-link slot="reference">{{scope.row.isbn}}</el-link>
+              <barcode  style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>

@@ -8,18 +8,20 @@
     </el-container>
   </div>
 </template>
-<style>
+<style scoped>
 .el-main {
   background-color: #eee;
   color: #333;
   text-align: center;
   line-height: 40px;
-  opacity: 0.8;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 .main_container {
-  background: url(../assets/blur-book-stack-books-bookshel.jpg) center center
-    no-repeat;
-  height: 100%;
+  /* background: url(../assets/background1.jpg) center center
+    no-repeat; */
+    height: 100%;
 }
 </style>
 
@@ -36,11 +38,11 @@ export default {
     this.timer = setInterval(function() {
       _this.currentTime = //修改数据date
         new Date().getFullYear() +
-        "年" +
+        "-" +
         (new Date().getMonth() + 1) +
-        "月" +
+        "-" +
         new Date().getDate() +
-        "日  " +
+        "  " +
         new Date().getHours() +
         ":" +
         new Date().getMinutes() +

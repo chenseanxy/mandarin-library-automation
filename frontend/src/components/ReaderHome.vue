@@ -4,12 +4,12 @@
       <el-header>
         <div class="header-box">
           <img height="35px" width="35px" src="../assets/reader.png" alt>
-          <span class="title-box">Library reading system</span>
+          <span class="title-box">Library Reading System</span>
         </div>
-        <el-button type="primary" @click="logout">Exit </el-button>
+        <el-button type="primary" @click="logout">Exit</el-button>
       </el-header>
       <el-container>
-        <el-aside :width="isCollapse ? '65px' : '200px' ">
+        <el-aside :width="isCollapse ? '65px' : '250px' ">
           <div class="toggle-button" @click="toggleCollapse">&gt;&gt;&gt;&emsp;&lt;&lt;&lt;</div>
           <!-- 侧边栏菜单区域 -->
           <el-menu
@@ -22,11 +22,11 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-reading"></i>
-                <span>Library information</span>
+                <span>Borrowing information</span>
               </template>
-              <el-menu-item index="1-1">Current books</el-menu-item>
-              <el-menu-item index="1-2">Returned book</el-menu-item>
-              <el-menu-item index="1-3">Pending penalty</el-menu-item>
+              <el-menu-item index="1-1">Current borrowing books</el-menu-item>
+              <el-menu-item index="1-2">Books returned</el-menu-item>
+              <el-menu-item index="1-3">Fine pending payment</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
@@ -35,15 +35,15 @@
               </template>
               <el-menu-item index="2-1">Modify personal information</el-menu-item>
               <el-menu-item index="2-2">Retrieve password</el-menu-item>
-              <el-menu-item index="2-3">Deposit setting</el-menu-item>
+              <el-menu-item index="2-3">Establishment of margin</el-menu-item>
             </el-submenu>
             <el-menu-item index="3">
               <i class="el-icon-search"></i>
-              <span slot="title">Search · reserve books</span>
+              <span slot="title">Search - Reserve books</span>
             </el-menu-item>
             <el-menu-item index="4" disabled>
               <i class="el-icon-setting"></i>
-              <span slot="title">Other features</span>
+              <span slot="title">Other functions</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
@@ -63,7 +63,7 @@ export default {
   methods: {
     logout() {
       window.sessionStorage.clear();
-      this.$message.success("Logout success");
+      this.$message.success("Logout successfully!");
       this.$router.push("/Login");
     },
     toggleCollapse() {
@@ -95,6 +95,7 @@ export default {
   background-color: whitesmoke;
 }
 .el-main {
+  background: url(../assets/background1.jpg) center center no-repeat;
   background-color: #eee;
 }
 .title-box {

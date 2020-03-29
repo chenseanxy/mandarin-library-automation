@@ -1,40 +1,52 @@
 <template>
-  <div class="main_container">
-    <el-header>
-      <div class="header_box">
-        <img width="101px" height="47px" src="../assets/mandarin.png">
-        <span class="title_box">Mandarin Library Automation</span>
-      </div>
-      <div class="login_box">
-        <el-button>Announcement</el-button>
-        <el-button type="primary" @click="readerLogin">Login</el-button>
-      </div>
-    </el-header>
-    <div>
-      <div class="maininfo_box">
-        <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
-        <div class="word_box">
-          <h1>Mandarin Library Automation</h1>
-          <p>Presenting Wonderful for You</p>
+  <el-carousel arrow="never" direction="vertical" indicator-position="none" :interval="1000" :height="carouselHeight+'px'">
+    <div class="main_container">
+      <el-carousel-item v-for="item in 4" :key="item" style="width:100%;"></el-carousel-item>
+      <el-header>
+        <div class="header_box">
+          <img width="101px" height="47px" src="../assets/mandarin.png">
+          <span class="title_box">Mandarin Library Automation</span>
+        </div>
+        <div class="login_box">
+          <el-button>Announcement</el-button>
+          <el-button type="primary" @click="readerLogin">Login</el-button>
+        </div>
+      </el-header>
+      <div>
+        <div class="maininfo_box">
+          <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
+          <div class="word_box">
+            <h1>
+              Mandarin Library
+              <br>Automation
+            </h1>
+            <p>Presenting Wonderful for You</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </el-carousel>
 </template>
 
 <script>
 export default {
   data() {
-    return {};
+    return {
+      carouselHeight: ""
+    };
   },
   created() {
+    const loading = this.$loading({
+      lock: true
+    });
+    this.carouselHeight = window.innerHeight+1;
     this.$notify.info({
       title: "开发指南",
       duration: 0,
       offset: 50,
       dangerouslyUseHTMLString: true,
       message: this.$createElement("div", null, [
-        this.$createElement("p", null, "此版本更新于2020年3月25日。"),
+        this.$createElement("p", null, "此版本更新于2020年3月27日。"),
         this.$createElement(
           "p",
           null,
@@ -124,6 +136,9 @@ export default {
         )
       ])
     });
+    setTimeout(() => {
+      loading.close();
+    }, 500);
   },
   methods: {
     readerLogin() {
@@ -149,6 +164,7 @@ export default {
     },
     goToLibrarianHome() {
       window.sessionStorage.setItem("authority", "librarian");
+      window.sessionStorage.setItem("activePath", "Welcome");
       this.$router.push("/LibrarianHome");
       return this.$message.success("Librarian login successfully!");
     },
@@ -170,8 +186,6 @@ export default {
 
 <style scoped>
 .main_container {
-  background: url(../assets/blur-book-stack-books-bookshel.jpg) center center
-    no-repeat;
   height: 100%;
 }
 .maininfo_box {
@@ -218,6 +232,38 @@ export default {
 }
 .title_box {
   margin-left: 12px;
+}
+.el-carousel__item:nth-child(1) {
+  background: -webkit-linear-gradient(180deg, #078F99, #0484DA); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #078F99, #0484DA); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #078F99, #0484DA); /* IE10 */
+  background:      -o-linear-gradient(180deg, #078F99, #0484DA); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #078F99, #0484DA); /* W3C */
+  z-index: -1;
+}
+.el-carousel__item:nth-child(2) {
+  background: -webkit-linear-gradient(180deg, #0484DA, #003366 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #0484DA, #003366 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #0484DA, #003366 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #0484DA, #003366 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #0484DA, #003366 ); /* W3C */
+  z-index: -1;
+}
+.el-carousel__item:nth-child(3) {
+  background: -webkit-linear-gradient(180deg, #003366, #191970 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #003366, #191970 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #003366, #191970 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #003366, #191970 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #003366, #191970 ); /* W3C */
+  z-index: -1;
+}
+.el-carousel__item:nth-child(4) {
+  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
+  z-index: -1;
 }
 </style>
 

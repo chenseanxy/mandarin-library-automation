@@ -5,3 +5,18 @@ body,
     margin: 0;
     padding: 0;
 }
+@font-face {
+    font-family: "DroidSansChinese";
+    src: url("DroidSansChinese.eot"); /* IE9 */
+    src: url("DroidSansChinese.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    
+    url("DroidSansChinese.woff") format("woff"), /* chrome、firefox */
+    url("DroidSansChinese.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+    
+    url("DroidSansChinese.svg#DroidSansChinese") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+body,div,span,header,template,footer,nav,section,aside,article,ul,dl,dt,dd,li,a,p,h1,h2,h3,h4,h5,h6,i,b,em,textarea,button,input,select,figure,figcaption {
+    font-family: "DroidSansChinese","Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}

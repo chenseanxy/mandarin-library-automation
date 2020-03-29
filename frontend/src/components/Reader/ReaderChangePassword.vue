@@ -2,7 +2,7 @@
   <div class="change_container">
     <el-header>
       <div class="header_box">
-        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <img width="101px" height="47px" src="../../assets/mandarin.png">
         <span class="title_box">Mandarin Library Automation</span>
       </div>
     </el-header>
@@ -15,7 +15,7 @@
               width="70px"
               border-radius="50%"
               background-color="#eee"
-              src="../assets/reader.png"
+              src="../../assets/reader.png"
               alt
             >
           </div>
@@ -62,6 +62,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
+            <el-button type="info" @click="cancel">Cancel</el-button>
             <el-button type="primary" @click="change">Modify</el-button>
           </el-form-item>
         </el-form>
@@ -119,6 +120,9 @@ export default {
         //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
         //this.$router.push("/AdminHome");
       });
+    },
+    cancel() {
+      this.$router.push("/Login");
     }
   }
 };
@@ -167,6 +171,13 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
+}
+.header_box {
+  display: flex;
+  align-items: center;
+}
+.title_box {
+  margin-left: 12px;
 }
 .el-header {
   background-color: white;

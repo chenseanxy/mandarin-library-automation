@@ -45,6 +45,7 @@
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
+            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
             <el-button type="primary" @click="changepassword">Change the password</el-button>
@@ -65,10 +66,18 @@ export default {
       },
       loginFormRules: {
         username: [
-          { required: true, message: "Please enter your reader account", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter the reader account",
+            trigger: "blur"
+          }
         ],
         password: [
-          { required: true, message: "Please enter your reader email", trigger: "blur" },
+          {
+            required: true,
+            message: "Please enter the reader password",
+            trigger: "blur"
+          },
           {
             min: 4,
             max: 20,
@@ -83,6 +92,10 @@ export default {
     resetloginForm() {
       this.$refs.loginFormRef.resetFields();
     },
+    changePassword() {
+      this.$router.push("/ReaderChangePassword");
+      return this.$message.success("Go to change password!");
+    },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
     login() {
       this.$refs.loginFormRef.validate(async valid => {
@@ -94,7 +107,7 @@ export default {
           this.$router.push("/ReaderHome");
           return this.$message.success("Login successful");
         }
-        return this.$message.error("Wrong account number or password");
+        return this.$message.error("Wrong account number or password!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
@@ -172,6 +185,9 @@ export default {
   filter: alpha(Opacity=95);
   -moz-opacity: 0.95;
   opacity: 0.95;
+}
+.el-link {
+  margin-right: 35px;
 }
 </style>
 
