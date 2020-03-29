@@ -65,7 +65,12 @@
             ></el-input>
           </el-form-item>
         </el-form>
-        <barcode style="text-align:center;" :value="this.addBookForm.isbn" :margin="0" :height="60">Enter ISBN to show barcode.</barcode>
+        <barcode
+          style="text-align:center;"
+          :value="this.addBookForm.isbn"
+          :margin="0"
+          :height="60"
+        >Enter ISBN to show barcode.</barcode>
         <span slot="footer">
           <div>
             <el-button @click="cancelAddBook">Cancel</el-button>
@@ -119,6 +124,36 @@ export default {
         author: "",
         publisher: "",
         isbn: ""
+      },
+      addBookFormRules: {
+        booktitle: [
+          {
+            required: true,
+            message: "Please enter the booktitle",
+            trigger: "blur"
+          }
+        ],
+        author: [
+          {
+            required: true,
+            message: "Please enter the author",
+            trigger: "blur"
+          }
+        ],
+        publisher: [
+          {
+            required: true,
+            message: "Please enter the publisher",
+            trigger: "blur"
+          }
+        ],
+        isbn: [
+          {
+            required: true,
+            message: "Please enter the ISBN",
+            trigger: "blur"
+          }
+        ]
       }
     };
   },
@@ -209,9 +244,12 @@ export default {
       this.$refs.addBookFormRef.resetFields();
     },
     completeAddBook() {
-      this.dialogVisible = false;
-      this.$refs.addBookFormRef.resetFields();   
-      this.$message.success("Add a book successfully");   
+      this.$refs.addBookFormRef.validate(async valid => {
+        if (!valid) return false;
+        this.dialogVisible = false;
+        this.$refs.addBookFormRef.resetFields();
+        this.$message.success("Add a book successfully");
+      });
     }
   }
 };
