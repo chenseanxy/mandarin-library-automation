@@ -34,7 +34,7 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <el-table-column label="操作" fixed="right" width="150px">
           <template>
             <el-tooltip class="item" effect="dark" content="编辑" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" circle></el-button>

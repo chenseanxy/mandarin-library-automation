@@ -33,7 +33,7 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <el-table-column label="操作" fixed="right" width="170px">
           <template slot-scope="scope">
             <el-button-group>
               <el-button type="primary" :disabled="judgeButtonDisabled1(scope.row.status)">借出</el-button>

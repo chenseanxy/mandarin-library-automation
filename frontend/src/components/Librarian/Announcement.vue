@@ -6,13 +6,13 @@
     </el-breadcrumb>
     <el-card class="announcement-card" shadow="hover">
       <el-row :gutter="10">
-        <el-col :span="18">
-          <el-input placeholder="请输入 图书名 / 作者 / 出版社 / ISBN "></el-input>
+        <el-col :span="12">
+          <el-input placeholder="Please Enter bookname/author/publisher/publishers/ISBN"></el-input>
         </el-col>
-        <el-col :span="6">
-          <el-button type="primary">搜索公告</el-button>
+        <el-col :span="12">
+          <el-button type="primary">Search announcements</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success" @click="dialogVisible = true">发布新公告</el-button>
+          <el-button type="success" @click="dialogVisible = true">Publish an announcement</el-button>
         </el-col>
       </el-row>
       <!-- 发布公告弹出框 -->
