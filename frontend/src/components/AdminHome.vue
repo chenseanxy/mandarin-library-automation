@@ -4,9 +4,9 @@
       <el-header>
         <div class="header-box">
           <img height="35px" width="35px" src="../assets/logo.png" alt>
-          <span class="title-box">超级管理员后台管理系统</span>
+          <span class="title-box">Super administrator background management system</span>
         </div>
-        <el-button type="primary" @click="logout">退出</el-button>
+        <el-button type="primary" @click="logout">Login out</el-button>
       </el-header>
       <el-container>
         <el-aside :width="isCollapse ? '65px' : '200px' ">
@@ -22,28 +22,28 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-user"></i>
-                <span>图管账号管理</span>
+                <span>Reader account management</span>
               </template>
-              <el-menu-item index="1-1">注册账号</el-menu-item>
-              <el-menu-item index="1-2">管理账号</el-menu-item>
-              <el-menu-item index="1-3">找回密码</el-menu-item>
+              <el-menu-item index="1-1">Register an account</el-menu-item>
+              <el-menu-item index="1-2">Manage account</el-menu-item>
+              <el-menu-item index="1-3">Retrieve password</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-school"></i>
-                <span>图书馆管理</span>
+                <span>Library management</span>
               </template>
-              <el-menu-item index="2-1">设置逾期罚金</el-menu-item>
-              <el-menu-item index="2-2">设置归还期限</el-menu-item>
-              <el-menu-item index="2-3">设置保证金</el-menu-item>
+              <el-menu-item index="2-1">Setting overdue fines</el-menu-item>
+              <el-menu-item index="2-2">Set a return period</el-menu-item>
+              <el-menu-item index="2-3">Set margin</el-menu-item>
             </el-submenu>
             <el-menu-item index="3">
               <i class="el-icon-key"></i>
-              <span slot="title">修改超管密码</span>
+              <span slot="title">Modify super password</span>
             </el-menu-item>
             <el-menu-item index="4" disabled>
               <i class="el-icon-setting"></i>
-              <span slot="title">其他功能</span>
+              <span slot="title">Other functions</span>
             </el-menu-item>
           </el-menu>
         </el-aside>

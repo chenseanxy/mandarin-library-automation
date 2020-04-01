@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
-      <el-breadcrumb-item>读者账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>注册账户</el-breadcrumb-item>
+      <el-breadcrumb-item>Admin Homepage</el-breadcrumb-item>
+      <el-breadcrumb-item>Account management</el-breadcrumb-item>
+      <el-breadcrumb-item>Registered accounts</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="registeraccount-card" shadow="hover">
@@ -25,16 +25,16 @@
       
       <el-row :gutter="20">
         <el-col :span="6">
-          <el-input v-model="input1" placeholder="请输入账户" clearable></el-input>
+          <el-input v-model="input1" placeholder="Please enter account" clearable></el-input>
         </el-col>
         <el-col :span="8">
-          <el-input v-model="input2" placeholder="请输入邮箱" clearable></el-input>
+          <el-input v-model="input2" placeholder="Please enter email" clearable></el-input>
         </el-col>
         <el-col :span="6">
-          <el-input placeholder="请输入密码" v-model="input3" show-password></el-input>
+          <el-input placeholder="Please input a password" v-model="input3" show-password></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" icon="el-icon-edit" @click="startHacking">注册账户</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="startHacking">Registered</el-button>
         </el-col>
       </el-row>
       
@@ -50,13 +50,13 @@
         </el-table-column>
       </el-table>-->
 
-      <el-pagination
+      <!-- <el-pagination
         layout="total, prev, pager, next, jumper"
         @current-change="handleCurrentChange"
         :current-page="pagenum"
         :total="total"
         page-size="5"
-      ></el-pagination>
+      ></el-pagination> -->
     </el-card>
   </div>
 </template>
@@ -78,12 +78,38 @@ export default {
   },
   methods: {
     startHacking () {
-      this.$notify({
-        title: 'It works!',
-        type: 'success',
-        message: '您已成功地提交注册！！',
-        duration: 5000
-      })
+    this.$http.post('/api/user/search_id_exist',{//这里是将input1的值传给接口search_id_exist，这个接口add在serve文件夹下lilrarian_api.js里定义
+      id: this.input1,
+    },{}).then(function(data){
+            console.log("search请求成功！ ",data.body);
+            var content=data.body;
+            if (content.length != 0) {//判断账户是否存在
+              this.$notify({
+              title: 'Error',
+              type: 'success',
+              message: 'Account has been used!',
+              duration: 5000
+              })
+            }
+            else{
+              this.$http.post('/api/user/add', {//这里是将input123的值传给接口add，这个接口add在serve文件夹下lilrarian_api.js里定义
+              id: this.input1,
+              em: this.input2,
+              pw: this.input3
+              },{}).then((response) => {
+              console.log(response);
+              });
+              this.$notify({
+              title: 'It works!',
+              type: 'success',
+              message: 'Succeed!',
+              duration: 5000
+              })
+            }
+          },function(response){
+                console.log(response);
+            })
+      
     },
 
     getAccountList() {
