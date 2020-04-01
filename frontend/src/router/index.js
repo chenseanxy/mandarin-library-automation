@@ -4,6 +4,7 @@ import AdminLogin from '../components/AdminLogin.vue'
 import AdminHome from '../components/AdminHome.vue'
 import ReaderLogin from '../components/ReaderLogin.vue'
 import ReaderHome from '../components/ReaderHome.vue'
+import ReaderChangePassword from '../components/Reader/ReaderChangePassword.vue'
 import LibrarianHome from '../components/LibrarianHome.vue'
 import LibrarianWelcome from '../components/LibrarianWelcome.vue'
 import LibrarianAddBook from '../components/Librarian/AddBook.vue'
@@ -17,12 +18,16 @@ import LibrarianBookRecording from '../components/Librarian/BookRecording.vue'
 import LibrarianFromalities from '../components/Librarian/Fromalities.vue'
 import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
 import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
+//这里保留了双方的更改
 import RegisterAdminAccount from '../components/Admin/1-1.vue'
+import LibrarianLogin from '../components/LibrarianLogin.vue'
+import MainPage from '../components/MainPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/Login' },
+  { path: '/', redirect: '/MainPage' },
+  { path: '/MainPage', component: MainPage },
   { path: '/Login', component: ReaderLogin },
   {
     path: '/ReaderHome',
@@ -32,6 +37,11 @@ const routes = [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome }
     ]
   },
+  {
+    path: '/ReaderChangePassword',
+    component: ReaderChangePassword
+  },
+  { path: '/LibrarianLogin', component: LibrarianLogin },
   {
     path: '/LibrarianHome',
     component: LibrarianHome,

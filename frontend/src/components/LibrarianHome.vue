@@ -4,16 +4,33 @@
       <el-header>
         <div class="header-box">
           <img height="35px" width="35px" src="../assets/librarian.png" alt>
-          <span class="title-box">图书管理员后台管理系统</span>
+          <span class="title-box">Librarian Background Management System</span>
         </div>
-        <div>
-          <el-button type="primary" @click="home">图书管理员首页</el-button>
-          <el-button type="danger" @click="logout">退出</el-button>
+        <div class="avatar-box">
+          <el-popover placement="bottom-end" width="150" close-delay="500" trigger="hover">
+            <el-avatar slot="reference" shape="square" size="large" :src="avatarpic" @error="true">
+              <img src="../assets/errorimg.png"/>
+            </el-avatar>
+            <p style="text-align:center; margin: 10px">
+              Have a nice day!
+              <br>Mr.Librarian
+            </p>
+            <div style="text-align: center; margin: 0">
+              <el-button type="danger" @click="logout">Logout</el-button>
+            </div>
+          </el-popover>
         </div>
       </el-header>
       <el-container>
-        <el-aside :width="isCollapse ? '65px' : '200px' ">
-          <div class="toggle-button" @click="toggleCollapse">{{collapsetext}}</div>
+        <el-aside
+          @mouseenter.native="enterAside()"
+          @mouseleave.native="leaveAside()"
+          :width="isCollapse ? '65px' : '300px' "
+        >
+          <div
+            :style="isCollapse ? 'visibility:' : 'visibility:hidden' "
+            class="toggle-button"
+          >{{collapsetext}}</div>
           <!-- 侧边栏菜单区域 -->
           <el-menu
             background-color="whitesmoke"
@@ -23,43 +40,56 @@
             router
             :default-active="activePath"
           >
-            <el-submenu index="1">
+            <el-menu-item index="Welcome" @click="saveNavState('Welcome')">
+              <i class="el-icon-house"></i>
+              <span slot="title">Librarian Homepage</span>
+            </el-menu-item>
+            <el-submenu index="BookManagement">
               <template slot="title">
                 <i class="el-icon-notebook-1"></i>
-                <span>书籍管理</span>
+                <span>Book management</span>
               </template>
-              <el-menu-item index="AddBook" @click="saveNavState('AddBook')">添加书籍</el-menu-item>
-              <el-menu-item index="SearchBook" @click="saveNavState('SearchBook')">搜索书籍</el-menu-item>
-              <el-menu-item index="ViewLog" @click="saveNavState('ViewLog')">查看操作日志</el-menu-item>
+              <el-menu-item index="AddBook" @click="saveNavState('AddBook')">Add books</el-menu-item>
+              <el-menu-item index="SearchBook" @click="saveNavState('SearchBook')">Search for Books</el-menu-item>
+              <el-menu-item index="ViewLog" @click="saveNavState('ViewLog')">View operation log</el-menu-item>
             </el-submenu>
-            <el-submenu index="2">
+            <el-submenu index="AccountManagement">
               <template slot="title">
                 <i class="el-icon-user"></i>
-                <span>读者账户管理</span>
+                <span>Reader account management</span>
               </template>
-              <el-menu-item index="RegisterAccount" @click="saveNavState('RegisterAccount')">注册账户</el-menu-item>
-              <el-menu-item index="EditAccount" @click="saveNavState('EditAccount')">编辑 · 删除账户</el-menu-item>
-              <el-menu-item index="BookRecording" @click="saveNavState('BookRecording')">借还缴罚记录</el-menu-item>
+              <el-menu-item
+                index="RegisterAccount"
+                @click="saveNavState('RegisterAccount')"
+              >Register accounts</el-menu-item>
+              <el-menu-item
+                index="EditAccount"
+                @click="saveNavState('EditAccount')"
+              >Edit - Delete accounts</el-menu-item>
+              <el-menu-item
+                index="BookRecording"
+                @click="saveNavState('BookRecording')"
+              >Borrowing - Penalty records</el-menu-item>
             </el-submenu>
             <el-menu-item index="Fromalities" @click="saveNavState('Fromalities')">
               <i class="el-icon-finished"></i>
-              <span slot="title">办理借还手续</span>
+              <span slot="title">Application for loan</span>
             </el-menu-item>
             <el-menu-item index="IncomeRecord" @click="saveNavState('IncomeRecord')">
               <i class="el-icon-pie-chart"></i>
-              <span slot="title">图书馆收入记录</span>
+              <span slot="title">Library income records</span>
             </el-menu-item>
             <el-menu-item index="Announcement" @click="saveNavState('Announcement')">
               <i class="el-icon-data-board"></i>
-              <span slot="title">公告管理</span>
+              <span slot="title">Announcement management</span>
             </el-menu-item>
             <el-menu-item index="Others" disabled>
               <i class="el-icon-setting"></i>
-              <span slot="title">其他功能</span>
+              <span slot="title">Other functions</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main v-loading.lock="componentLoading">
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -71,36 +101,45 @@
 export default {
   data() {
     return {
-      isCollapse: false,
-      activePath: "",
-      collapsetext: "<<<<<<"
+      isCollapse: true,
+      activePath: "Welcome",
+      collapsetext: ">>>",
+      avatarpic: require("../assets/aj.jpg"),
+      componentLoading: false
     };
   },
   created() {
     if (window.sessionStorage.getItem("authority") != "librarian") {
-      this.$message.error("权限错误，请重新登录");
+      this.$message.error("Permission error, please login again");
       return this.$router.push("/Login");
     }
     this.activePath = window.sessionStorage.getItem("activePath");
+    const loading = this.$loading({
+      lock: true
+    });
+    setTimeout(() => {
+      loading.close();
+    }, 500);
   },
   methods: {
     logout() {
       window.sessionStorage.clear();
-      this.$message.success("登出成功");
-      this.$router.push("/AdminLogin");
+      this.$message.success("Logout successfully");
+      this.$router.push("/LibrarianLogin");
     },
-    home() {
-      window.sessionStorage.setItem("activePath", "");
-      this.activePath = "";
-      this.$router.push("/LibrarianHome/Welcome");
+    enterAside() {
+      this.isCollapse = false;
     },
-    toggleCollapse() {
-      this.isCollapse = !this.isCollapse;
-      this.collapsetext = this.isCollapse ? ">>>" : "<<<<<<";
+    leaveAside() {
+      this.isCollapse = true;
     },
     saveNavState(activePath) {
+      this.componentLoading = true;
       window.sessionStorage.setItem("activePath", activePath);
       this.activePath = activePath;
+      setTimeout(() => {
+        this.componentLoading = false;
+      }, 500);
     }
   }
 };
@@ -123,12 +162,14 @@ export default {
   display: flex;
   align-items: center;
 }
-
 .el-aside {
   background-color: whitesmoke;
 }
 .el-main {
   background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 40px;
 }
 .title-box {
   margin-left: 12px;
@@ -141,6 +182,10 @@ export default {
   text-align: center;
   letter-spacing: 0.2em;
   cursor: pointer;
+}
+.avatar-box {
+  padding-top: 5px;
+  padding-right: 10px;
 }
 </style>
 

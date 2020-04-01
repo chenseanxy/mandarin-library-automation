@@ -5,6 +5,7 @@
         <img width="101px" height="47px" src="../assets/mandarin.png">
         <span class="title_box">Mandarin Library Automation</span>
       </div>
+      <el-button type="primary" @click="goToMainPage">MainPage</el-button>
     </el-header>
     <div>
       <div class="login_box">
@@ -15,37 +16,37 @@
               width="70px"
               border-radius="50%"
               background-color="#eee"
-              src="../assets/reader.png"
+              src="../assets/librarian.png"
               alt
             >
           </div>
         </div>
+        <h1 class="word_box">Librarian Login</h1>
         <el-form
           ref="loginFormRef"
           :model="loginForm"
           :rules="loginFormRules"
-          label-width="0px"
+          label-width="150px"
           class="login_form"
         >
-          <el-form-item prop="username">
+          <el-form-item label="librarian account" prop="username">
             <el-input
               v-model="loginForm.username"
               prefix-icon="el-icon-user"
-              placeholder="Please enter the user account (Default: user)"
+              placeholder="Please enter the librarian account (Default: librarian)"
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item prop="password">
+          <el-form-item label="librarian password" prop="password">
             <el-input
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="Please enter the user password (Default: user)"
+              placeholder="Please enter the librarian password (Default: librarian)"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
           </el-form-item>
@@ -67,20 +68,20 @@ export default {
         username: [
           {
             required: true,
-            message: "Please enter the reader account",
+            message: "Please enter the librarian account",
             trigger: "blur"
           }
         ],
         password: [
           {
             required: true,
-            message: "Please enter the reader password",
+            message: "Please enter the librarian password",
             trigger: "blur"
           },
           {
-            min: 4,
+            min: 5,
             max: 20,
-            message: "The length should be between 4 and 20 characters",
+            message: "The length should be between 5 and 20 characters",
             trigger: "blur"
           }
         ]
@@ -91,22 +92,23 @@ export default {
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },
-    changePassword() {
-      this.$router.push("/ReaderChangePassword");
-      return this.$message.success("Go to change password!");
+    goToMainPage() {
+      return this.$router.push("/MainPage");
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
     login() {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
         if (
-          this.loginForm.username == "user" &&
-          this.loginForm.password == "user"
+          this.loginForm.username == "librarian" &&
+          this.loginForm.password == "librarian"
         ) {
-          this.$router.push("/ReaderHome");
-          return this.$message.success("Login successfully!");
+          this.$message.success("Librarian login successfully!");
+          window.sessionStorage.setItem("authority", "librarian");
+          window.sessionStorage.setItem("activePath", "Welcome");
+          return this.$router.push("/LibrarianHome");
         }
-        return this.$message.error("Wrong account number or password!");
+        return this.$message.error("Account or password error!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
@@ -120,12 +122,16 @@ export default {
 
 <style scoped>
 .login_container {
-  background-color: gainsboro;
+  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
+  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
+  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
+  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
   height: 100%;
 }
 .login_box {
-  width: 450px;
-  height: 300px;
+  width: 650px;
+  height: 350px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
@@ -181,8 +187,9 @@ export default {
   -moz-opacity: 0.95;
   opacity: 0.95;
 }
-.el-link {
-  margin-right: 35px;
+.word_box {
+  text-align: center;
+  line-height: 30px;
+  padding-top: 75px;
 }
 </style>
-

@@ -34,11 +34,12 @@
 
 </div>
 </template>
-
-<style>
-.app{
-  font-size: 100px;
-  color: aqua;
+<style scoped>
+.el-main {
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 40px;
 }
 
   .el-table .warning-row {

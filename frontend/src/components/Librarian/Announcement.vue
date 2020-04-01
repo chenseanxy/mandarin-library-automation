@@ -6,13 +6,13 @@
     </el-breadcrumb>
     <el-card class="announcement-card" shadow="hover">
       <el-row :gutter="10">
-        <el-col :span="18">
-          <el-input placeholder="请输入 图书名 / 作者 / 出版社 / ISBN "></el-input>
+        <el-col :span="12">
+          <el-input placeholder="Please Enter bookname/author/publisher/publishers/ISBN"></el-input>
         </el-col>
-        <el-col :span="6">
-          <el-button type="primary">搜索公告</el-button>
+        <el-col :span="12">
+          <el-button type="primary">Search announcements</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success" @click="dialogVisible = true">发布新公告</el-button>
+          <el-button type="success" @click="dialogVisible = true">Publish an announcement</el-button>
         </el-col>
       </el-row>
       <!-- 发布公告弹出框 -->
@@ -25,7 +25,7 @@
         :close-on-press-escape="false"
       >
         <el-form ref="announcementFormRef" :rules="announcementFormRules" :model="announcementForm">
-          <el-form-item prop="announcementtitle">
+          <el-form-item label="公告标题" prop="announcementtitle">
             <el-input
               type="text"
               placeholder="请输入公告标题"
@@ -35,12 +35,11 @@
               show-word-limit
             ></el-input>
           </el-form-item>
-          <div style="margin: 20px 0;"></div>
-          <el-form-item prop="announcementcontent">
+          <el-form-item label="公告内容" prop="announcementcontent">
             <el-input
               type="textarea"
               :autosize="{ minRows: 5 }"
-              placeholder="请输入内容"
+              placeholder="请输入公告内容"
               maxlength="500"
               show-word-limit
               v-model="announcementForm.announcementcontent"

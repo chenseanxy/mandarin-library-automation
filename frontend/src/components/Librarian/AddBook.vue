@@ -6,31 +6,92 @@
       <el-breadcrumb-item>添加书籍</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-card class="addbook-card" shadow="hover">
+    <el-card class="addBook-card" shadow="hover">
+      <el-alert title="Click the button below to add a book" center type="info" show-icon></el-alert>
       <el-row :gutter="20">
-        <el-col :span="5">
-          <el-input placeholder="请输入图书名"></el-input>
-        </el-col>
-        <el-col :span="5">
-          <el-input placeholder="请输入作者"></el-input>
-        </el-col>
-        <el-col :span="5">
-          <el-input placeholder="请输入出版社"></el-input>
-        </el-col>
-        <el-col :span="5">
-          <el-input placeholder="请输入ISBN"></el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-button type="primary">添加书籍</el-button>
+        <el-col :span="24">
+          <el-button
+            type="primary"
+            style="width:100%"
+            @click="dialogVisible = true"
+          >Click here to add books</el-button>
         </el-col>
       </el-row>
+      <el-dialog
+        title="Add books"
+        :visible.sync="dialogVisible"
+        width="50%"
+        :show-close="false"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
+      >
+        <el-form
+          ref="addBookFormRef"
+          :model="addBookForm"
+          :rules="addBookFormRules"
+          label-width="140px"
+          style="padding-right:40px;"
+        >
+          <el-form-item label="Book title" prop="booktitle">
+            <el-input
+              v-model.number="addBookForm.booktitle"
+              prefix-icon="el-icon-notebook-2"
+              placeholder="Please enter the booktitle"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="Author" prop="author">
+            <el-input
+              v-model="addBookForm.author"
+              prefix-icon="el-icon-user"
+              placeholder="Please enter the author`s name"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="Publisher" prop="publisher">
+            <el-input
+              v-model="addBookForm.publisher"
+              prefix-icon="el-icon-office-building"
+              placeholder="Please enter the publisher"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="ISBN" prop="isbn">
+            <el-input
+              v-model="addBookForm.isbn"
+              prefix-icon="el-icon-document-remove"
+              placeholder="Please enter the ISBN"
+              clearable
+            ></el-input>
+          </el-form-item>
+        </el-form>
+        <barcode
+          style="text-align:center;"
+          :value="this.addBookForm.isbn"
+          :margin="0"
+          :height="60"
+        >Enter ISBN to show barcode.</barcode>
+        <span slot="footer">
+          <div>
+            <el-button @click="cancelAddBook">Cancel</el-button>
+            <el-button type="success" @click="completeAddBook">Complete</el-button>
+          </div>
+        </span>
+      </el-dialog>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="图书名" prop="bookname"></el-table-column>
         <el-table-column label="作者" prop="author"></el-table-column>
         <el-table-column label="出版社" prop="publisher"></el-table-column>
-        <el-table-column label="ISBN" prop="isbn"></el-table-column>
+        <el-table-column label="ISBN" prop="isbn">
+          <template slot-scope="scope">
+            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+              <el-link slot="reference">{{scope.row.isbn}}</el-link>
+              <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
@@ -54,9 +115,46 @@
 export default {
   data() {
     return {
+      dialogVisible: false,
       booklist: [],
       pagenum: 1,
-      total: 0
+      total: 0,
+      addBookForm: {
+        booktitle: "",
+        author: "",
+        publisher: "",
+        isbn: ""
+      },
+      addBookFormRules: {
+        booktitle: [
+          {
+            required: true,
+            message: "Please enter the booktitle",
+            trigger: "blur"
+          }
+        ],
+        author: [
+          {
+            required: true,
+            message: "Please enter the author",
+            trigger: "blur"
+          }
+        ],
+        publisher: [
+          {
+            required: true,
+            message: "Please enter the publisher",
+            trigger: "blur"
+          }
+        ],
+        isbn: [
+          {
+            required: true,
+            message: "Please enter the ISBN",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   created() {
@@ -140,6 +238,18 @@ export default {
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
       this.getBookList();
+    },
+    cancelAddBook() {
+      this.dialogVisible = false;
+      this.$refs.addBookFormRef.resetFields();
+    },
+    completeAddBook() {
+      this.$refs.addBookFormRef.validate(async valid => {
+        if (!valid) return false;
+        this.dialogVisible = false;
+        this.$refs.addBookFormRef.resetFields();
+        this.$message.success("Add a book successfully");
+      });
     }
   }
 };
@@ -149,13 +259,15 @@ export default {
 .el-breadcrumb {
   margin-bottom: 15px;
 }
-.addbook-card {
+.addBook-card {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  /* width: 700px; */
   margin: 0 auto;
 }
 .el-pagination {
   margin-top: 15px;
+}
+.el-alert {
+  margin-bottom: 15px;
 }
 </style>
 

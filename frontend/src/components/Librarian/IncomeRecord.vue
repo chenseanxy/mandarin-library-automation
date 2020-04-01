@@ -7,25 +7,45 @@
     <el-card class="profit-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="10">
-          <el-input placeholder="请输入 缴费账户 / 收入金额 "></el-input>
+          <el-input placeholder="Please enter Payment Account / Revenue Amount"></el-input>
         </el-col>
         <el-col :span="8">
           <el-date-picker
             v-model="datevalue"
+            style="width:100%"
             type="daterange"
             align="right"
             unlink-panels
-            range-separator="至"
-            start-placeholder="开始日期"
-            end-placeholder="结束日期"
+            range-separator="To"
+            start-placeholder="Start date"
+            end-placeholder="End date"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </el-col>
         <el-col :span="6">
-          <el-button-group>
-            <el-button type="primary">搜索罚金记录</el-button>
-            <el-button type="success">搜索保证金记录</el-button>
-          </el-button-group>
+          <el-button style="width:90%" type="primary">Search penalty records</el-button>
+        </el-col>
+      </el-row>
+      <p style="padding:0px;"></p>
+      <el-row :gutter="20">
+        <el-col :span="10">
+          <el-input placeholder="Please enter Payment Account / Revenue Amount"></el-input>
+        </el-col>
+        <el-col :span="8">
+          <el-date-picker
+            v-model="datevalue"
+            style="width:100%"
+            type="daterange"
+            align="right"
+            unlink-panels
+            range-separator="To"
+            start-placeholder="Start date"
+            end-placeholder="End date"
+            :picker-options="pickerOptions"
+          ></el-date-picker>
+        </el-col>
+        <el-col :span="6">
+          <el-button style="width:90%" type="success">Search margin records</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>

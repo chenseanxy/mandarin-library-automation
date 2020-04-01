@@ -1,13 +1,13 @@
 <template>
-  <div class="login_container">
+  <div class="change_container">
     <el-header>
       <div class="header_box">
-        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <img width="101px" height="47px" src="../../assets/mandarin.png">
         <span class="title_box">Mandarin Library Automation</span>
       </div>
     </el-header>
     <div>
-      <div class="login_box">
+      <div class="change_box">
         <div class="avatar_box">
           <div class="sign_box">
             <img
@@ -15,39 +15,55 @@
               width="70px"
               border-radius="50%"
               background-color="#eee"
-              src="../assets/reader.png"
+              src="../../assets/reader.png"
               alt
             >
           </div>
         </div>
         <el-form
-          ref="loginFormRef"
-          :model="loginForm"
-          :rules="loginFormRules"
+          ref="changeFormRef"
+          :model="changeForm"
+          :rules="changeFormRules"
           label-width="0px"
-          class="login_form"
+          class="change_form"
         >
           <el-form-item prop="username">
             <el-input
-              v-model="loginForm.username"
+              v-model="changeForm.username"
               prefix-icon="el-icon-user"
-              placeholder="Please enter the user account (Default: user)"
+              placeholder="Please enter the reader account (default: user)"
+              clearable
+            ></el-input>
+          </el-form-item>
+           <el-form-item prop="email">
+            <el-input
+              v-model="changeForm.email"
+              prefix-icon="el-icon-message"
+              placeholder="Please enter the reader email (default: user@126.com）"
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
-              v-model="loginForm.password"
+              v-model="changeForm.password"
               prefix-icon="el-icon-lock"
-              placeholder="Please enter the user password (Default: user)"
+              placeholder="Please enter the reader password (default: user)"
+              show-password
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="repassword">
+            <el-input
+              v-model="changeForm.repassword"
+              prefix-icon="el-icon-lock"
+              placeholder="Please confirm the password again (default user)"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
-            <el-button type="primary" @click="login">Login</el-button>
-            <el-button type="info" @click="resetLoginForm">Reset</el-button>
+            <el-button type="info" @click="cancel">Cancel</el-button>
+            <el-button type="primary" @click="change">Modify</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -59,73 +75,67 @@
 export default {
   data() {
     return {
-      loginForm: {
+      changeForm: {
         username: "", // ！！！ username 和 password 分别是输入的账号和密码 ！！！
         password: ""
       },
-      loginFormRules: {
+      changeFormRules: {
         username: [
-          {
-            required: true,
-            message: "Please enter the reader account",
-            trigger: "blur"
-          }
+          { required: true, message: "Please enter your reader account", trigger: "blur" }
+        ],
+        email: [
+          { required: true, message: "Please enter your reader email", trigger: "blur" }
         ],
         password: [
-          {
-            required: true,
-            message: "Please enter the reader password",
-            trigger: "blur"
-          },
+          { required: true, message: "Please enter your reader password", trigger: "blur" },
           {
             min: 4,
             max: 20,
             message: "The length should be between 4 and 20 characters",
             trigger: "blur"
           }
+        ],
+        repassword: [
+          { required: true, message: "Please confirm the password again", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
-    resetLoginForm() {
-      this.$refs.loginFormRef.resetFields();
-    },
-    changePassword() {
-      this.$router.push("/ReaderChangePassword");
-      return this.$message.success("Go to change password!");
-    },
-    //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
-    login() {
-      this.$refs.loginFormRef.validate(async valid => {
+    change() {
+      this.$refs.changeFormRef.validate(async valid => {
         if (!valid) return;
         if (
-          this.loginForm.username == "user" &&
-          this.loginForm.password == "user"
+          this.changeForm.username == "user" &&
+          this.changeForm.password == "user" &&
+          this.changeForm.repassword == "user" &&
+          this.changeForm.email == "user@126.com" 
         ) {
-          this.$router.push("/ReaderHome");
-          return this.$message.success("Login successfully!");
+          this.$router.push("/Login");
+          return this.$message.success("Password changed successfully");
         }
-        return this.$message.error("Wrong account number or password!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
         //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
         //this.$router.push("/AdminHome");
       });
+    },
+    cancel() {
+      this.$router.push("/Login");
     }
   }
 };
 </script>
 
 <style scoped>
-.login_container {
+.change_container {
   background-color: gainsboro;
   height: 100%;
 }
-.login_box {
+.change_box {
   width: 450px;
-  height: 300px;
+  height: 400px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
@@ -151,7 +161,7 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
 }
-.login_form {
+.change_form {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -180,9 +190,6 @@ export default {
   filter: alpha(Opacity=95);
   -moz-opacity: 0.95;
   opacity: 0.95;
-}
-.el-link {
-  margin-right: 35px;
 }
 </style>
 
