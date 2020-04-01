@@ -63,7 +63,7 @@ export default {
   methods: {
     logout() {
       window.sessionStorage.clear();
-      this.$message.success("登出成功");
+      this.$message.success("LogOut Succeed！");
       this.$router.push("/AdminLogin");
     },
     toggleCollapse() {
