@@ -163,7 +163,7 @@ export default {
         ];
       }
       this.total = 8;
-      this.$message.success("获取读者列表成功");
+      // this.$message.success("获取读者列表成功");
     },
     judgeType(status) {
       if (status == "正常") return "success";
