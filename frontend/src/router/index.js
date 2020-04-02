@@ -19,6 +19,7 @@ import LibrarianFromalities from '../components/Librarian/Fromalities.vue'
 import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
 import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
 import LibrarianLogin from '../components/LibrarianLogin.vue'
+import LibrarianChangePassword from '../components/Librarian/LibrarianChangePassword.vue'
 import MainPage from '../components/MainPage.vue'
 
 Vue.use(VueRouter)
@@ -40,6 +41,7 @@ const routes = [
     component: ReaderChangePassword
   },
   { path: '/LibrarianLogin', component: LibrarianLogin },
+  { path: '/LibrarianChangePassword', component: LibrarianChangePassword },
   {
     path: '/LibrarianHome',
     component: LibrarianHome,

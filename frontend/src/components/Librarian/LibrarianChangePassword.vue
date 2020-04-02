@@ -2,7 +2,7 @@
   <div class="login_container">
     <el-header>
       <div class="header_box">
-        <img width="101px" height="47px" src="../assets/mandarin.png">
+        <img width="101px" height="47px" src="../../assets/mandarin.png">
         <span class="title_box">Mandarin Library Automation</span>
       </div>
       <el-button type="primary" @click="goToMainPage">MainPage</el-button>
@@ -16,40 +16,48 @@
               width="70px"
               border-radius="50%"
               background-color="#eee"
-              src="../assets/librarian.png"
+              src="../../assets/librarian.png"
               alt
             >
           </div>
         </div>
-        <h1 class="word_box">Librarian Login</h1>
+        <h2 class="word_box">Application to Change Librarian Password</h2>
         <el-form
-          ref="loginFormRef"
-          :model="loginForm"
-          :rules="loginFormRules"
+          ref="passwordChangeRef"
+          :model="passwordChange"
+          :rules="passwordChangeRules"
           label-width="150px"
           class="login_form"
         >
           <el-form-item label="librarian account" prop="username">
             <el-input
-              v-model="loginForm.username"
+              v-model="passwordChange.username"
               prefix-icon="el-icon-user"
-              placeholder="Please enter the librarian account (Default: librarian)"
+              placeholder="Please enter your account"
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item label="librarian password" prop="password">
             <el-input
-              v-model="loginForm.password"
+              v-model="passwordChange.password"
               prefix-icon="el-icon-lock"
-              placeholder="Please enter the librarian password (Default: librarian)"
+              placeholder="Please enter your new password"
+              show-password
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="confirm password" prop="passwordconfirm">
+            <el-input
+              v-model="passwordChange.passwordconfirm"
+              prefix-icon="el-icon-finished"
+              placeholder="Please confirm your password"
               show-password
               clearable
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
-            <el-button type="primary" @click="login">Login</el-button>
-            <el-button type="info" @click="resetLoginForm">Reset</el-button>
+            <el-button type="info" @click="cancel">Cancel</el-button>
+            <el-button type="primary" @click="submit">Submit</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -60,23 +68,33 @@
 <script>
 export default {
   data() {
+    var checkPassword = (rule, value, callback) => {
+      if (value !== this.passwordChange.password) {
+        callback(
+          new Error("The password is not consistent with the previous one")
+        );
+      } else {
+        callback();
+      }
+    };
     return {
-      loginForm: {
-        username: "", // ！！！ username 和 password 分别是输入的账号和密码 ！！！
-        password: ""
+      passwordChange: {
+        username: "",
+        password: "",
+        passwordconfirm: ""
       },
-      loginFormRules: {
+      passwordChangeRules: {
         username: [
           {
             required: true,
-            message: "Please enter the librarian account",
+            message: "Please enter your librarian account",
             trigger: "blur"
           }
         ],
         password: [
           {
             required: true,
-            message: "Please enter the librarian password",
+            message: "Please enter your new password",
             trigger: "blur"
           },
           {
@@ -85,39 +103,36 @@ export default {
             message: "The length should be between 5 and 20 characters",
             trigger: "blur"
           }
+        ],
+        passwordconfirm: [
+          {
+            required: true,
+            message: "Please enter your new password again",
+            trigger: "blur"
+          },
+          {
+            min: 5,
+            max: 20,
+            message: "The length should be between 5 and 20 characters",
+            trigger: "blur"
+          },
+          { validator: checkPassword, trigger: "blur" }
         ]
       }
     };
   },
   methods: {
-    resetLoginForm() {
-      this.$refs.loginFormRef.resetFields();
+    cancel() {
+      return this.$router.push("/LibrarianLogin");
     },
     goToMainPage() {
       return this.$router.push("/MainPage");
     },
-    changePassword() {
-      this.$router.push("/LibrarianChangePassword");
-    },
-    //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
-    login() {
-      this.$refs.loginFormRef.validate(async valid => {
+    submit() {
+      this.$refs.passwordChangeRef.validate(async valid => {
         if (!valid) return;
-        if (
-          this.loginForm.username == "librarian" &&
-          this.loginForm.password == "librarian"
-        ) {
-          this.$message.success("Librarian login successfully!");
-          window.sessionStorage.setItem("authority", "librarian");
-          window.sessionStorage.setItem("activePath", "Welcome");
-          return this.$router.push("/LibrarianHome");
-        }
-        return this.$message.error("Account or password error!");
-        //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
-        //token应保存在 sessionStorage 中
-        //window.sessionStorage.setItem("token", 后端返回的token);
-        //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
-        //this.$router.push("/AdminHome");
+        this.$message.success("Submit successfully!");
+        return this.$router.push("/LibrarianLogin");
       });
     }
   }
@@ -126,22 +141,26 @@ export default {
 
 <style scoped>
 .login_container {
-  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
-  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
-  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
-  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
-  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
+  background: -webkit-linear-gradient(
+    180deg,
+    #191970,
+    #078f99
+  ); /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(180deg, #191970, #078f99); /* FF3.6+ */
+  background: -ms-linear-gradient(180deg, #191970, #078f99); /* IE10 */
+  background: -o-linear-gradient(180deg, #191970, #078f99); /* Opera 11.10+ */
+  background: linear-gradient(180deg, #191970, #078f99); /* W3C */
   height: 100%;
 }
 .login_box {
   width: 650px;
-  height: 350px;
+  height: 415px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -43%);
 }
 .avatar_box {
   height: 100px;
@@ -195,8 +214,5 @@ export default {
   text-align: center;
   line-height: 30px;
   padding-top: 75px;
-}
-.el-link {
-  transform: translateX(-100%);
 }
 </style>
