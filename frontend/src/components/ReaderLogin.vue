@@ -45,10 +45,10 @@
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
             <el-button type="primary" @click="login">Login</el-button>
+            <el-button type="primary" @click="changepassword">Register</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
-            <el-button type="primary" @click="changepassword">Change the password</el-button>
+            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
           </el-form-item>
         </el-form>
       </div>
