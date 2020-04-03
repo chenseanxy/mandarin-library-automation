@@ -86,7 +86,7 @@ export default {
             if (content.length != 0) {//判断账户是否存在
               this.$notify({
               title: 'Error',
-              type: 'success',
+              type: 'error',
               message: 'Account has been used!',
               duration: 5000
               })
