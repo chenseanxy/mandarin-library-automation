@@ -7,13 +7,13 @@
 
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
-        <el-col :span="16">
+        <el-col :span="14">
           <el-input placeholder=" Enter book title / author / publisher / publishers / ISBN"></el-input>
         </el-col>
-        <el-col :span="8">
-          <el-button type="primary">Search for Books</el-button>
+        <el-col :span="10">
+          <el-button type="primary" style="width:50%">Search for Books</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success" @click="openCollectFines">Collect Fines</el-button>
+          <el-button type="success" @click="openCollectFines" style="width:45%">Collect Fines</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>

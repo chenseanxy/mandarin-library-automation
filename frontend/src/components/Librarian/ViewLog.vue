@@ -12,7 +12,7 @@
           <el-input placeholder="Please enter the operator / book ID / type / time"></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary">Search logs</el-button>
+          <el-button type="primary" style="width:100%">Search logs</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
