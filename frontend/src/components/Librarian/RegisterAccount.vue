@@ -124,7 +124,7 @@ export default {
       if (!value) {
         return callback(new Error("Please enter the account"));
       } else {
-        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+        const reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/;
         console.log(reg.test(value));
         if (reg.test(value)) {
           callback();
