@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import {mapMutations} from "vuex"
 export default {
   data() {
     return {
@@ -79,22 +80,44 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["changeLogin"]),
     resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
     login() {
       this.$refs.loginFormRef.validate(async valid => {
-        if (!valid) return;
-        if (
-
-          this.loginForm.username == "admin" &&
-          this.loginForm.password == "admin"
-        ) {
+        let val = {
+            account: this.loginForm.username,
+            password: this.loginForm.password
+        } ;
+        if (!valid) {return;}
+          if (
+          val.account == "admin" &&
+          val.password == "admin"
+           ) {
           this.$message.success("Admin login successfully!");
           return this.$router.push("/AdminHome");
-        }
-        return this.$message.error("Account or password error!");
+            }
+            else
+            {
+                this.$http.post("/api/user/search_right",{
+                  account: this.loginForm.username,
+                  password: this.loginForm.password
+                }).then((res) => {
+                  console.log(res);
+                  var content=res.body;
+                  if(content.length != 0)
+                  {
+                       this.$message.success("Admin login successfully!");
+                       return this.$router.push("/AdminHome");
+                  }
+                  else{
+                      return this.$message.error("Account or password error!");
+                  }
+               });
+             }
+   //    return this.$message.error("Account or password error!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
