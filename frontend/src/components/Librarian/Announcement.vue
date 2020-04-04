@@ -12,7 +12,11 @@
         <el-col :span="12">
           <el-button type="primary" style="width:45%">Search announcements</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success" @click="dialogVisible = true" style="width:50%">Publish an announcement</el-button>
+          <el-button
+            type="success"
+            @click="dialogVisible = true"
+            style="width:50%"
+          >Publish an announcement</el-button>
         </el-col>
       </el-row>
       <!-- 发布公告弹出框 -->
@@ -58,16 +62,38 @@
       <el-table stripe max-height="500" :data="announcementlist">
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="Announcement title" prop="title" show-overflow-tooltip></el-table-column>
-        <el-table-column label="Announcement content" prop="content" min-width="200px" show-overflow-tooltip></el-table-column>
+        <el-table-column
+          label="Announcement content"
+          prop="content"
+          min-width="200px"
+          show-overflow-tooltip
+        ></el-table-column>
         <el-table-column label="Release time" prop="time"></el-table-column>
         <el-table-column label="Operation" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="Edit" placement="top" :enterable="false">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Edit"
+              placement="top"
+              :enterable="false"
+            >
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Delete" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </el-tooltip>
+            <el-popconfirm
+              :title="'Are you sure to DELETE '+scope.row.title.substr(0,12)+'... ?'"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              confirmButtonType="danger"
+            >
+              <el-button
+                slot="reference"
+                style="margin-left:10px;"
+                type="danger"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -100,10 +126,18 @@ export default {
       },
       announcementFormRules: {
         announcementtitle: [
-          { required: true, message: "Please enter the announcement title", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter the announcement title",
+            trigger: "blur"
+          }
         ],
         announcementcontent: [
-          { required: true, message: "Please enter an announcement content", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter an announcement content",
+            trigger: "blur"
+          }
         ]
       }
     };
@@ -184,7 +218,9 @@ export default {
         this.dialogVisible = false;
         this.announcementForm.announcementtitle = "";
         this.announcementForm.announcementcontent = "";
-        return this.$message.success("The new announcement was published successfully");
+        return this.$message.success(
+          "The new announcement was published successfully"
+        );
       });
     }
   }

@@ -34,14 +34,31 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="Operation" fixed="right" width="150px">
-          <template>
-            <el-tooltip class="item" effect="dark" content="Edit" placement="top" :enterable="false">
+        <el-table-column label="Operation" fixed="right" width="160px">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Edit"
+              placement="top"
+              :enterable="false"
+            >
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Delete" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </el-tooltip>
+            <el-popconfirm
+              :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              confirmButtonType="danger"
+            >
+              <el-button
+                slot="reference"
+                style="margin-left:10px;"
+                type="danger"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>

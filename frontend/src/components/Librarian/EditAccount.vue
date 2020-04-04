@@ -7,11 +7,15 @@
     </el-breadcrumb>
 
     <el-card class="registeraccount-card" shadow="hover">
-      <el-alert title="Before deleting your account, please make sure that the reader has returned the book and paid the fine" center type="warning" show-icon></el-alert>
+      <el-alert
+        title="Before deleting your account, please make sure that the reader has returned the book and paid the fine"
+        center
+        type="warning"
+        show-icon
+      ></el-alert>
       <el-row :gutter="20">
         <el-col :span="18">
-          <el-input placeholder="Please enter account / email ">
-          </el-input>
+          <el-input placeholder="Please enter account / email "></el-input>
         </el-col>
         <el-col :span="6">
           <el-button type="primary" style="width:100%">Search accounts</el-button>
@@ -28,13 +32,30 @@
           </template>
         </el-table-column>
         <el-table-column label="Operation" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="Edit" placement="top" :enterable="false">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Edit"
+              placement="top"
+              :enterable="false"
+            >
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="Delete" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </el-tooltip>
+            <el-popconfirm
+              :title="'Are you sure to DELETE '+scope.row.readeraccount+' ?'"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              confirmButtonType="danger"
+            >
+              <el-button
+                slot="reference"
+                style="margin-left:10px;"
+                type="danger"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
