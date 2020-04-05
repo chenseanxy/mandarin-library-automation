@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
-      <el-breadcrumb-item>图书馆收入记录</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Library income records</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="profit-card" shadow="hover">
       <el-row :gutter="20">
@@ -23,7 +23,7 @@
           ></el-date-picker>
         </el-col>
         <el-col :span="6">
-          <el-button style="width:90%" type="primary">Search penalty records</el-button>
+          <el-button style="width:100%" type="primary">Search penalty records</el-button>
         </el-col>
       </el-row>
       <p style="padding:0px;"></p>
@@ -45,16 +45,16 @@
           ></el-date-picker>
         </el-col>
         <el-col :span="6">
-          <el-button style="width:90%" type="success">Search margin records</el-button>
+          <el-button style="width:100%" type="success">Search margin records</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="profitlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="缴费账户" prop="readeraccount"></el-table-column>
-        <el-table-column label="缴费时间" prop="time"></el-table-column>
-        <el-table-column label="收入金额" prop="incomeamount"></el-table-column>
-        <el-table-column label="收入类别">
+        <el-table-column label="Payment account" prop="readeraccount"></el-table-column>
+        <el-table-column label="Time" prop="time"></el-table-column>
+        <el-table-column label="Amount" prop="incomeamount"></el-table-column>
+        <el-table-column label="Income category">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.category)" effect="dark">{{scope.row.category}}</el-tag>
           </template>
@@ -125,31 +125,31 @@ export default {
             readeraccount: "18000000000",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           },
           {
             readeraccount: "18000000001",
             time: "2020-03-01 00:00:00",
             incomeamount: "5.00",
-            category: "罚金收入"
+            category: "Penalty"
           },
           {
             readeraccount: "18000000002",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           },
           {
             readeraccount: "18000000003",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           },
           {
             readeraccount: "18000000004",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           }
         ];
       }
@@ -159,28 +159,28 @@ export default {
             readeraccount: "18000000005",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           },
           {
             readeraccount: "18000000006",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           },
           {
             readeraccount: "18000000007",
             time: "2020-03-01 00:00:00",
             incomeamount: "300.00",
-            category: "保证金收入"
+            category: "Margin"
           }
         ];
       }
       this.total = 8;
-      this.$message.success("获取收入记录成功");
+      this.$message.success("Successfully obtained revenue records");
     },
     judgeType(category) {
-      if (category == "保证金收入") return "success";
-      if (category == "罚金收入") return "primary";
+      if (category == "Margin") return "success";
+      if (category == "Penalty") return "primary";
       else return "danger";
     },
     handleCurrentChange(newPage) {

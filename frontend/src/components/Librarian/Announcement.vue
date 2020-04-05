@@ -1,23 +1,27 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
-      <el-breadcrumb-item>公告管理</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Announcement management</el-breadcrumb-item>
     </el-breadcrumb>
     <el-card class="announcement-card" shadow="hover">
       <el-row :gutter="10">
         <el-col :span="12">
-          <el-input placeholder="Please Enter bookname/author/publisher/publishers/ISBN"></el-input>
+          <el-input placeholder="Please enter announcement title / announcement content "></el-input>
         </el-col>
         <el-col :span="12">
-          <el-button type="primary">Search announcements</el-button>
+          <el-button type="primary" style="width:45%">Search announcements</el-button>
           <el-divider direction="vertical"></el-divider>
-          <el-button type="success" @click="dialogVisible = true">Publish an announcement</el-button>
+          <el-button
+            type="success"
+            @click="dialogVisible = true"
+            style="width:50%"
+          >Publish an announcement</el-button>
         </el-col>
       </el-row>
       <!-- 发布公告弹出框 -->
       <el-dialog
-        title="发布新公告"
+        title="Make a new announcement"
         :visible.sync="dialogVisible"
         width="50%"
         :show-close="false"
@@ -25,21 +29,21 @@
         :close-on-press-escape="false"
       >
         <el-form ref="announcementFormRef" :rules="announcementFormRules" :model="announcementForm">
-          <el-form-item label="公告标题" prop="announcementtitle">
+          <el-form-item label="Announcement title" prop="announcementtitle">
             <el-input
               type="text"
-              placeholder="请输入公告标题"
+              placeholder="Please enter the announcement title"
               v-model="announcementForm.announcementtitle"
               clearable
               maxlength="20"
               show-word-limit
             ></el-input>
           </el-form-item>
-          <el-form-item label="公告内容" prop="announcementcontent">
+          <el-form-item label="Announcement content" prop="announcementcontent">
             <el-input
               type="textarea"
               :autosize="{ minRows: 5 }"
-              placeholder="请输入公告内容"
+              placeholder="Please enter the announcement content"
               maxlength="500"
               show-word-limit
               v-model="announcementForm.announcementcontent"
@@ -48,8 +52,8 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <div>
-            <el-button @click="cancelAnnouncementForm">取 消</el-button>
-            <el-button type="success" @click="publishAnnouncement">发 布</el-button>
+            <el-button @click="cancelAnnouncementForm">Cancel</el-button>
+            <el-button type="success" @click="publishAnnouncement">Publish</el-button>
           </div>
         </span>
       </el-dialog>
@@ -57,17 +61,39 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="announcementlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="公告标题" prop="title" show-overflow-tooltip></el-table-column>
-        <el-table-column label="公告内容" prop="content" min-width="200px" show-overflow-tooltip></el-table-column>
-        <el-table-column label="发布时间" prop="time"></el-table-column>
-        <el-table-column label="操作" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="编辑" placement="top" :enterable="false">
+        <el-table-column label="Announcement title" prop="title" show-overflow-tooltip></el-table-column>
+        <el-table-column
+          label="Announcement content"
+          prop="content"
+          min-width="200px"
+          show-overflow-tooltip
+        ></el-table-column>
+        <el-table-column label="Release time" prop="time"></el-table-column>
+        <el-table-column label="Operation" fixed="right">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Edit"
+              placement="top"
+              :enterable="false"
+            >
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </el-tooltip>
+            <el-popconfirm
+              :title="'Are you sure to DELETE '+scope.row.title.substr(0,12)+'... ?'"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              confirmButtonType="danger"
+            >
+              <el-button
+                slot="reference"
+                style="margin-left:10px;"
+                type="danger"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -100,10 +126,18 @@ export default {
       },
       announcementFormRules: {
         announcementtitle: [
-          { required: true, message: "请输入公告标题", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter the announcement title",
+            trigger: "blur"
+          }
         ],
         announcementcontent: [
-          { required: true, message: "请输入公告内容", trigger: "blur" }
+          {
+            required: true,
+            message: "Please enter an announcement content",
+            trigger: "blur"
+          }
         ]
       }
     };
@@ -168,7 +202,7 @@ export default {
         ];
       }
       this.total = 8;
-      this.$message.success("获取公告列表成功");
+      this.$message.success("Getting announcement list succeeded");
     },
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
@@ -184,7 +218,9 @@ export default {
         this.dialogVisible = false;
         this.announcementForm.announcementtitle = "";
         this.announcementForm.announcementcontent = "";
-        return this.$message.success("新公告发布成功");
+        return this.$message.success(
+          "The new announcement was published successfully"
+        );
       });
     }
   }
