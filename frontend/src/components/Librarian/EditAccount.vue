@@ -31,7 +31,7 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="Operation" fixed="right">
+        <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
             <el-tooltip
               class="item"
