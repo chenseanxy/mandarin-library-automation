@@ -1,7 +1,7 @@
 //sqlMap.js??sql??
 var sqlMap = {
     superadmin_api: {
-      search_right: 'SELECT * FROM admin_user WHERE name = ? AND passwd = ?'
+      search_right: 'SELECT * FROM AdminAccount WHERE admin_account = ? AND password = ?'
     }
   }
   module.exports = sqlMap;

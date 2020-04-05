@@ -112,12 +112,32 @@ export default {
           window.sessionStorage.setItem("activePath", "Welcome");
           return this.$router.push("/LibrarianHome");
         }
-        return this.$message.error("Account or password error!");
+        else
+            {
+                this.$http.post("/api/user/search_right",{
+                  account: this.loginForm.username,
+                  password: this.loginForm.password
+                }).then((res) => {
+                  console.log(res);
+                  var content=res.body;
+                  if(content.length != 0)
+                  {
+                       this.$message.success("Librarian login successfully!");
+                       window.sessionStorage.setItem("authority", "librarian");
+                       window.sessionStorage.setItem("activePath", "Welcome");
+                       return this.$router.push("/LibrarianHome");
+                  }
+                  else{
+                      return this.$message.error("Account or password error!");
+                  }
+               });
+             }
+        //return this.$message.error("Account or password error!");
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
-        //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
-        //this.$router.push("/AdminHome");
+        //使用下面的语句跳转到下一页面，譬如 LibrarianHome 页面
+        //this.$router.push("/LibrarianHome");
       });
     }
   }
