@@ -48,4 +48,33 @@ router.post('/search_id_exist', (req, res) => {
   })
 })
 
+router.post('/select_one_info', (req, res) => {
+  var sql = $sql.librarian_api.select_one_info;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.id], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/select_all_info', (req, res) => {
+  var sql = $sql.librarian_api.select_all_info;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+
 module.exports = router
