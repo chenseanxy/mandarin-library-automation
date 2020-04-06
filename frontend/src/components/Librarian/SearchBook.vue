@@ -36,12 +36,12 @@
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
-            <el-popover placement="left" trigger="click">
+            <el-popover placement="left" width="500" trigger="click">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
-                @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status,scope.row)"
+                @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status)"
                 circle
               ></el-button>
               <h3 style="text-align: center;">Edit Book</h3>
@@ -84,7 +84,11 @@
                   ></el-input>
                 </el-form-item>
                 <el-form-item label="Status" prop="status">
-                  <el-select v-model="editBookForm.status" placeholder="Please choose the status">
+                  <el-select
+                    v-model="editBookForm.status"
+                    style="width:100%"
+                    placeholder="Please choose the status"
+                  >
                     <el-option value="Not loaned"></el-option>
                     <el-option value="Lost"></el-option>
                     <el-option value="Loaned out"></el-option>
