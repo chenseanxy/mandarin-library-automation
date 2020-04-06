@@ -46,7 +46,6 @@
               placeholder="Please enter the charge amount"
               :min="0" 
               :max="10000"
-              controls-position="right"
               :step="1"
               step-strictly
               v-model="collectFinesForm.finesAmount"

@@ -36,18 +36,75 @@
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
-            <el-tooltip
-              class="item"
-              effect="dark"
-              content="Edit"
-              placement="top"
-              :enterable="false"
-            >
-              <el-button type="primary" icon="el-icon-edit" circle></el-button>
-            </el-tooltip>
+            <el-popover placement="left" trigger="click">
+              <el-button
+                slot="reference"
+                type="primary"
+                icon="el-icon-edit"
+                @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status,scope.row)"
+                circle
+              ></el-button>
+              <h3 style="text-align: center;">Edit Book</h3>
+              <el-form
+                ref="editBookFormRef"
+                :model="editBookForm"
+                :rules="editBookFormRules"
+                label-width="120px"
+                style="padding-right:20px;"
+                size="small"
+              >
+                <el-form-item label="ISBN" prop="isbn">
+                  <el-input
+                    v-model="editBookForm.isbn"
+                    placeholder="Please enter the ISBN"
+                    :disabled="true"
+                    clearable
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="Book title" prop="booktitle">
+                  <el-input
+                    v-model="editBookForm.booktitle"
+                    placeholder="Please enter the booktitle"
+                    clearable
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="Author" prop="author">
+                  <el-input
+                    v-model="editBookForm.author"
+                    placeholder="Please enter the author`s name"
+                    clearable
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="Publisher" prop="publisher">
+                  <el-input
+                    type="textarea"
+                    v-model="editBookForm.publisher"
+                    placeholder="Please enter the publisher"
+                    clearable
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="Status" prop="status">
+                  <el-select v-model="editBookForm.status" placeholder="Please choose the status">
+                    <el-option value="Not loaned"></el-option>
+                    <el-option value="Lost"></el-option>
+                    <el-option value="Loaned out"></el-option>
+                  </el-select>
+                </el-form-item>
+              </el-form>
+              <div style="text-align: right; margin: 0">
+                <el-button type="text" @click="cancelEditBook()" size="mini">Cancel</el-button>
+                <el-button
+                  style="margin-left:10px;"
+                  type="primary"
+                  @click="completeEditBook()"
+                  size="mini"
+                >Modify</el-button>
+              </div>
+            </el-popover>
             <el-popconfirm
               :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
               confirmButtonText="Delete"
+              @onConfirm="completeDeleteBook"
               cancelButtonText="Cancel"
               confirmButtonType="danger"
             >
@@ -80,7 +137,51 @@ export default {
     return {
       booklist: [],
       pagenum: 1,
-      total: 0
+      total: 0,
+      editBookForm: {
+        booktitle: "",
+        author: "",
+        publisher: "",
+        isbn: "",
+        status: ""
+      },
+      editBookFormRules: {
+        booktitle: [
+          {
+            required: true,
+            message: "Please enter the booktitle",
+            trigger: "blur"
+          }
+        ],
+        author: [
+          {
+            required: true,
+            message: "Please enter the author",
+            trigger: "blur"
+          }
+        ],
+        publisher: [
+          {
+            required: true,
+            message: "Please enter the publisher",
+            trigger: "blur"
+          }
+        ],
+        isbn: [
+          {
+            required: true,
+            message: "Please enter the ISBN",
+            trigger: "blur"
+          }
+        ],
+        status: [
+          {
+            required: true,
+            message: "Please choose the status",
+            trigger: "blur"
+          }
+        ]
+      }
     };
   },
   created() {
@@ -164,6 +265,24 @@ export default {
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
       this.getBookList();
+    },
+    startEditBook(isbn, bookname, author, publisher, status) {
+      this.editBookForm.isbn = isbn;
+      this.editBookForm.booktitle = bookname;
+      this.editBookForm.author = author;
+      this.editBookForm.publisher = publisher;
+      this.editBookForm.status = status;
+    },
+    cancelEditBook() {
+      // 下面这行语句用于关闭popover窗口
+      document.querySelector("#app").click();
+    },
+    completeEditBook() {
+      document.querySelector("#app").click();
+      this.$message.success("Modifying book succeeded");
+    },
+    completeDeleteBook() {
+      this.$message.success("Deleting book succeeded");
     }
   }
 };

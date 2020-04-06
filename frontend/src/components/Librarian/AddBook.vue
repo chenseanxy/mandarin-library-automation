@@ -34,7 +34,7 @@
         >
           <el-form-item label="Book title" prop="booktitle">
             <el-input
-              v-model.number="addBookForm.booktitle"
+              v-model="addBookForm.booktitle"
               prefix-icon="el-icon-notebook-2"
               placeholder="Please enter the booktitle"
               clearable
