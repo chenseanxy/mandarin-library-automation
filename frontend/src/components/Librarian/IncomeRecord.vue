@@ -4,6 +4,22 @@
       <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
       <el-breadcrumb-item>Library income records</el-breadcrumb-item>
     </el-breadcrumb>
+    <el-card class="count-card" shadow="hover">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <div>
+            <p class="count-deposit">￥ {{totaldeposit}}</p>
+            <p class="count-word">Deposit income in total</p>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div>
+            <p class="count-fine">￥ {{totalfine}}</p>
+            <p class="count-word">Fine income in total</p>
+          </div>
+        </el-col>
+      </el-row>
+    </el-card>
     <el-card class="profit-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="10">
@@ -82,10 +98,12 @@ export default {
       profitlist: [],
       pagenum: 1,
       total: 0,
+      totaldeposit: 0,
+      totalfine:0,
       pickerOptions: {
         shortcuts: [
           {
-            text: "最近一周",
+            text: "Last Week",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -94,7 +112,7 @@ export default {
             }
           },
           {
-            text: "最近一个月",
+            text: "Last Month",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -103,7 +121,7 @@ export default {
             }
           },
           {
-            text: "最近一年",
+            text: "Last Year",
             onClick(picker) {
               const end = new Date();
               const start = new Date();
@@ -119,6 +137,8 @@ export default {
   methods: {
     getProfitList() {
       // 修改这里以从后端调取信息
+      this.totaldeposit = 2100;
+      this.totalfine = 5;
       if (this.pagenum == 1) {
         this.profitlist = [
           {
@@ -202,6 +222,34 @@ export default {
 }
 .el-pagination {
   margin-top: 15px;
+}
+.count-card {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  /* width: 700px; */
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+.count-deposit {
+  font-size: xx-large;
+  font-weight: bolder;
+  color: #67c23a;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 12px;
+}
+.count-fine {
+  font-size: xx-large;
+  font-weight: bolder;
+  color: #409eff;
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 12px;
+}
+.count-word {
+  font-size: x-large;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 12px;
 }
 </style>
 

@@ -282,8 +282,11 @@ export default {
       document.querySelector("#app").click();
     },
     completeEditBook() {
-      document.querySelector("#app").click();
-      this.$message.success("Modifying book succeeded");
+      this.$refs.editBookFormRef.validate(async valid => {
+        if (!valid) return;
+        document.querySelector("#app").click();
+        this.$message.success("Modifying book succeeded");
+      });
     },
     completeDeleteBook() {
       this.$message.success("Deleting book succeeded");
