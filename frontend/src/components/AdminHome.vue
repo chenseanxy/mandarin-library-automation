@@ -22,7 +22,7 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-user"></i>
-                <span>Reader account management</span>
+                <span>LibAccount management</span>
               </template>
               <el-menu-item index="1-1">Register an account</el-menu-item>
               <el-menu-item index="ManageAccount">Manage account</el-menu-item>
