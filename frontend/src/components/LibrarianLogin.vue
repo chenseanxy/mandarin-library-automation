@@ -47,7 +47,27 @@
             ></el-input>
           </el-form-item>
           <el-form-item class="btns">
-            <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
+            <el-popover placement="bottom" width="500" trigger="click">
+              <el-form-item label="librarian account" prop="username">
+                <el-input
+                  size="small"
+                  v-model="loginForm.username"
+                  prefix-icon="el-icon-user"
+                  placeholder="Please enter your librarian account"
+                  clearable
+                ></el-input>
+              </el-form-item>
+              <div style="text-align: right; margin: 0">
+                <el-button type="text" @click="cancelForgetPassword()" size="mini">Cancel</el-button>
+                <el-button
+                  style="margin-left:10px;"
+                  type="primary"
+                  @click="completeForgetPassword()"
+                  size="mini"
+                >Notify Administrator</el-button>
+              </div>
+              <el-link :underline="false" slot="reference">Forget your password?</el-link>
+            </el-popover>
             <el-button type="primary" @click="login">Login</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
           </el-form-item>
@@ -119,6 +139,19 @@ export default {
         //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
         //this.$router.push("/AdminHome");
       });
+    },
+    cancelForgetPassword() {
+      document.querySelector("#app").click();
+    },
+    completeForgetPassword() {
+      this.$refs.loginFormRef.validateField("username", async valid => {
+        if (!valid) {
+          document.querySelector("#app").click();
+          if (document.getElementsByClassName("el-message").length == 0)
+            this.$message.success("Notifying administrator succeeded");
+        }
+        return;
+      });
     }
   }
 };
@@ -126,11 +159,15 @@ export default {
 
 <style scoped>
 .login_container {
-  background: -webkit-linear-gradient(180deg, #191970, #078F99 ); /* Chrome 10+, Saf5.1+ */
-  background:    -moz-linear-gradient(180deg, #191970, #078F99 ); /* FF3.6+ */
-  background:     -ms-linear-gradient(180deg, #191970, #078F99 ); /* IE10 */
-  background:      -o-linear-gradient(180deg, #191970, #078F99 ); /* Opera 11.10+ */
-  background:         linear-gradient(180deg, #191970, #078F99 ); /* W3C */
+  background: -webkit-linear-gradient(
+    180deg,
+    #191970,
+    #078f99
+  ); /* Chrome 10+, Saf5.1+ */
+  background: -moz-linear-gradient(180deg, #191970, #078f99); /* FF3.6+ */
+  background: -ms-linear-gradient(180deg, #191970, #078f99); /* IE10 */
+  background: -o-linear-gradient(180deg, #191970, #078f99); /* Opera 11.10+ */
+  background: linear-gradient(180deg, #191970, #078f99); /* W3C */
   height: 100%;
 }
 .login_box {
