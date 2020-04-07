@@ -1,15 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import AdminLogin from '../components/AdminLogin.vue'
+import AdminWelcome from '../components/AdminWelcome.vue'
 import AdminHome from '../components/AdminHome.vue'
+
 import ReaderLogin from '../components/ReaderLogin.vue'
-import ReaderHome from '../components/ReaderHome.vue'
+import ReaderRegisterAccount from '../components/Reader/ReaderRegisterAccount.vue'
 import ReaderChangePassword from '../components/Reader/ReaderChangePassword.vue'
+import ReaderWelcome from '../components/ReaderWelcome.vue'
+import ReaderHome from '../components/ReaderHome.vue'
+
+
+
 import LibrarianHome from '../components/LibrarianHome.vue'
 import LibrarianWelcome from '../components/LibrarianWelcome.vue'
 import LibrarianAddBook from '../components/Librarian/AddBook.vue'
-import ReaderWelcome from '../components/ReaderWelcome.vue'
-import AdminWelcome from '../components/AdminWelcome.vue'
 import LibrarianSearchBook from '../components/Librarian/SearchBook.vue'
 import LibrarianViewLog from '../components/Librarian/ViewLog.vue'
 import LibrarianRegisterAccount from '../components/Librarian/RegisterAccount.vue'
@@ -27,6 +32,8 @@ const routes = [
   { path: '/', redirect: '/MainPage' },
   { path: '/MainPage', component: MainPage },
   { path: '/Login', component: ReaderLogin },
+  { path: '/ReaderChangePassword',component: ReaderChangePassword },
+  { path: '/ReaderRegisterAccount',component: ReaderRegisterAccount },
   {
     path: '/ReaderHome',
     component: ReaderHome,
@@ -35,10 +42,7 @@ const routes = [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome }
     ]
   },
-  {
-    path: '/ReaderChangePassword',
-    component: ReaderChangePassword
-  },
+  
   { path: '/LibrarianLogin', component: LibrarianLogin },
   {
     path: '/LibrarianHome',

@@ -46,7 +46,7 @@
           </el-form-item>
           <el-form-item class="btns">
             <el-button type="primary" @click="login">Login</el-button>
-            <el-button type="primary" @click="changepassword">Register</el-button>
+            <el-button type="primary" @click="register">Register</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
             <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
           </el-form-item>
@@ -89,7 +89,11 @@ export default {
     };
   },
   methods: {
-    resetloginForm() {
+	register() {
+		this.$router.push("/ReaderRegisterAccount");
+		return this.$message.success("Go to register page!");
+	},
+    resetLoginForm() {
       this.$refs.loginFormRef.resetFields();
     },
     changePassword() {
@@ -114,11 +118,8 @@ export default {
         //使用下面的语句跳转到下一页面，譬如 AdminHome 页面
         //this.$router.push("/AdminHome");
       });
-    },
-    changepassword() {
-      this.$router.push("/ReaderChangePassword");
-      return this.$message.success("Go to modify");
     }
+
   }
 };
 </script>
