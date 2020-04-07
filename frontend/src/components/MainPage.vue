@@ -54,7 +54,7 @@ export default {
       offset: 50,
       dangerouslyUseHTMLString: true,
       message: this.$createElement("div", null, [
-        this.$createElement("p", null, "此版本更新于2020年4月6日。"),
+        this.$createElement("p", null, "此版本更新于2020年4月7日。"),
         this.$createElement(
           "p",
           null,

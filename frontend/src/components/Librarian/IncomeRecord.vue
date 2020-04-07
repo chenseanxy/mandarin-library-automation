@@ -57,6 +57,7 @@
             range-separator="To"
             start-placeholder="Start date"
             end-placeholder="End date"
+            :default-time="['00:00:00', '23:59:59']"
             :picker-options="pickerOptions"
           ></el-date-picker>
         </el-col>
@@ -92,6 +93,9 @@
 export default {
   created() {
     this.getProfitList();
+    var lastMonth = new Date();
+    lastMonth.setTime(lastMonth.getTime() - 3600 * 1000 * 24 * 30);
+    this.datevalue = [lastMonth,new Date()];
   },
   data() {
     return {
@@ -101,6 +105,9 @@ export default {
       totaldeposit: 0,
       totalfine:0,
       pickerOptions: {
+        disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
         shortcuts: [
           {
             text: "Last Week",
@@ -131,7 +138,7 @@ export default {
           }
         ]
       },
-      datevalue: ""
+      datevalue: []
     };
   },
   methods: {
