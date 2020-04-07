@@ -16,7 +16,7 @@
               <br>Mr.Librarian
             </p>
             <div style="text-align: center; margin: 0">
-              <el-button type="danger" @click="logout">Logout</el-button>
+              <el-button type="danger" size="medium" @click="logout">Logout</el-button>
             </div>
           </el-popover>
         </div>
