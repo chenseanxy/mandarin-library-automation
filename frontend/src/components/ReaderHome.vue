@@ -18,6 +18,7 @@
             :collapse="isCollapse"
             :collapse-transition="false"
             router
+            :default-active="activePath"
           >
             <el-submenu index="1">
               <template slot="title">
@@ -37,10 +38,13 @@
               <el-menu-item index="2-2">Retrieve password</el-menu-item>
               <el-menu-item index="2-3">Establishment of margin</el-menu-item>
             </el-submenu>
-            <el-menu-item index="3">
-              <i class="el-icon-search"></i>
-              <span slot="title">Search - Reserve books</span>
-            </el-menu-item>
+            <el-submenu index="3">
+              <template slot="title">
+                <i class="el-icon-user"></i>
+                <span>Search-Reserve Books</span>
+              </template>
+              <el-menu-item index="ReaderSearchBook" @click="saveNavState('ReaderSearchBook')">Search for Books</el-menu-item>
+            </el-submenu>
             <el-menu-item index="4" disabled>
               <i class="el-icon-setting"></i>
               <span slot="title">Other functions</span>
@@ -60,6 +64,7 @@ export default {
   data() {
     return { isCollapse: false };
   },
+ 
   methods: {
     logout() {
       window.sessionStorage.clear();
@@ -68,6 +73,14 @@ export default {
     },
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
+    },
+    saveNavState(activePath) {
+      this.componentLoading = true;
+      window.sessionStorage.setItem("activePath", activePath);
+      this.activePath = activePath;
+      setTimeout(() => {
+        this.componentLoading = false;
+      }, 500);
     }
   }
 };

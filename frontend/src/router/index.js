@@ -9,7 +9,7 @@ import ReaderRegisterAccount from '../components/Reader/ReaderRegisterAccount.vu
 import ReaderChangePassword from '../components/Reader/ReaderChangePassword.vue'
 import ReaderWelcome from '../components/ReaderWelcome.vue'
 import ReaderHome from '../components/ReaderHome.vue'
-
+import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
 
 
 import LibrarianHome from '../components/LibrarianHome.vue'
@@ -39,7 +39,8 @@ const routes = [
     component: ReaderHome,
     redirect: '/ReaderHome/Welcome',
     children: [
-      { path: '/ReaderHome/Welcome', component: ReaderWelcome }
+      { path: '/ReaderHome/Welcome', component: ReaderWelcome },
+      { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook }
     ]
   },
   
