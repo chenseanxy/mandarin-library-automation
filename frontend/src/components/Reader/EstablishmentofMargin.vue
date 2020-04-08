@@ -2,8 +2,8 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>读者首页</el-breadcrumb-item>
-      <el-breadcrumb-item>书籍管理</el-breadcrumb-item>
-      <el-breadcrumb-item>搜索书籍</el-breadcrumb-item>
+      <el-breadcrumb-item>账户管理</el-breadcrumb-item>
+      <el-breadcrumb-item>保证金缴纳</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="searchbook-card" shadow="hover">
