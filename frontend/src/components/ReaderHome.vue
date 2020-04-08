@@ -25,8 +25,8 @@
                 <i class="el-icon-reading"></i>
                 <span>Borrowing information</span>
               </template>
-              <el-menu-item index="1-1">Current borrowing books</el-menu-item>
-              <el-menu-item index="1-2">Books returned</el-menu-item>
+              <el-menu-item index="ReaderCurrentBorrow" @click="saveNavState('ReaderCurrentBorrow')">Current borrowing books</el-menu-item>
+              <el-menu-item index="ReaderReturnedBooks" @click="saveNavState('ReaderReturnedBooks')">Books returned</el-menu-item>
               <el-menu-item index="1-3">Fine pending payment</el-menu-item>
             </el-submenu>
             <el-submenu index="2">

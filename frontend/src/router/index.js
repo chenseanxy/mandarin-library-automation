@@ -11,6 +11,8 @@ import ReaderWelcome from '../components/ReaderWelcome.vue'
 import ReaderHome from '../components/ReaderHome.vue'
 import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
 import ModifyPersonalInformation from '../components/Reader/ModifyPersonalInformation.vue'
+import ReaderCurrentBorrow from '../components/Reader/ReaderCurrentBorrow.vue'
+import ReaderReturnedBooks from '../components/Reader/ReaderReturnedBooks.vue'
 
 
 import LibrarianHome from '../components/LibrarianHome.vue'
@@ -42,7 +44,9 @@ const routes = [
     children: [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome },
       { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook },
-      { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation }
+      { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation },
+      { path: '/ReaderHome/ReaderCurrentBorrow', component: ReaderCurrentBorrow },
+      { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks }
     ]
   },
   
