@@ -13,6 +13,7 @@ import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
 import ModifyPersonalInformation from '../components/Reader/ModifyPersonalInformation.vue'
 import ReaderCurrentBorrow from '../components/Reader/ReaderCurrentBorrow.vue'
 import ReaderReturnedBooks from '../components/Reader/ReaderReturnedBooks.vue'
+import RetrievePassword from '../components/Reader/RetrievePassword.vue'
 
 
 import LibrarianHome from '../components/LibrarianHome.vue'
@@ -46,7 +47,8 @@ const routes = [
       { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook },
       { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation },
       { path: '/ReaderHome/ReaderCurrentBorrow', component: ReaderCurrentBorrow },
-      { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks }
+      { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks },
+      { path: '/ReaderHome/RetrievePassword', component: RetrievePassword}
     ]
   },
   
