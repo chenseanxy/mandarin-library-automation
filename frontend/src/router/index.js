@@ -10,6 +10,7 @@ import ReaderChangePassword from '../components/Reader/ReaderChangePassword.vue'
 import ReaderWelcome from '../components/ReaderWelcome.vue'
 import ReaderHome from '../components/ReaderHome.vue'
 import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
+import ModifyPersonalInformation from '../components/Reader/ModifyPersonalInformation.vue'
 
 
 import LibrarianHome from '../components/LibrarianHome.vue'
@@ -40,7 +41,8 @@ const routes = [
     redirect: '/ReaderHome/Welcome',
     children: [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome },
-      { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook }
+      { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook },
+      { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation }
     ]
   },
   

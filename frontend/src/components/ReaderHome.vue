@@ -34,7 +34,7 @@
                 <i class="el-icon-user"></i>
                 <span>Account management</span>
               </template>
-              <el-menu-item index="2-1">Modify personal information</el-menu-item>
+              <el-menu-item index="ModifyPersonalInformation" @click="saveNavState('ModifyPersonalInformation')">Modify personal information</el-menu-item>
               <el-menu-item index="2-2">Retrieve password</el-menu-item>
               <el-menu-item index="2-3">Establishment of margin</el-menu-item>
             </el-submenu>
