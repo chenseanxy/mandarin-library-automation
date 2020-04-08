@@ -23,4 +23,4 @@
 
 - 启动开发服务器：`python app.py`
 - 运行单元测试：`pytest resources/`
-- 运行端到端测试：`pytest test/` - 请确保测试时服务器正在运行
+- 运行端到端测试：`pytest tests/` - 请确保测试时服务器正在运行

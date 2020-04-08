@@ -49,12 +49,15 @@ Spec 1: 整合规范
 
 - app.py: 后端项目主文件，url映射的配置在此。
 - database.py: 定义数据库对象`db`，以及数据库配置相关。
+- test_utils.py: Test Fixtures
 - resources: 资源目录，主要的API相应代码都在此。
-  - version.py: 示例API资源，里面Version类为API类，VersionModel为该API所需的数据类（既数据库表）
+  - version.py: 示例API资源，里面Version类为API类。
+    - tests: API单元测试，若API有辅助函数之类都可以在这里插入以`test_`开头的测试文件，详见测试Spec
+- models: 模型目录，数据库模型都在此。
+  - version.py: 示例模型，VersionModel为该API所需的数据类（既数据库表）。
   - generators: 数据生成器相关，里面的文件用于在建表时向表内插入数据。
     - create_db.py: 定义建表函数，在这里插入写好的生成器
-  - tests: API单元测试，若API有辅助函数之类都可以在这里插入以`test_`开头的测试文件，详见测试Spec
-    - utils.py: Test Fixtures
+  - tests: API单元测试，若模型有辅助函数之类都可以在这里插入以`test_`开头的测试文件，详见测试Spec
 - scripts: 测试和部署的时候需要的一些脚本和配置，可以在本地运行自动化的构建、测试流程。
 - tests: API端到端测试
 - 各个文件夹里的__init__.py: 用于将文件夹变为python模块，内容可空

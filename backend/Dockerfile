@@ -2,6 +2,8 @@ FROM python:3.7.6-slim-buster
 
 ARG pythonrepo=https://pypi.tuna.tsinghua.edu.cn/simple/
 
+ARG unittests=1
+
 WORKDIR /app/backend 
 
 # Installing dependencies early to leverage caching
@@ -17,7 +19,9 @@ RUN chmod +x ./scripts/wait-for-it.sh
 ENV PYTHONPATH "${PYTHONPATH}:/app"
 
 # Run unit tests only
-RUN pytest ./resources
+RUN if [ ${unittests} -eq 1 ]; then \
+    pytest --ignore=tests/ ; \
+    fi
 
 ENV FLASK_APP=app.py
 
