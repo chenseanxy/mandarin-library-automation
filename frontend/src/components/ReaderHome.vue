@@ -36,7 +36,7 @@
               </template>
               <el-menu-item index="ModifyPersonalInformation" @click="saveNavState('ModifyPersonalInformation')">Modify personal information</el-menu-item>
               <el-menu-item index="RetrievePassword" @click="saveNavState('RetrievePassword')">Retrieve password</el-menu-item>
-              <el-menu-item index="2-3">Establishment of margin</el-menu-item>
+              <el-menu-item index="EstablishmentofMargin" @click="saveNavState('EstablishmentofMargin')">Establishment of margin</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
               <template slot="title">
