@@ -11,6 +11,19 @@
 
 ## 开发日志
 
+### 更新AddBook页面
+
+- 添加书籍信息时增加书籍id、类别、位置、价格属性
+  ![](https://raw.githubusercontent.com/MofasJang/my-space/master/addbook.png)
+
+- 展示书籍信息时也显示上述属性
+  ![](https://raw.githubusercontent.com/MofasJang/my-space/master/showmessage.png)
+
+潘江涛
+2020.04.09
+
+------
+
 ### 更新MainPage页面（主页）
 
 - 逐步将子页面翻译为英语
