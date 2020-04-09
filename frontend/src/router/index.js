@@ -20,7 +20,9 @@ import LibrarianIncomeRecord from '../components/Librarian/IncomeRecord.vue'
 import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
 //这里保留了双方的更改
 import RegisterAdminAccount from '../components/Admin/1-1.vue'
+import ManaLibrarianAccount from '../components/Admin/ManageLib.vue'
 import LibrarianLogin from '../components/LibrarianLogin.vue'
+import LibrarianChangePassword from '../components/Librarian/LibrarianChangePassword.vue'
 import MainPage from '../components/MainPage.vue'
 
 Vue.use(VueRouter)
@@ -42,6 +44,7 @@ const routes = [
     component: ReaderChangePassword
   },
   { path: '/LibrarianLogin', component: LibrarianLogin },
+  { path: '/LibrarianChangePassword', component: LibrarianChangePassword },
   {
     path: '/LibrarianHome',
     component: LibrarianHome,
@@ -66,7 +69,8 @@ const routes = [
     redirect: '/AdminHome/Welcome',
     children: [
       { path: '/AdminHome/Welcome', component: AdminWelcome },
-      { path: '/AdminHome/1-1', component: RegisterAdminAccount }
+      { path: '/AdminHome/1-1', component: RegisterAdminAccount },
+      { path: '/AdminHome/ManageAccount', component: ManaLibrarianAccount }
     ]
   }
 ]

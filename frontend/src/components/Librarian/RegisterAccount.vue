@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>Librarian Homepage</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
       <el-breadcrumb-item>Reader account management</el-breadcrumb-item>
       <el-breadcrumb-item>Register accounts</el-breadcrumb-item>
     </el-breadcrumb>
@@ -124,7 +124,7 @@ export default {
       if (!value) {
         return callback(new Error("Please enter the account"));
       } else {
-        const reg = /^1[3|4|5|7|8][0-9]\d{8}$/;
+        const reg = /^1[3|4|5|6|7|8|9][0-9]\d{8}$/;
         console.log(reg.test(value));
         if (reg.test(value)) {
           callback();
@@ -187,27 +187,27 @@ export default {
           {
             readeraccount: "18000000000",
             readeremail: "18000000000@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000001",
             readeremail: "18000000001@reader.com",
-            status: "已注销"
+            status: "Deleted"
           },
           {
             readeraccount: "18000000002",
             readeremail: "18000000002@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000003",
             readeremail: "18000000003@reader.com",
-            status: "欠费"
+            status: "In arrears"
           },
           {
             readeraccount: "18000000004",
             readeremail: "18000000004@reader.com",
-            status: "正常"
+            status: "Normal"
           }
         ];
       }
@@ -216,26 +216,26 @@ export default {
           {
             readeraccount: "18000000005",
             readeremail: "18000000005@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000006",
             readeremail: "18000000006@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000007",
             readeremail: "18000000007@reader.com",
-            status: "正常"
+            status: "Normal"
           }
         ];
       }
       this.total = 8;
-      this.$message.success("获取读者列表成功");
+      this.$message.success("Getting reader list succeeded");
     },
     judgeType(status) {
-      if (status == "正常") return "success";
-      if (status == "已注销") return "info";
+      if (status == "Normal") return "success";
+      if (status == "Deleted") return "info";
       else return "danger";
     },
     handleCurrentChange(newPage) {

@@ -1,40 +1,61 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>图书管理员首页</el-breadcrumb-item>
-      <el-breadcrumb-item>读者账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>编辑 · 删除账户</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Reader account management</el-breadcrumb-item>
+      <el-breadcrumb-item>Edit - Delete accounts</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="registeraccount-card" shadow="hover">
-      <el-alert title="删除账户前，请确认读者已归还书籍且缴清罚金" center type="warning" show-icon></el-alert>
+      <el-alert
+        title="Before deleting your account, please make sure that the reader has returned the book and paid the fine"
+        center
+        type="warning"
+        show-icon
+      ></el-alert>
       <el-row :gutter="20">
-        <el-col :span="20">
-          <el-input placeholder="请输入 账户 / 邮箱 / 密码 ">
-          </el-input>
+        <el-col :span="18">
+          <el-input placeholder="Please enter account / email "></el-input>
         </el-col>
-        <el-col :span="4">
-          <el-button type="primary">搜索账户</el-button>
+        <el-col :span="6">
+          <el-button type="primary" style="width:100%">Search accounts</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="accountlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="账户" prop="readeraccount"></el-table-column>
-        <el-table-column label="邮箱" prop="readeremail"></el-table-column>
-        <el-table-column label="状态">
+        <el-table-column label="Account" prop="readeraccount"></el-table-column>
+        <el-table-column label="Email" prop="readeremail"></el-table-column>
+        <el-table-column label="Status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="编辑" placement="top" :enterable="false">
+        <el-table-column label="Operation" fixed="right" width="160px">
+          <template slot-scope="scope">
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Edit"
+              placement="top"
+              :enterable="false"
+            >
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="删除" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
-            </el-tooltip>
+            <el-popconfirm
+              :title="'Are you sure to DELETE '+scope.row.readeraccount+' ?'"
+              confirmButtonText="Delete"
+              cancelButtonText="Cancel"
+              confirmButtonType="danger"
+            >
+              <el-button
+                slot="reference"
+                style="margin-left:10px;"
+                type="danger"
+                icon="el-icon-delete"
+                circle
+              ></el-button>
+            </el-popconfirm>
           </template>
         </el-table-column>
       </el-table>
@@ -70,27 +91,27 @@ export default {
           {
             readeraccount: "18000000000",
             readeremail: "18000000000@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000001",
             readeremail: "18000000001@reader.com",
-            status: "已注销"
+            status: "Deleted"
           },
           {
             readeraccount: "18000000002",
             readeremail: "18000000002@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000003",
             readeremail: "18000000003@reader.com",
-            status: "欠费"
+            status: "In arrears"
           },
           {
             readeraccount: "18000000004",
             readeremail: "18000000004@reader.com",
-            status: "正常"
+            status: "Normal"
           }
         ];
       }
@@ -99,26 +120,26 @@ export default {
           {
             readeraccount: "18000000005",
             readeremail: "18000000005@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000006",
             readeremail: "18000000006@reader.com",
-            status: "正常"
+            status: "Normal"
           },
           {
             readeraccount: "18000000007",
             readeremail: "18000000007@reader.com",
-            status: "正常"
+            status: "Normal"
           }
         ];
       }
       this.total = 8;
-      this.$message.success("获取读者列表成功");
+      this.$message.success("Getting reader list succeeded");
     },
     judgeType(status) {
-      if (status == "正常") return "success";
-      if (status == "已注销") return "info";
+      if (status == "Normal") return "success";
+      if (status == "Deleted") return "info";
       else return "danger";
     },
     handleCurrentChange(newPage) {
