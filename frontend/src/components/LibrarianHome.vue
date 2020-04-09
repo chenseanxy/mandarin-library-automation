@@ -9,7 +9,7 @@
         <div class="avatar-box">
           <el-popover placement="bottom-end" width="150" close-delay="500" trigger="hover">
             <el-avatar slot="reference" shape="square" size="large" :src="avatarpic" @error="true">
-              <img src="../assets/errorimg.png"/>
+              <img src="../assets/errorimg.png">
             </el-avatar>
             <p style="text-align:center; margin: 10px">
               Have a nice day!

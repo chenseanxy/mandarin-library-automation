@@ -32,9 +32,9 @@
           label-width="140px"
           style="padding-right:40px;"
         >
-          <el-form-item label="Book id" prop="book_id">
+          <el-form-item label="Book id" prop="bookid">
             <el-input
-              v-model="addBookForm.book_id"
+              v-model="addBookForm.bookid"
               prefix-icon="el-icon-reading"
               placeholder="Please enter the Book id"
               clearable
@@ -112,13 +112,50 @@
       </el-dialog>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
-        <el-table-column label="Book id" prop="book_id"></el-table-column>
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" inline class="booklist-expand">
+              <el-form-item label="Book id :">
+                <span>{{ scope.row.bookid }}</span>
+              </el-form-item>
+              <el-form-item label="Book title :">
+                <span>{{ scope.row.bookname }}</span>
+              </el-form-item>
+              <el-form-item label="Author :">
+                <span>{{ scope.row.author }}</span>
+              </el-form-item>
+              <el-form-item label="Publisher :">
+                <span>{{ scope.row.publisher }}</span>
+              </el-form-item>
+              <el-form-item label="Category :">
+                <span>{{ scope.row.category }}</span>
+              </el-form-item>
+              <el-form-item label="Location :">
+                <span>{{ scope.row.location }}</span>
+              </el-form-item>
+              <el-form-item label="Price :">
+                <span>￥ {{ scope.row.price }}</span>
+              </el-form-item>
+              <el-form-item label="ISBN :">
+                <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+                  <el-link :underline="false" slot="reference">{{scope.row.ISBN}}</el-link>
+                  <barcode style="text-align:center" :value="scope.row.ISBN">Fail to show barcode.</barcode>
+                </el-popover>
+              </el-form-item>
+              <el-form-item label="State :">
+                <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="Book id" prop="bookid" width="100px"></el-table-column>
         <el-table-column label="Book title" prop="bookname"></el-table-column>
         <el-table-column label="Author" prop="author"></el-table-column>
-        <el-table-column label="Publisher" prop="publisher"></el-table-column>
-        <el-table-column label="Category" prop="category"></el-table-column>
-        <el-table-column label="Location" prop="location"></el-table-column>
-        <el-table-column label="Price" prop="price"></el-table-column>
+        <el-table-column label="Price" prop="price">
+          <template slot-scope="scope">
+            <span>￥ {{ scope.row.price }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="ISBN" prop="ISBN">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
@@ -154,7 +191,7 @@ export default {
       pagenum: 1,
       total: 0,
       addBookForm: {
-        book_id: "",
+        bookid: "",
         bookname: "",
         author: "",
         publisher: "",
@@ -164,10 +201,10 @@ export default {
         price: ""
       },
       addBookFormRules: {
-        book_id: [
+        bookid: [
           {
             required: true,
-            message: "Please enter the book_id",
+            message: "Please enter the bookid",
             trigger: "blur"
           }
         ],
@@ -232,7 +269,7 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
-            book_id: "1",
+            bookid: "1",
             bookname: "Villa in heavy snow",
             author: "Higashino Keigo",
             publisher: "Beijing October Literature and Art Publishing House",
@@ -243,7 +280,7 @@ export default {
             state: "Not loaned"
           },
           {
-            book_id: "2",
+            bookid: "2",
             bookname: "Ten Mile Peach",
             author: "Tang Qigongzi",
             publisher: "Shenyang Publishing House",
@@ -254,7 +291,7 @@ export default {
             state: "Not loaned"
           },
           {
-            book_id: "3",
+            bookid: "3",
             bookname: "Why Sheng Xiaomo",
             author: "Gu Man",
             publisher: "Chaohua Publishing House",
@@ -265,7 +302,7 @@ export default {
             state: "Lost"
           },
           {
-            book_id: "4",
+            bookid: "4",
             bookname: "Brief history of humanity",
             author: "[Israel] Yuval Herali",
             publisher: "CITIC Publishing House",
@@ -276,7 +313,7 @@ export default {
             state: "Not loaned"
           },
           {
-            book_id: "5",
+            bookid: "5",
             bookname: "Those things in the Ming Dynasty",
             author: "DangNianMingyue",
             publisher: "China Customs Press",
@@ -291,7 +328,7 @@ export default {
       if (this.pagenum == 2) {
         this.booklist = [
           {
-            book_id: "6",
+            bookid: "6",
             bookname: "Few people",
             author: "M. Scott Parker",
             publisher: "Jilin Literature and History Press",
@@ -302,7 +339,7 @@ export default {
             state: "Not loaned"
           },
           {
-            book_id: "7",
+            bookid: "7",
             bookname: "Pursuing the meaning of life",
             author: "[Austria] Victor Frank",
             publisher: "Xinhua Publishing House",
@@ -313,7 +350,7 @@ export default {
             state: "Not loaned"
           },
           {
-            book_id: "8",
+            bookid: "8",
             bookname: "Secret garden",
             author: "Johanna Besford",
             publisher: "Beijing United Publishing Company",
@@ -366,6 +403,18 @@ export default {
 }
 .el-alert {
   margin-bottom: 15px;
+}
+.booklist-expand {
+  font-size: 0;
+}
+.booklist-expand label {
+  width: 90px;
+  color: #99a9bf;
+}
+.booklist-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 80%;
 }
 </style>
 

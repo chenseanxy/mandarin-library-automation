@@ -42,6 +42,7 @@
               v-model="loginForm.password"
               prefix-icon="el-icon-lock"
               placeholder="Please enter the librarian password (Default: librarian)"
+              @keyup.enter.native="login"
               show-password
               clearable
             ></el-input>
