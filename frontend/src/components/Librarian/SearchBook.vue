@@ -9,85 +9,139 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input placeholder="Please enter book title / author / publisher / ISBN "></el-input>
+          <el-input placeholder="Please enter book ID / book title / author / category "></el-input>
         </el-col>
         <el-col :span="4">
           <el-button type="primary" style="width:100%">Search</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
-      <el-table stripe max-height="500" :data="booklist">
-        <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="Book title" prop="bookname"></el-table-column>
-        <el-table-column label="Author" prop="author"></el-table-column>
-        <el-table-column label="Publisher" prop="publisher"></el-table-column>
-        <el-table-column label="ISBN" prop="isbn">
+      <el-table stripe :data="booklist">
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" inline class="booklist-expand">
+              <el-form-item label="Book ID ">
+                <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+                  <el-link :underline="false" slot="reference">{{scope.row.book_id}}</el-link>
+                  <barcode
+                    style="text-align:center"
+                    :value="scope.row.book_id"
+                  >Fail to show barcode.</barcode>
+                </el-popover>
+              </el-form-item>
+              <el-form-item label="Book title ">
+                <span>{{ scope.row.bookname }}</span>
+              </el-form-item>
+              <el-form-item label="Author ">
+                <span>{{ scope.row.author }}</span>
+              </el-form-item>
+              <el-form-item label="Category ">
+                <span>{{ scope.row.category }}</span>
+              </el-form-item>
+              <el-form-item label="Location ">
+                <span>{{ scope.row.location }}</span>
+              </el-form-item>
+              <el-form-item label="Price ">
+                <span>￥ {{ scope.row.price }}</span>
+              </el-form-item>
+              <el-form-item label="State ">
+                <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="Book ID" prop="book_id" width="100">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-              <el-link slot="reference">{{scope.row.isbn}}</el-link>
-              <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
+              <el-link slot="reference">{{scope.row.book_id}}</el-link>
+              <barcode style="text-align:center" :value="scope.row.book_id">Fail to show barcode.</barcode>
             </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column label="Book title" prop="bookname"></el-table-column>
+        <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Category" prop="category"></el-table-column>
+        <el-table-column label="Price" prop="price">
+          <template slot-scope="scope">
+            <span>￥ {{ scope.row.price }}</span>
           </template>
         </el-table-column>
         <el-table-column label="State">
           <template slot-scope="scope">
-            <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
+            <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
-            <el-popover placement="left" width="500" trigger="click">
+            <el-popover placement="left" width="500" trigger="click" @hide="cancelEditBook">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
-                @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status)"
+                @click="startEditBook(scope.row.book_id,scope.row.bookname,scope.row.author,scope.row.location,scope.row.state,scope.row.category,scope.row.price)"
                 circle
               ></el-button>
               <h3 style="text-align: center;">Edit Book</h3>
               <el-form
-                ref="editBookFormRef"
+                v-if="editbookformvisible"
+                :ref="`${scope.$index}-editBookFormRef`"
                 :model="editBookForm"
                 :rules="editBookFormRules"
                 label-width="120px"
                 style="padding-right:20px;"
                 size="small"
               >
-                <el-form-item label="ISBN" prop="isbn">
+                <el-form-item label="Book ID" prop="book_id">
                   <el-input
-                    v-model="editBookForm.isbn"
-                    placeholder="Please enter the ISBN"
+                    v-model="editBookForm.book_id"
+                    placeholder="Please enter the book ID"
                     :disabled="true"
                     clearable
                   ></el-input>
                 </el-form-item>
                 <el-form-item label="Book title" prop="booktitle">
                   <el-input
-                    v-model="editBookForm.booktitle"
+                    v-model.trim="editBookForm.booktitle"
                     placeholder="Please enter the booktitle"
                     clearable
                   ></el-input>
                 </el-form-item>
                 <el-form-item label="Author" prop="author">
                   <el-input
-                    v-model="editBookForm.author"
+                    v-model.trim="editBookForm.author"
                     placeholder="Please enter the author`s name"
                     clearable
                   ></el-input>
                 </el-form-item>
-                <el-form-item label="Publisher" prop="publisher">
+                <el-form-item label="Category" prop="category">
                   <el-input
-                    type="textarea"
-                    v-model="editBookForm.publisher"
-                    placeholder="Please enter the publisher"
+                    v-model.trim="editBookForm.category"
+                    placeholder="Please enter the category"
                     clearable
                   ></el-input>
                 </el-form-item>
-                <el-form-item label="Status" prop="status">
-                  <el-select
-                    v-model="editBookForm.status"
+                <el-form-item label="Location" prop="location">
+                  <el-input
+                    type="textarea"
+                    v-model="editBookForm.location"
+                    placeholder="Please enter the location"
+                    clearable
+                  ></el-input>
+                </el-form-item>
+                <el-form-item label="Price (￥)" prop="price">
+                  <el-input-number
                     style="width:100%"
-                    placeholder="Please choose the status"
+                    v-model="editBookForm.price"
+                    placeholder="Please enter the price"
+                    clearable
+                    :min="1"
+                  ></el-input-number>
+                </el-form-item>
+                <el-form-item label="State" prop="state">
+                  <el-select
+                    v-model="editBookForm.state"
+                    style="width:100%"
+                    placeholder="Please choose the state"
                   >
                     <el-option value="Not loaned"></el-option>
                     <el-option value="Lost"></el-option>
@@ -96,11 +150,11 @@
                 </el-form-item>
               </el-form>
               <div style="text-align: right; margin: 0">
-                <el-button type="text" @click="cancelEditBook()" size="mini">Cancel</el-button>
+                <el-button type="text" @click="cancelEditBook(scope.$index)" size="mini">Cancel</el-button>
                 <el-button
                   style="margin-left:10px;"
                   type="primary"
-                  @click="completeEditBook()"
+                  @click="completeEditBook(scope.$index)"
                   size="mini"
                 >Modify</el-button>
               </div>
@@ -142,12 +196,15 @@ export default {
       booklist: [],
       pagenum: 1,
       total: 0,
+      editbookformvisible: false,
       editBookForm: {
         booktitle: "",
         author: "",
-        publisher: "",
-        isbn: "",
-        status: ""
+        location: "",
+        book_id: "",
+        state: "",
+        category: "",
+        price: ""
       },
       editBookFormRules: {
         booktitle: [
@@ -157,31 +214,24 @@ export default {
             trigger: "blur"
           }
         ],
-        author: [
+        location: [
           {
             required: true,
-            message: "Please enter the author",
+            message: "Please enter the location",
             trigger: "blur"
           }
         ],
-        publisher: [
+        price: [
           {
             required: true,
-            message: "Please enter the publisher",
+            message: "Please enter the price",
             trigger: "blur"
           }
         ],
-        isbn: [
+        state: [
           {
             required: true,
-            message: "Please enter the ISBN",
-            trigger: "blur"
-          }
-        ],
-        status: [
-          {
-            required: true,
-            message: "Please choose the status",
+            message: "Please choose the state",
             trigger: "blur"
           }
         ]
@@ -197,95 +247,117 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
+            book_id: "00001",
             bookname: "Villa in heavy snow",
             author: "Higashino Keigo",
-            publisher: "Beijing October Literature and Art Publishing House",
-            isbn: "9787530216835",
-            status: "Not loaned"
+            category: "Math",
+            location: "2 floor, bookcase No.34",
+            price: "23",
+            state: "Not loaned"
           },
           {
+            book_id: "00002",
             bookname: "Ten Mile Peach",
             author: "Tang Qigongzi",
-            publisher: "Shenyang Publishing House",
-            isbn: "9787544138000",
-            status: "Not loaned"
+            category: "Geography",
+            location: "3 floor, bookcase No.44",
+            price: "34",
+            state: "Not loaned"
           },
           {
+            book_id: "00003",
             bookname: "Why Sheng Xiaomo",
             author: "Gu Man",
-            publisher: "Chaohua Publishing House",
-            isbn: "9787505414709",
-            status: "Lost"
+            category: "Science",
+            location: "5 floor, bookcase No.3",
+            price: "53",
+            state: "Lost"
           },
           {
+            book_id: "00004",
             bookname: "Brief history of humanity",
             author: "[Israel] Yuval Herali",
-            publisher: "CITIC Publishing House",
-            isbn: "9787508647357",
-            status: "Not loaned"
+            category: "History",
+            location: "2 floor, bookcase No.13",
+            price: "46",
+            state: "Not loaned"
           },
           {
+            book_id: "00005",
             bookname: "Those things in the Ming Dynasty",
             author: "DangNianMingyue",
-            publisher: "China Customs Press",
-            isbn: "9787801656087",
-            status: "Loaned out"
+            category: "History",
+            location: "1 floor, bookcase No.66",
+            price: "55",
+            state: "Loaned out"
           }
         ];
       }
       if (this.pagenum == 2) {
         this.booklist = [
           {
+            book_id: "00006",
             bookname: "Few people",
             author: "M. Scott Parker",
-            publisher: "Jilin Literature and History Press",
-            isbn: "9787807023777",
-            status: "Not loaned"
+            category: "Social",
+            location: "4 floor, bookcase No.43",
+            price: "53",
+            state: "Not loaned"
           },
           {
+            book_id: "00007",
             bookname: "Pursuing the meaning of life",
             author: "[Austria] Victor Frank",
-            publisher: "Xinhua Publishing House",
-            isbn: "9787501162734",
-            status: "Not loaned"
+            category: "Human",
+            location: "3 floor, bookcase No.22",
+            price: "47",
+            state: "Not loaned"
           },
           {
+            book_id: "00008",
             bookname: "Secret garden",
             author: "Johanna Besford",
-            publisher: "Beijing United Publishing Company",
-            isbn: "9787550252585",
-            status: "Not loaned"
+            category: "Art",
+            location: "5 floor, bookcase No.37",
+            price: "75",
+            state: "Not loaned"
           }
         ];
       }
       this.total = 8;
       this.$message.success("Fetching book list succeeded");
     },
-    judgeType(status) {
-      if (status == "Not loaned") return "success";
-      if (status == "Lost") return "danger";
+    judgeType(state) {
+      if (state == "Not loaned") return "success";
+      if (state == "Lost") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
       this.getBookList();
     },
-    startEditBook(isbn, bookname, author, publisher, status) {
-      this.editBookForm.isbn = isbn;
+    startEditBook(book_id, bookname, author, location, state, category, price) {
+      this.editbookformvisible = true;
+      this.editBookForm.book_id = book_id;
       this.editBookForm.booktitle = bookname;
       this.editBookForm.author = author;
-      this.editBookForm.publisher = publisher;
-      this.editBookForm.status = status;
+      this.editBookForm.location = location;
+      this.editBookForm.state = state;
+      this.editBookForm.category = category;
+      this.editBookForm.price = price;
     },
-    cancelEditBook() {
+    cancelEditBook(index) {
       // 下面这行语句用于关闭popover窗口
       document.querySelector("#app").click();
+      this.$refs[`${index}-editBookFormRef`].resetFields();
+      this.editbookformvisible = false;  
     },
-    completeEditBook() {
-      this.$refs.editBookFormRef.validate(async valid => {
+    completeEditBook(index) {
+      this.$refs[`${index}-editBookFormRef`].validate(async valid => {
         if (!valid) return;
         document.querySelector("#app").click();
         this.$message.success("Modifying book succeeded");
+        this.editbookformvisible = false;
       });
     },
     completeDeleteBook() {
@@ -306,6 +378,14 @@ export default {
 }
 .el-pagination {
   margin-top: 15px;
+}
+.booklist-expand {
+  font-size: 0;
+}
+.booklist-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 100%;
 }
 </style>
 
