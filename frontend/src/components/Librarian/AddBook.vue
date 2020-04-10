@@ -32,19 +32,11 @@
           label-width="140px"
           style="padding-right:40px;"
         >
-          <el-form-item label="Book id" prop="bookid">
-            <el-input
-              v-model="addBookForm.bookid"
-              prefix-icon="el-icon-reading"
-              placeholder="Please enter the Book id"
-              clearable
-            ></el-input>
-          </el-form-item>
           <el-form-item label="Book title" prop="bookname">
             <el-input
               v-model="addBookForm.bookname"
               prefix-icon="el-icon-notebook-2"
-              placeholder="Please enter the bookname"
+              placeholder="Please enter the book title"
               clearable
             ></el-input>
           </el-form-item>
@@ -53,14 +45,6 @@
               v-model="addBookForm.author"
               prefix-icon="el-icon-user"
               placeholder="Please enter the author`s name"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="Publisher" prop="publisher">
-            <el-input
-              v-model="addBookForm.publisher"
-              prefix-icon="el-icon-office-building"
-              placeholder="Please enter the publisher"
               clearable
             ></el-input>
           </el-form-item>
@@ -80,29 +64,16 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="Price" prop="price">
-            <el-input
+          <el-form-item label="Price (￥)" prop="price">
+            <el-input-number
+              style="width:100%"
               v-model="addBookForm.price"
-              prefix-icon="el-icon-coin"
               placeholder="Please enter the price"
               clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="ISBN" prop="ISBN">
-            <el-input
-              v-model="addBookForm.ISBN"
-              prefix-icon="el-icon-document-remove"
-              placeholder="Please enter the ISBN"
-              clearable
-            ></el-input>
+              :min="1"
+            ></el-input-number>
           </el-form-item>
         </el-form>
-        <barcode
-          style="text-align:center;"
-          :value="this.addBookForm.ISBN"
-          :margin="0"
-          :height="60"
-        >Enter ISBN to show barcode.</barcode>
         <span slot="footer">
           <div>
             <el-button @click="cancelAddBook">Cancel</el-button>
@@ -111,57 +82,51 @@
         </span>
       </el-dialog>
       <el-divider></el-divider>
-      <el-table stripe max-height="500" :data="booklist">
+      <el-table stripe :data="booklist">
         <el-table-column type="expand">
           <template slot-scope="scope">
             <el-form label-position="left" inline class="booklist-expand">
-              <el-form-item label="Book id :">
-                <span>{{ scope.row.bookid }}</span>
-              </el-form-item>
-              <el-form-item label="Book title :">
-                <span>{{ scope.row.bookname }}</span>
-              </el-form-item>
-              <el-form-item label="Author :">
-                <span>{{ scope.row.author }}</span>
-              </el-form-item>
-              <el-form-item label="Publisher :">
-                <span>{{ scope.row.publisher }}</span>
-              </el-form-item>
-              <el-form-item label="Category :">
-                <span>{{ scope.row.category }}</span>
-              </el-form-item>
-              <el-form-item label="Location :">
-                <span>{{ scope.row.location }}</span>
-              </el-form-item>
-              <el-form-item label="Price :">
-                <span>￥ {{ scope.row.price }}</span>
-              </el-form-item>
-              <el-form-item label="ISBN :">
+              <el-form-item label="Book id ">
                 <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-                  <el-link :underline="false" slot="reference">{{scope.row.ISBN}}</el-link>
-                  <barcode style="text-align:center" :value="scope.row.ISBN">Fail to show barcode.</barcode>
+                  <el-link :underline="false" slot="reference">{{scope.row.book_id}}</el-link>
+                  <barcode style="text-align:center" :value="scope.row.book_id">Fail to show barcode.</barcode>
                 </el-popover>
               </el-form-item>
-              <el-form-item label="State :">
+              <el-form-item label="Book title ">
+                <span>{{ scope.row.bookname }}</span>
+              </el-form-item>
+              <el-form-item label="Author ">
+                <span>{{ scope.row.author }}</span>
+              </el-form-item>
+              <el-form-item label="Category ">
+                <span>{{ scope.row.category }}</span>
+              </el-form-item>
+              <el-form-item label="Location ">
+                <span>{{ scope.row.location }}</span>
+              </el-form-item>
+              <el-form-item label="Price ">
+                <span>￥ {{ scope.row.price }}</span>
+              </el-form-item>
+              <el-form-item label="State ">
                 <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column label="Book id" prop="bookid" width="100px"></el-table-column>
+        <el-table-column label="Book id" prop="book_id" width="100">
+          <template slot-scope="scope">
+            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+              <el-link slot="reference">{{scope.row.book_id}}</el-link>
+              <barcode style="text-align:center" :value="scope.row.book_id">Fail to show barcode.</barcode>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column label="Book title" prop="bookname"></el-table-column>
         <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Category" prop="category"></el-table-column>
         <el-table-column label="Price" prop="price">
           <template slot-scope="scope">
             <span>￥ {{ scope.row.price }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="ISBN" prop="ISBN">
-          <template slot-scope="scope">
-            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-              <el-link slot="reference">{{scope.row.ISBN}}</el-link>
-              <barcode style="text-align:center" :value="scope.row.ISBN">Fail to show barcode.</barcode>
-            </el-popover>
           </template>
         </el-table-column>
         <el-table-column label="State">
@@ -170,7 +135,6 @@
           </template>
         </el-table-column>
       </el-table>
-
       <el-pagination
         layout="total, prev, pager, next, jumper"
         @current-change="handleCurrentChange"
@@ -191,48 +155,17 @@ export default {
       pagenum: 1,
       total: 0,
       addBookForm: {
-        bookid: "",
         bookname: "",
         author: "",
-        publisher: "",
-        ISBN: "",
         category: "",
         location: "",
         price: ""
       },
       addBookFormRules: {
-        bookid: [
-          {
-            required: true,
-            message: "Please enter the bookid",
-            trigger: "blur"
-          }
-        ],
         bookname: [
           {
             required: true,
-            message: "Please enter the bookname",
-            trigger: "blur"
-          }
-        ],
-        author: [
-          {
-            required: true,
-            message: "Please enter the author",
-            trigger: "blur"
-          }
-        ],
-        publisher: [
-          {
-            required: true,
-            message: "Please enter the publisher",
-            trigger: "blur"
-          }
-        ],
-        category: [
-          {
-            required: true,
-            message: "Please enter the category",
+            message: "Please enter the book title",
             trigger: "blur"
           }
         ],
@@ -249,15 +182,9 @@ export default {
             message: "Please enter the price",
             trigger: "blur"
           }
-        ],
-        ISBN: [
-          {
-            required: true,
-            message: "Please enter the ISBN",
-            trigger: "blur"
-          }
         ]
-      }
+      },
+      
     };
   },
   created() {
@@ -269,58 +196,48 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
-            bookid: "1",
+            book_id: "00001",
             bookname: "Villa in heavy snow",
             author: "Higashino Keigo",
-            publisher: "Beijing October Literature and Art Publishing House",
             category: "Math",
             location: "2 floor, bookcase No.34",
             price: "23",
-            ISBN: "9787530216835",
             state: "Not loaned"
           },
           {
-            bookid: "2",
+            book_id: "00002",
             bookname: "Ten Mile Peach",
             author: "Tang Qigongzi",
-            publisher: "Shenyang Publishing House",
             category: "Geography",
             location: "3 floor, bookcase No.44",
             price: "34",
-            ISBN: "9787544138000",
             state: "Not loaned"
           },
           {
-            bookid: "3",
+            book_id: "00003",
             bookname: "Why Sheng Xiaomo",
             author: "Gu Man",
-            publisher: "Chaohua Publishing House",
             category: "Science",
             location: "5 floor, bookcase No.3",
             price: "53",
-            ISBN: "9787505414709",
             state: "Lost"
           },
           {
-            bookid: "4",
+            book_id: "00004",
             bookname: "Brief history of humanity",
             author: "[Israel] Yuval Herali",
-            publisher: "CITIC Publishing House",
             category: "History",
             location: "2 floor, bookcase No.13",
             price: "46",
-            ISBN: "9787508647357",
             state: "Not loaned"
           },
           {
-            bookid: "5",
+            book_id: "00005",
             bookname: "Those things in the Ming Dynasty",
             author: "DangNianMingyue",
-            publisher: "China Customs Press",
             category: "History",
             location: "1 floor, bookcase No.66",
             price: "55",
-            ISBN: "9787801656087",
             state: "Loaned out"
           }
         ];
@@ -328,36 +245,30 @@ export default {
       if (this.pagenum == 2) {
         this.booklist = [
           {
-            bookid: "6",
+            book_id: "00006",
             bookname: "Few people",
             author: "M. Scott Parker",
-            publisher: "Jilin Literature and History Press",
             category: "Social",
             location: "4 floor, bookcase No.43",
             price: "53",
-            ISBN: "9787807023777",
             state: "Not loaned"
           },
           {
-            bookid: "7",
+            book_id: "00007",
             bookname: "Pursuing the meaning of life",
             author: "[Austria] Victor Frank",
-            publisher: "Xinhua Publishing House",
             category: "Human",
             location: "3 floor, bookcase No.22",
             price: "47",
-            ISBN: "9787501162734",
             state: "Not loaned"
           },
           {
-            bookid: "8",
+            book_id: "00008",
             bookname: "Secret garden",
             author: "Johanna Besford",
-            publisher: "Beijing United Publishing Company",
             category: "Art",
             location: "5 floor, bookcase No.37",
             price: "75",
-            ISBN: "9787550252585",
             state: "Not loaned"
           }
         ];
@@ -407,14 +318,19 @@ export default {
 .booklist-expand {
   font-size: 0;
 }
-.booklist-expand label {
-  width: 90px;
-  color: #99a9bf;
-}
 .booklist-expand .el-form-item {
   margin-right: 0;
   margin-bottom: 0;
-  width: 80%;
+  width: 100%;
+}
+</style>
+<style>
+/* <style>与<style scoped>的区别是前者会影响所有页面的样式，后者scoped属性会限制 */
+/* 该组件的style的作用域，无法作用于其他element组件。通常情况，使用<style scoped> */
+.booklist-expand label {
+  width: 120px;
+  font-weight: bold;
+  color: #99a9bf;
 }
 </style>
 
