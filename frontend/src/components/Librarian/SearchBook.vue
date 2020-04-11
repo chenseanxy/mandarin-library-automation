@@ -73,12 +73,13 @@
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
-            <el-popover placement="left" width="500" trigger="click" @hide="cancelEditBook">
+            <el-popover placement="left" width="500" trigger="click" @hide="cancelEditBook(scope.$index)">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
                 @click="startEditBook(scope.row.book_id,scope.row.bookname,scope.row.author,scope.row.location,scope.row.state,scope.row.category,scope.row.price)"
+                :loading="editbookformvisible"
                 circle
               ></el-button>
               <h3 style="text-align: center;">Edit Book</h3>
@@ -350,17 +351,23 @@ export default {
       // 下面这行语句用于关闭popover窗口
       document.querySelector("#app").click();
       this.$refs[`${index}-editBookFormRef`].resetFields();
-      this.editbookformvisible = false;  
+      setTimeout(() => {
+        this.editbookformvisible = false;
+      }, 200);
     },
     completeEditBook(index) {
       this.$refs[`${index}-editBookFormRef`].validate(async valid => {
         if (!valid) return;
+        // 在这里添加后端交互
         document.querySelector("#app").click();
         this.$message.success("Modifying book succeeded");
+        setTimeout(() => {
         this.editbookformvisible = false;
+      }, 200);
       });
     },
     completeDeleteBook() {
+      // 在这里添加后端交互
       this.$message.success("Deleting book succeeded");
     }
   }
