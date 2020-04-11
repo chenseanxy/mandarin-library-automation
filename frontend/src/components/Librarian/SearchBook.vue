@@ -73,7 +73,12 @@
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="160px">
           <template slot-scope="scope">
-            <el-popover placement="left" width="500" trigger="click" @hide="cancelEditBook(scope.$index)">
+            <el-popover
+              placement="left"
+              width="500"
+              trigger="click"
+              @hide="cancelEditBook(scope.$index)"
+            >
               <el-button
                 slot="reference"
                 type="primary"
@@ -163,7 +168,7 @@
             <el-popconfirm
               :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
               confirmButtonText="Delete"
-              @onConfirm="completeDeleteBook"
+              @onConfirm="completeDeleteBook(scope.$index)"
               cancelButtonText="Cancel"
               confirmButtonType="danger"
             >
@@ -358,16 +363,29 @@ export default {
     completeEditBook(index) {
       this.$refs[`${index}-editBookFormRef`].validate(async valid => {
         if (!valid) return;
-        // 在这里添加后端交互
+        // 在这里添加后端交互，下面是前端层面的修改操作
+        this.booklist.splice(index, 1, {
+          book_id: this.editBookForm.book_id,
+          bookname: this.editBookForm.booktitle,
+          author: this.editBookForm.author,
+          category: this.editBookForm.category,
+          location: this.editBookForm.location,
+          price: this.editBookForm.price,
+          state: this.editBookForm.state
+        });
+        // 上面是前端层面的修改操作，添加后端代码后删除上述代码并添加刷新页面操作
         document.querySelector("#app").click();
         this.$message.success("Modifying book succeeded");
         setTimeout(() => {
-        this.editbookformvisible = false;
-      }, 200);
+          this.editbookformvisible = false;
+        }, 200);
       });
     },
-    completeDeleteBook() {
-      // 在这里添加后端交互
+    completeDeleteBook(index) {
+      // 在这里添加后端交互，下面是前端层面的删除操作
+      this.booklist.splice(index, 1);
+      this.total = this.total - 1;
+      // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
       this.$message.success("Deleting book succeeded");
     }
   }
