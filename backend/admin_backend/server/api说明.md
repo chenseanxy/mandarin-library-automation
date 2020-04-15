@@ -18,3 +18,12 @@ select_one_info
 select_all_info
 （返回l_account中所有行）
 'select * from l_account'
+
+----------2020.04.15新增（用于修改超管自己的密码）--------------
+select_admin_info
+(获得一个id 返回该行（包括id，pw）)
+'select * from a_account'
+
+change_admin_pw
+(获得一个id和一个pw 查找数据库中id所属的行并且修改该行pw)
+'update a_account set pw=? where id=?'

@@ -76,5 +76,32 @@ router.post('/select_all_info', (req, res) => {
   })
 })
 
+router.post('/select_admin_info', (req, res) => {
+  var sql = $sql.librarian_api.select_admin_info;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.id],  [params.pw],  function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/change_admin_pw', (req, res) => {
+  var sql = $sql.librarian_api.select_admin_info;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.id],[params.pw], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
 
 module.exports = router
