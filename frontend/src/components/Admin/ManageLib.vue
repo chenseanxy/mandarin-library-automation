@@ -161,7 +161,7 @@
 
             <!--account删除时的弹框，应该修改好了-->
             <el-popconfirm
-              :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
+              :title="'Are you sure to DELETE '+scope.row.account+' ?'"
               confirmButtonText="Delete"
               @onConfirm="completeDeleteAccount"
               cancelButtonText="Cancel"
