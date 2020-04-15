@@ -9,7 +9,7 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input placeholder="Please enter book title / author / publisher / ISBN "></el-input>
+          <el-input placeholder="Please enter librarian account "></el-input>
         </el-col>
         <el-col :span="4">
           <el-button type="primary" style="width:100%">Search</el-button>
@@ -18,6 +18,9 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
+        <!-- <el-table-column label="Account" prop="bookname"></el-table-column>
+        <el-table-column label="Email" prop="bookname"></el-table-column>
+        <el-table-column label="Password" prop="bookname"></el-table-column> -->
         <el-table-column label="Book title" prop="bookname"></el-table-column>
         <el-table-column label="Author" prop="author"></el-table-column>
         <el-table-column label="Publisher" prop="publisher"></el-table-column>
