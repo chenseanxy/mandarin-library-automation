@@ -51,7 +51,7 @@ export default {
         this.booklist = [
           {
             username: "user1",
-            finepending:"0"
+            finepending:"$0",
             status: "已缴纳"
           },
          
