@@ -13,6 +13,7 @@
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="username" prop="username"></el-table-column>
+        <el-table-column label="fine pending" prop="finepending"></el-table-column>
         <el-table-column label="状态">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
@@ -50,6 +51,7 @@ export default {
         this.booklist = [
           {
             username: "user1",
+            finepending:"0"
             status: "已缴纳"
           },
          
