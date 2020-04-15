@@ -53,94 +53,86 @@
           <template slot-scope="scope">
             
             <!--这是我暂时写的，得会你还是得用底下的，弹窗-->
-            <el-popover placement="left" width="500" trigger="click">
+            <!-- <el-popover placement="left" width="500" trigger="click">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
                 circle
               ></el-button>
-            </el-popover>
+            </el-popover> -->
 
-            <!--这是弹出式悬浮框，点击弹出-->
-            <!-- <el-popover placement="left" width="500" trigger="click">
+            
+            <el-popover placement="left" width="500" trigger="click">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
-                @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status)"
+                @click="startEditAccount(scope.row.account,scope.row.Email,scope.row.password,scope.row.status)"
                 circle
-              ></el-button> -->
+              ></el-button>
 
-              
+
               <!--这是弹出来的修改框,我先暂时注释掉了-->
-              <!-- <h3 style="text-align: center;">Edit Book</h3>
+               <h3 style="text-align: center;">Edit Account</h3>
               <el-form
-                ref="editBookFormRef"
-                :model="editBookForm"
-                :rules="editBookFormRules"
+                ref="editAccountFormRef"
+                :model="editLibForm"
+                :rules="editLibFormRules"
                 label-width="120px"
                 style="padding-right:20px;"
                 size="small"
               >
-                
-                <el-form-item label="ISBN" prop="isbn">
+
+
+                <el-form-item label="Account" prop="account">
                   <el-input
-                    v-model="editBookForm.isbn"
-                    placeholder="Please enter the ISBN"
-                    :disabled="true"
+                    v-model="editLibForm.account"
+                    placeholder="Please enter the account"
                     clearable
                   ></el-input>
                 </el-form-item>
-                
-                <el-form-item label="Book title" prop="booktitle">
+
+                <el-form-item label="Email" prop="email">
                   <el-input
-                    v-model="editBookForm.booktitle"
-                    placeholder="Please enter the booktitle"
+                    v-model="editLibForm.Email"
+                    placeholder="Please enter the email"
                     clearable
                   ></el-input>
                 </el-form-item>
-                
-                <el-form-item label="Author" prop="author">
-                  <el-input
-                    v-model="editBookForm.author"
-                    placeholder="Please enter the author`s name"
-                    clearable
-                  ></el-input>
-                </el-form-item>
-                
-                <el-form-item label="Publisher" prop="publisher">
+
+                <el-form-item label="Password" prop="password">
                   <el-input
                     type="textarea"
-                    v-model="editBookForm.publisher"
-                    placeholder="Please enter the publisher"
+                    v-model="editLibForm.password"
+                    placeholder="Please enter the password"
                     clearable
                   ></el-input>
                 </el-form-item>
-                
+
                 <el-form-item label="Status" prop="status">
                   <el-select
                     v-model="editBookForm.status"
                     style="width:100%"
                     placeholder="Please choose the status"
                   >
-                    <el-option value="Not loaned"></el-option>
+                    <el-option value="Normal"></el-option>
                     <el-option value="Lost"></el-option>
-                    <el-option value="Loaned out"></el-option>
+
                   </el-select>
                 </el-form-item>
               </el-form>
-              
+
               <div style="text-align: right; margin: 0">
-                <el-button type="text" @click="cancelEditBook()" size="mini">Cancel</el-button>
+                <el-button type="text" @click="cancelEditAccount()" size="mini">Cancel</el-button>
                 <el-button
                   style="margin-left:10px;"
                   type="primary"
-                  @click="completeEditBook()"
+                  @click="completeEditAccount()"
                   size="mini"
                 >Modify</el-button>
               </div>
-            </el-popover> -->
+            </el-popover>
             
             <!--这是删除时弹出的确认框-->
             <!-- <el-popconfirm
@@ -201,13 +193,13 @@ export default {
       booklist: [],
       pagenum: 1,
       total: 0,
-    //   editBookForm: {
-    //     booktitle: "",
-    //     author: "",
-    //     publisher: "",
-    //     isbn: "",
-    //     status: ""
-    //   },
+      editBookForm: {
+        booktitle: "",
+        author: "",
+        publisher: "",
+        isbn: "",
+        status: ""
+      },
 
       //lib属性1
       liblist: [],
@@ -218,43 +210,43 @@ export default {
         status: ""
       },
 
-    //   editBookFormRules: {
-    //     booktitle: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the booktitle",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     author: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the author",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     publisher: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the publisher",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     isbn: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the ISBN",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     status: [
-    //       {
-    //         required: true,
-    //         message: "Please choose the status",
-    //         trigger: "blur"
-    //       }
-    //     ]
-    //   },
+      editBookFormRules: {
+        booktitle: [
+          {
+            required: true,
+            message: "Please enter the booktitle",
+            trigger: "blur"
+          }
+        ],
+        author: [
+          {
+            required: true,
+            message: "Please enter the author",
+            trigger: "blur"
+          }
+        ],
+        publisher: [
+          {
+            required: true,
+            message: "Please enter the publisher",
+            trigger: "blur"
+          }
+        ],
+        isbn: [
+          {
+            required: true,
+            message: "Please enter the ISBN",
+            trigger: "blur"
+          }
+        ],
+        status: [
+          {
+            required: true,
+            message: "Please choose the status",
+            trigger: "blur"
+          }
+        ]
+      },
         
         //lib属性2
       editLibFormRules: {
@@ -484,6 +476,27 @@ export default {
     //这是删书的函数，已经没用了
     completeDeleteBook() {
       this.$message.success("Deleting book succeeded");
+    },
+
+    //添加账号
+    startEditAccount(account, Email, password, status) {
+      this.editLibForm.account = account;
+      this.editLibForm.Email = Email;
+      this.editLibForm.password = password;
+      this.editLibForm.status = status;
+    },
+    //关闭窗口
+    cancelEditAccount() {
+      // 下面这行语句用于关闭popover窗口
+      document.querySelector("#app").click();
+    },
+
+    completeEditAccount() {
+      this.$refs.editAccountFormRef.validate(async valid => {
+        if (!valid) return;
+        document.querySelector("#app").click();
+        this.$message.success("Modifying Account succeeded");
+      });
     },
 
     //删除账号
