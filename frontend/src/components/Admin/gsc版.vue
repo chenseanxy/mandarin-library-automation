@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>Admin Home Page</el-breadcrumb-item>
-      <el-breadcrumb-item>Lib management</el-breadcrumb-item>
-      <el-breadcrumb-item>Manage Accounts</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Book management</el-breadcrumb-item>
+      <el-breadcrumb-item>Search for Books</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <!--最上面的搜索栏-->
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
