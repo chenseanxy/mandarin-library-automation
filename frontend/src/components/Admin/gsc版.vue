@@ -18,7 +18,7 @@
       <el-divider></el-divider>
       
       <!--这里是table的内容，这里把data改成liblist -->
-      <el-table stripe max-height="500" :data="datalist">
+      <el-table stripe max-height="500" :data="booklist">
       
         <!-- <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="Account" prop="account"></el-table-column>
