@@ -1,12 +1,11 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>Admin Home Page</el-breadcrumb-item>
-      <el-breadcrumb-item>Lib management</el-breadcrumb-item>
-      <el-breadcrumb-item>Manage Accounts</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Home Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Book management</el-breadcrumb-item>
+      <el-breadcrumb-item>Search for Books</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <!--最上面的搜索栏-->
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
@@ -19,27 +18,27 @@
       <el-divider></el-divider>
       
       <!--这里是table的内容，这里把data改成liblist -->
-      <el-table stripe max-height="500" :data="liblist">
+      <el-table stripe max-height="500" :data="booklist">
       
-        <el-table-column label="#" type="index"></el-table-column>
+        <!-- <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="Account" prop="account"></el-table-column>
         <el-table-column label="Email" prop="Email"></el-table-column>
-        <el-table-column label="Password" prop="password"></el-table-column>
+        <el-table-column label="Password" prop="password"></el-table-column> -->
         
-        <!-- <el-table-column label="Book title" prop="bookname"></el-table-column>
+        <el-table-column label="Book title" prop="bookname"></el-table-column>
         <el-table-column label="Author" prop="author"></el-table-column>
         <el-table-column label="Publisher" prop="publisher"></el-table-column>
         
         
-        <el-table-column label="ISBN" prop="isbn"> -->
+        <el-table-column label="ISBN" prop="isbn">
           <!--这一段可以删了，是一段弹出式对话框，鼠标移动到显示-->
-          <!-- <template slot-scope="scope">
+          <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
               <el-link slot="reference">{{scope.row.isbn}}</el-link>
               <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
             </el-popover>
           </template>
-        </el-table-column> -->
+        </el-table-column>
         
         <!--这是状态那一列-->
         <el-table-column label="State">
@@ -53,28 +52,28 @@
           <template slot-scope="scope">
             
             <!--这是我暂时写的，得会你还是得用底下的，弹窗-->
-            <el-popover placement="left" width="500" trigger="click">
+            <!-- <el-popover placement="left" width="500" trigger="click">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
                 circle
               ></el-button>
-            </el-popover>
+            </el-popover> -->
 
             <!--这是弹出式悬浮框，点击弹出-->
-            <!-- <el-popover placement="left" width="500" trigger="click">
+            <el-popover placement="left" width="500" trigger="click">
               <el-button
                 slot="reference"
                 type="primary"
                 icon="el-icon-edit"
                 @click="startEditBook(scope.row.isbn,scope.row.bookname,scope.row.author,scope.row.publisher,scope.row.status)"
                 circle
-              ></el-button> -->
+              ></el-button>
 
               
               <!--这是弹出来的修改框,我先暂时注释掉了-->
-              <!-- <h3 style="text-align: center;">Edit Book</h3>
+              <h3 style="text-align: center;">Edit Book</h3>
               <el-form
                 ref="editBookFormRef"
                 :model="editBookForm"
@@ -140,10 +139,10 @@
                   size="mini"
                 >Modify</el-button>
               </div>
-            </el-popover> -->
+            </el-popover>
             
             <!--这是删除时弹出的确认框-->
-            <!-- <el-popconfirm
+            <el-popconfirm
               :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
               confirmButtonText="Delete"
               @onConfirm="completeDeleteBook"
@@ -157,10 +156,10 @@
                 icon="el-icon-delete"
                 circle
               ></el-button>
-            </el-popconfirm> -->
+            </el-popconfirm>
 
             <!--account删除时的弹框，应该修改好了-->
-            <el-popconfirm
+            <!-- <el-popconfirm
               :title="'Are you sure to DELETE '+scope.row.bookname+' ?'"
               confirmButtonText="Delete"
               @onConfirm="completeDeleteAccount"
@@ -174,7 +173,7 @@
                 icon="el-icon-delete"
                 circle
               ></el-button>
-            </el-popconfirm>
+            </el-popconfirm> -->
 
           </template>
         
@@ -201,234 +200,170 @@ export default {
       booklist: [],
       pagenum: 1,
       total: 0,
-    //   editBookForm: {
-    //     booktitle: "",
-    //     author: "",
-    //     publisher: "",
-    //     isbn: "",
-    //     status: ""
-    //   },
-
-      //lib属性1
-      liblist: [],
-      editLibForm: {
-        account: "",
-        Email: "",
-        password: "",
+      editBookForm: {
+        booktitle: "",
+        author: "",
+        publisher: "",
+        isbn: "",
         status: ""
       },
 
-    //   editBookFormRules: {
-    //     booktitle: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the booktitle",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     author: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the author",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     publisher: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the publisher",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     isbn: [
-    //       {
-    //         required: true,
-    //         message: "Please enter the ISBN",
-    //         trigger: "blur"
-    //       }
-    //     ],
-    //     status: [
-    //       {
-    //         required: true,
-    //         message: "Please choose the status",
-    //         trigger: "blur"
-    //       }
-    //     ]
-    //   },
-        
-        //lib属性2
-      editLibFormRules: {
-          account: [
+      //lib属性1
+      // liblist: [],
+      // editLibForm: {
+      //   account: "",
+      //   Email: "",
+      //   password: "",
+      //   status: ""
+      // },
+
+      editBookFormRules: {
+        booktitle: [
           {
             required: true,
-            message: "Please enter account",
+            message: "Please enter the booktitle",
             trigger: "blur"
           }
         ],
-          Email: [
+        author: [
           {
             required: true,
-            message: "Please enter the Email",
+            message: "Please enter the author",
             trigger: "blur"
           }
         ],
-          password: [
+        publisher: [
           {
             required: true,
-            message: "Please enter the password",
+            message: "Please enter the publisher",
             trigger: "blur"
           }
         ],
-          status: [
+        isbn: [
+          {
+            required: true,
+            message: "Please enter the ISBN",
+            trigger: "blur"
+          }
+        ],
+        status: [
           {
             required: true,
             message: "Please choose the status",
             trigger: "blur"
           }
         ]
-      }
+      },
+        
+        //lib属性2
+      // editLibFormRules: {
+      //     account: [
+      //     {
+      //       required: true,
+      //       message: "Please enter account",
+      //       trigger: "blur"
+      //     }
+      //   ],
+      //     Email: [
+      //     {
+      //       required: true,
+      //       message: "Please enter the Email",
+      //       trigger: "blur"
+      //     }
+      //   ],
+      //     password: [
+      //     {
+      //       required: true,
+      //       message: "Please enter the password",
+      //       trigger: "blur"
+      //     }
+      //   ],
+      //     status: [
+      //     {
+      //       required: true,
+      //       message: "Please choose the status",
+      //       trigger: "blur"
+      //     }
+      //   ]
+      // }
     };
   },
 
 
-//   created() {
-//     this.getBookList();
-//   },
-
   created() {
-    this.getLibList();
+    this.getBookList();
   },
+
+  // created() {
+  //   this.getLibList();
+  // },
 
   methods: {
     
     //这里返回图书信息
-    // getBookList() {
-    //   // 修改这里以从后端调取信息
-    //   if (this.pagenum == 1) {
-    //     this.booklist = [
-    //       {
-    //         bookname: "Villa in heavy snow",
-    //         author: "Higashino Keigo",
-    //         publisher: "Beijing October Literature and Art Publishing House",
-    //         isbn: "9787530216835",
-    //         status: "Not loaned"
-    //       },
-    //       {
-    //         bookname: "Ten Mile Peach",
-    //         author: "Tang Qigongzi",
-    //         publisher: "Shenyang Publishing House",
-    //         isbn: "9787544138000",
-    //         status: "Not loaned"
-    //       },
-    //       {
-    //         bookname: "Why Sheng Xiaomo",
-    //         author: "Gu Man",
-    //         publisher: "Chaohua Publishing House",
-    //         isbn: "9787505414709",
-    //         status: "Lost"
-    //       },
-    //       {
-    //         bookname: "Brief history of humanity",
-    //         author: "[Israel] Yuval Herali",
-    //         publisher: "CITIC Publishing House",
-    //         isbn: "9787508647357",
-    //         status: "Not loaned"
-    //       },
-    //       {
-    //         bookname: "Those things in the Ming Dynasty",
-    //         author: "DangNianMingyue",
-    //         publisher: "China Customs Press",
-    //         isbn: "9787801656087",
-    //         status: "Loaned out"
-    //       }
-    //     ];
-    //   }
-    //   if (this.pagenum == 2) {
-    //     this.booklist = [
-    //       {
-    //         bookname: "Few people",
-    //         author: "M. Scott Parker",
-    //         publisher: "Jilin Literature and History Press",
-    //         isbn: "9787807023777",
-    //         status: "Not loaned"
-    //       },
-    //       {
-    //         bookname: "Pursuing the meaning of life",
-    //         author: "[Austria] Victor Frank",
-    //         publisher: "Xinhua Publishing House",
-    //         isbn: "9787501162734",
-    //         status: "Not loaned"
-    //       },
-    //       {
-    //         bookname: "Secret garden",
-    //         author: "Johanna Besford",
-    //         publisher: "Beijing United Publishing Company",
-    //         isbn: "9787550252585",
-    //         status: "Not loaned"
-    //       }
-    //     ];
-    //   }
-    //   this.total = 8;
-    //   this.$message.success("Fetching book list succeeded");
-    // },
-
-
-    //这里返回lib信息
-    getLibList() {
+    getBookList() {
       // 修改这里以从后端调取信息
       if (this.pagenum == 1) {
-        this.liblist = [
+        this.booklist = [
           {
-            account: "Villa",
-            Email: "abcde@qq.com",
-            password: "Beijing",
-            status: "Normal"
+            bookname: "Villa in heavy snow",
+            author: "Higashino Keigo",
+            publisher: "Beijing October Literature and Art Publishing House",
+            isbn: "9787530216835",
+            status: "Not loaned"
           },
           {
-            account: "Sheng",
-            Email: "GuMan@qq.com",
-            password: "Beijing",
+            bookname: "Ten Mile Peach",
+            author: "Tang Qigongzi",
+            publisher: "Shenyang Publishing House",
+            isbn: "9787544138000",
+            status: "Not loaned"
+          },
+          {
+            bookname: "Why Sheng Xiaomo",
+            author: "Gu Man",
+            publisher: "Chaohua Publishing House",
+            isbn: "9787505414709",
             status: "Lost"
           },
           {
-            account: "Brief",
-            Email: "Yuval@qq.com",
-            password: "9787508647357",
-            status: "Normal"
+            bookname: "Brief history of humanity",
+            author: "[Israel] Yuval Herali",
+            publisher: "CITIC Publishing House",
+            isbn: "9787508647357",
+            status: "Not loaned"
           },
           {
-            account: "Ming",
-            Email: "ang@qq.com",
-            password: "0165608",
-            status: "Normal"
-          },
-          {
-            account: "ghadfjksdh",
-            Email: "dsakh@qq.com",
-            password: "0ajdksl",
-            status: "Normal"
+            bookname: "Those things in the Ming Dynasty",
+            author: "DangNianMingyue",
+            publisher: "China Customs Press",
+            isbn: "9787801656087",
+            status: "Loaned out"
           }
         ];
       }
       if (this.pagenum == 2) {
         this.booklist = [
           {
-            account: "fhkadj",
-            Email: "faihd@qq.com",
-            password: "fkhjas",
-            status: "Normal"
+            bookname: "Few people",
+            author: "M. Scott Parker",
+            publisher: "Jilin Literature and History Press",
+            isbn: "9787807023777",
+            status: "Not loaned"
           },
           {
-            account: "lfadhs",
-            Email: "lfkhasj@qq.com",
-            password: "falcsdjakl",
-            status: "Normal"
+            bookname: "Pursuing the meaning of life",
+            author: "[Austria] Victor Frank",
+            publisher: "Xinhua Publishing House",
+            isbn: "9787501162734",
+            status: "Not loaned"
           },
           {
-            account: "flhask",
-            Email: "iuyfdsjkfhd@qq.com",
-            password: "fidushifs",
-            status: "Normal"
+            bookname: "Secret garden",
+            author: "Johanna Besford",
+            publisher: "Beijing United Publishing Company",
+            isbn: "9787550252585",
+            status: "Not loaned"
           }
         ];
       }
@@ -437,30 +372,94 @@ export default {
     },
 
 
-    // judgeType(status) {
-    //   if (status == "Not loaned") return "success";
-    //   if (status == "Lost") return "danger";
-    //   else return "info";
+    //这里返回lib信息
+    // getLibList() {
+    //   // 修改这里以从后端调取信息
+    //   if (this.pagenum == 1) {
+    //     this.liblist = [
+    //       {
+    //         account: "Villa",
+    //         Email: "abcde@qq.com",
+    //         password: "Beijing",
+    //         status: "Normal"
+    //       },
+    //       {
+    //         account: "Sheng",
+    //         Email: "GuMan@qq.com",
+    //         password: "Beijing",
+    //         status: "Lost"
+    //       },
+    //       {
+    //         account: "Brief",
+    //         Email: "Yuval@qq.com",
+    //         password: "9787508647357",
+    //         status: "Normal"
+    //       },
+    //       {
+    //         account: "Ming",
+    //         Email: "ang@qq.com",
+    //         password: "0165608",
+    //         status: "Normal"
+    //       },
+    //       {
+    //         account: "ghadfjksdh",
+    //         Email: "dsakh@qq.com",
+    //         password: "0ajdksl",
+    //         status: "Normal"
+    //       }
+    //     ];
+    //   }
+    //   if (this.pagenum == 2) {
+    //     this.booklist = [
+    //       {
+    //         account: "fhkadj",
+    //         Email: "faihd@qq.com",
+    //         password: "fkhjas",
+    //         status: "Normal"
+    //       },
+    //       {
+    //         account: "lfadhs",
+    //         Email: "lfkhasj@qq.com",
+    //         password: "falcsdjakl",
+    //         status: "Normal"
+    //       },
+    //       {
+    //         account: "flhask",
+    //         Email: "iuyfdsjkfhd@qq.com",
+    //         password: "fidushifs",
+    //         status: "Normal"
+    //       }
+    //     ];
+    //   }
+    //   this.total = 8;
+    //   this.$message.success("Fetching book list succeeded");
     // },
 
-    //给状态设置底色
+
     judgeType(status) {
-      if (status == "Normal") return "success";
+      if (status == "Not loaned") return "success";
       if (status == "Lost") return "danger";
       else return "info";
     },
 
-    
-    // handleCurrentChange(newPage) {
-    //   this.pagenum = newPage;
-    //   this.getBookList();
+    //给状态设置底色
+    // judgeType(status) {
+    //   if (status == "Normal") return "success";
+    //   if (status == "Lost") return "danger";
+    //   else return "info";
     // },
 
-    //跳到下一页获取信息
+    
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
-      this.getLibList();
+      this.getBookList();
     },
+
+    //跳到下一页获取信息
+    // handleCurrentChange(newPage) {
+    //   this.pagenum = newPage;
+    //   this.getLibList();
+    // },
 
     //这几行是用来加书的函数
     startEditBook(isbn, bookname, author, publisher, status) {
