@@ -199,8 +199,8 @@ export default {
   data() {
     return {
       booklist: [],
-    //   pagenum: 1,
-    //   total: 0,
+      pagenum: 1,
+      total: 0,
     //   editBookForm: {
     //     booktitle: "",
     //     author: "",
