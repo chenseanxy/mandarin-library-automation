@@ -86,8 +86,19 @@
         </el-form>
         <span slot="footer">
           <div>
-            <el-button @click="backAccountRegister">Back</el-button>
-            <el-button type="success" @click="completeAccountRegister">Complete</el-button>
+            <el-button @click="backAccountRegister" style="margin-right:10px;">Back</el-button>
+            <el-popconfirm
+              title="Please confirm to submit?"
+              @onConfirm="completeAccountRegister"
+              :disabled="popconfrimDisabled"
+              confirmButtonText="Submit"
+              confirmButtonType="success"
+              cancelButtonText="Cancel"
+              icon="el-icon-question"
+              iconColor="#FF7B23"
+            >
+            <el-button type="primary" slot="reference" @click="finishAccountRegister">Complete</el-button>
+            </el-popconfirm>
           </div>
         </span>
       </el-dialog>
@@ -139,6 +150,7 @@ export default {
       pagenum: 1,
       dialogVisible1: false,
       dialogVisible2: false,
+      popconfrimDisabled: true,
       total: 0,
       depositForm: {
         deposit: ""
@@ -266,6 +278,12 @@ export default {
         return this.$message.success(
           "Register the reader account successfully"
         );
+      });
+    },
+    finishAccountRegister() {
+      this.$refs.accountRegisterFormRef.validate(async valid => {
+        if (!valid) return (this.popconfrimDisabled = true);
+        this.popconfrimDisabled = false;
       });
     }
   }

@@ -47,6 +47,8 @@
               confirmButtonText="Delete"
               cancelButtonText="Cancel"
               confirmButtonType="danger"
+              icon="el-icon-warning"
+              iconColor="#FF6262"
             >
               <el-button
                 slot="reference"

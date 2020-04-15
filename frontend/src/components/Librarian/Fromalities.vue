@@ -61,12 +61,13 @@
               title="Please confirm to submit?"
               @onConfirm="completeCollectFines"
               :disabled="popconfrimDisabled"
-              confirmButtonText="Confirm"
+              confirmButtonText="Submit"
+              confirmButtonType="success"
               cancelButtonText="Cancel"
-              icon="el-icon-warning"
-              iconColor="#8896B3"
+              icon="el-icon-question"
+              iconColor="#FF7B23"
             >
-              <el-button type="success" slot="reference" @click="finishCollectFines">Complete</el-button>
+              <el-button type="primary" slot="reference" @click="finishCollectFines">Complete</el-button>
             </el-popconfirm>
           </div>
         </span>

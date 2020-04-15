@@ -52,8 +52,19 @@
         </el-form>
         <span slot="footer" class="dialog-footer">
           <div>
-            <el-button @click="cancelAnnouncementForm">Cancel</el-button>
-            <el-button type="success" @click="publishAnnouncement">Publish</el-button>
+            <el-button @click="cancelAnnouncementForm" style="margin-right:10px;">Cancel</el-button>
+            <el-popconfirm
+              title="Please confirm to publish?"
+              @onConfirm="completePublishAnnouncement"
+              :disabled="popconfrimDisabled"
+              confirmButtonText="Publish"
+              confirmButtonType="success"
+              cancelButtonText="Cancel"
+              icon="el-icon-question"
+              iconColor="#FF7B23"
+            >
+            <el-button type="primary" slot="reference" @click="publishAnnouncement">Publish</el-button>
+            </el-popconfirm>
           </div>
         </span>
       </el-dialog>
@@ -85,6 +96,8 @@
               confirmButtonText="Delete"
               cancelButtonText="Cancel"
               confirmButtonType="danger"
+              icon="el-icon-warning"
+              iconColor="#FF6262"
             >
               <el-button
                 slot="reference"
@@ -119,6 +132,7 @@ export default {
       announcementlist: [],
       pagenum: 1,
       total: 0,
+      popconfrimDisabled: true,
       dialogVisible: false,
       announcementForm: {
         announcementtitle: "",
@@ -214,10 +228,15 @@ export default {
     },
     publishAnnouncement() {
       this.$refs.announcementFormRef.validate(async valid => {
+        if (!valid) return (this.popconfrimDisabled = true);
+        this.popconfrimDisabled = false;
+      });
+    },
+    completePublishAnnouncement() {
+      this.$refs.announcementFormRef.validate(async valid => {
         if (!valid) return;
         this.dialogVisible = false;
-        this.announcementForm.announcementtitle = "";
-        this.announcementForm.announcementcontent = "";
+        this.$refs.announcementFormRef.resetFields();
         return this.$message.success(
           "The new announcement was published successfully"
         );
