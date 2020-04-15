@@ -3,7 +3,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>读者首页</el-breadcrumb-item>
       <el-breadcrumb-item>账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>保证金缴纳</el-breadcrumb-item>
+      <el-breadcrumb-item>罚金缴纳</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="searchbook-card" shadow="hover">
@@ -56,7 +56,7 @@ export default {
         ];
       }
       
-      this.$message.success("获取保证金信息成功");
+      this.$message.success("获取罚金信息成功");
     },
     judgeType(status) {
       if (status == "已缴纳") return "success";
