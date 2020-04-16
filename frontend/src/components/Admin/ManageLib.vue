@@ -89,7 +89,7 @@
 
                                 <el-form-item label="Status" prop="status">
                                     <el-select
-                                            v-model="editBookForm.status"
+                                            v-model="editLibForm.status"
                                             style="width:100%"
                                             placeholder="Please choose the status"
                                     >
