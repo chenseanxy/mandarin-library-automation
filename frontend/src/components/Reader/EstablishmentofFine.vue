@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>读者首页</el-breadcrumb-item>
-      <el-breadcrumb-item>账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>罚金缴纳</el-breadcrumb-item>
+      <el-breadcrumb-item>Reader Main Page</el-breadcrumb-item>
+      <el-breadcrumb-item>Account Management</el-breadcrumb-item>
+      <el-breadcrumb-item>Fine To Pay</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="searchbook-card" shadow="hover">
@@ -14,7 +14,7 @@
         <el-table-column label="#" type="index"></el-table-column>
         <el-table-column label="username" prop="username"></el-table-column>
         <el-table-column label="fine pending" prop="finepending"></el-table-column>
-        <el-table-column label="状态">
+        <el-table-column label="status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
@@ -52,17 +52,17 @@ export default {
           {
             username: "user1",
             finepending:"$50",
-            status: "已缴纳"
+            status: "Paid"
           },
          
         ];
       }
       
-      this.$message.success("获取罚金信息成功");
+      this.$message.success("Successfully obtaining fine information");
     },
     judgeType(status) {
-      if (status == "已缴纳") return "success";
-      if (status == "未缴纳") return "danger";
+      if (status == "Paid") return "success";
+      if (status == "To pay") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {

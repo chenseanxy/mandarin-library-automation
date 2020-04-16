@@ -6,9 +6,9 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="图书名" prop="bookname"></el-table-column>
-        <el-table-column label="作者" prop="author"></el-table-column>
-        <el-table-column label="出版社" prop="publisher"></el-table-column>
+        <el-table-column label="Title" prop="bookname"></el-table-column>
+        <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Press" prop="publisher"></el-table-column>
         <el-table-column label="ISBN" prop="isbn">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
@@ -17,14 +17,14 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column label="状态">
+        <el-table-column label="Status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <el-table-column label="Operation" fixed="right">
           <template>
-            <el-tooltip class="item" effect="dark" content="重新借阅" placement="top" :enterable="false">
+            <el-tooltip class="item" effect="dark" content="Reborrow" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-reading" circle></el-button>
             </el-tooltip>
           </template>
@@ -60,35 +60,35 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
          {
-            bookname: "追寻生命的意义",
-            author: "[奥] 维克多·弗兰克",
-            publisher: "新华出版社",
+            bookname: "Man's Search for Meaning",
+            author: "Victor frankl",
+            publisher: "Xinhua publishing house",
             isbn: "9787501162734",
-            status: "在馆"
+            status: "Available"
           },
           {
-            bookname: "秘密花园",
-            author: "乔汉娜·贝斯福",
-            publisher: "北京联合出版公司",
+            bookname: "Secret Garden",
+            author: "Johanna basford",
+            publisher: "Beijing joint publishing company",
             isbn: "9787550252585",
-            status: "在馆"
+            status: "Available"
           },
           {
-            bookname: "何以笙箫默",
-            author: "顾漫",
-            publisher: "朝华出版社",
+            bookname: "You Are My Sunshine",
+            author: "Gu Man",
+            publisher: "Chaohua publishing house",
             isbn: "9787505414709",
-            status: "遗失"
+            status: "Lost"
           }
         ];
       }
       
       this.total = 1;
-      this.$message.success("获取书籍列表成功");
+      this.$message.success("Get the list of books successfully");
     },
     judgeType(status) {
-      if (status == "在馆") return "success";
-      if (status == "遗失") return "danger";
+      if (status == "Available") return "success";
+      if (status == "Loas") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {

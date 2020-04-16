@@ -6,9 +6,9 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="图书名" prop="bookname"></el-table-column>
-        <el-table-column label="作者" prop="author"></el-table-column>
-        <el-table-column label="出版社" prop="publisher"></el-table-column>
+        <el-table-column label="Title" prop="bookname"></el-table-column>
+        <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Press" prop="publisher"></el-table-column>
         <el-table-column label="ISBN" prop="isbn">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
@@ -17,12 +17,12 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column label="状态">
+        <el-table-column label="status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
+        <el-table-column label="Operation" fixed="right">
           <template>
             <el-tooltip class="item" effect="dark" content="归还" placement="top" :enterable="false">
               <el-button type="danger" icon="el-icon-minus" circle></el-button>
@@ -60,21 +60,21 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
-            bookname: "明朝那些事儿",
-            author: "当年明月",
-            publisher: "中国海关出版社",
+            bookname: "Things in Ming Dynasty",
+            author: "Dang Nian Mingyue",
+            publisher: "China customs press",
             isbn: "9787801656087",
-            status: "在借"
+            status: "Borrowing"
           }
         ];
       }
       
       this.total = 1;
-      this.$message.success("获取书籍列表成功");
+      this.$message.success("Get the list of books successfully");
     },
     judgeType(status) {
-      if (status == "在馆") return "success";
-      if (status == "遗失") return "danger";
+      if (status == "Available") return "success";
+      if (status == "Lost") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {
