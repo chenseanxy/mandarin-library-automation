@@ -20,10 +20,10 @@ select_all_info
 'select * from l_account'
 
 ----------2020.04.15新增（用于修改超管自己的密码）--------------
-select_admin_info
-(获得一个id 返回该行（包括id，pw）)
-'select * from a_account'
+select_admin_pw
+(获得一个pw 返回该行（包括id，pw）)
+'select * from a_account where pw=?'
 
 change_admin_pw
-(获得一个id和一个pw 查找数据库中id所属的行并且修改该行pw)
-'update a_account set pw=? where id=?'
+(获得一个pw 查找数据库中id=root的行并且修改该行pw)
+'update a_account set pw=? where id="root"'

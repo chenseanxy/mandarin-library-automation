@@ -76,11 +76,11 @@ router.post('/select_all_info', (req, res) => {
   })
 })
 
-router.post('/select_admin_info', (req, res) => {
-  var sql = $sql.librarian_api.select_admin_info;
+router.post('/select_admin_pw', (req, res) => {
+  var sql = $sql.librarian_api.select_admin_pw;
   var params = req.body;
   console.log(params);
-  conn.query(sql, [params.id],  [params.pw],  function(err, result) {
+  conn.query(sql, [params.pw],  function(err, result) {
     if (err) {
       console.log(err);
     }
@@ -91,10 +91,10 @@ router.post('/select_admin_info', (req, res) => {
 })
 
 router.post('/change_admin_pw', (req, res) => {
-  var sql = $sql.librarian_api.select_admin_info;
+  var sql = $sql.librarian_api.change_admin_pw;
   var params = req.body;
   console.log(params);
-  conn.query(sql, [params.id],[params.pw], function(err, result) {
+  conn.query(sql, [params.pw], function(err, result) {
     if (err) {
       console.log(err);
     }
