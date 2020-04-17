@@ -131,6 +131,12 @@ export default {
     submit() {
       this.$refs.passwordChangeRef.validate(async valid => {
         if (!valid) return;
+        this.$http.post("/api/user/change_password",{
+                  account: this.passwordChange.username,
+                  password: this.passwordChange.password
+                }).then((res) => {
+                  console.log(res);
+               });
         this.$message.success("Submit successfully!");
         return this.$router.push("/LibrarianLogin");
       });
