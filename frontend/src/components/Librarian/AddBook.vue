@@ -89,7 +89,10 @@
               <el-form-item label="Book id ">
                 <el-popover placement="right" width="300" close-delay="200" trigger="hover">
                   <el-link :underline="false" slot="reference">{{scope.row.book_id}}</el-link>
-                  <barcode style="text-align:center" :value="scope.row.book_id">Fail to show barcode.</barcode>
+                  <barcode
+                    style="text-align:center"
+                    :value="scope.row.book_id"
+                  >Fail to show barcode.</barcode>
                 </el-popover>
               </el-form-item>
               <el-form-item label="Book title ">
@@ -183,8 +186,7 @@ export default {
             trigger: "blur"
           }
         ]
-      },
-      
+      }
     };
   },
   created() {
@@ -292,6 +294,18 @@ export default {
     completeAddBook() {
       this.$refs.addBookFormRef.validate(async valid => {
         if (!valid) return false;
+        // 在这里添加后端交互，下面是前端层面的新增操作
+        this.booklist.unshift({
+          book_id: (10000 + Math.floor(Math.random() * 90000)).toString(),
+          bookname: this.addBookForm.bookname,
+          author: this.addBookForm.author,
+          category: this.addBookForm.category,
+          location: this.addBookForm.location,
+          price: this.addBookForm.price,
+          state: "Not loaned"
+        });
+        this.booklist.pop();
+        // 上面是前端层面的新增操作，添加后端代码后删除上述代码并添加刷新页面操作
         this.dialogVisible = false;
         this.$refs.addBookFormRef.resetFields();
         this.$message.success("Add a book successfully");
