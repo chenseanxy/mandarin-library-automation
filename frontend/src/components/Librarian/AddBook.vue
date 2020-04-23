@@ -155,11 +155,13 @@ export default {
       pagenum: 1,
       total: 0,
       addBookForm: {
+        book_id: "",
         bookname: "",
         author: "",
         category: "",
         location: "",
-        price: ""
+        price: 1,
+        state:"not loaned"
       },
       addBookFormRules: {
         bookname: [
@@ -192,89 +194,24 @@ export default {
   },
   methods: {
     getBookList() {
-      // 修改这里以从后端调取信息
-      if (this.pagenum == 1) {
-        this.booklist = [
-          {
-            book_id: "00001",
-            bookname: "Villa in heavy snow",
-            author: "Higashino Keigo",
-            category: "Math",
-            location: "2 floor, bookcase No.34",
-            price: "23",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00002",
-            bookname: "Ten Mile Peach",
-            author: "Tang Qigongzi",
-            category: "Geography",
-            location: "3 floor, bookcase No.44",
-            price: "34",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00003",
-            bookname: "Why Sheng Xiaomo",
-            author: "Gu Man",
-            category: "Science",
-            location: "5 floor, bookcase No.3",
-            price: "53",
-            state: "Lost"
-          },
-          {
-            book_id: "00004",
-            bookname: "Brief history of humanity",
-            author: "[Israel] Yuval Herali",
-            category: "History",
-            location: "2 floor, bookcase No.13",
-            price: "46",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00005",
-            bookname: "Those things in the Ming Dynasty",
-            author: "DangNianMingyue",
-            category: "History",
-            location: "1 floor, bookcase No.66",
-            price: "55",
-            state: "Loaned out"
-          }
-        ];
-      }
-      if (this.pagenum == 2) {
-        this.booklist = [
-          {
-            book_id: "00006",
-            bookname: "Few people",
-            author: "M. Scott Parker",
-            category: "Social",
-            location: "4 floor, bookcase No.43",
-            price: "53",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00007",
-            bookname: "Pursuing the meaning of life",
-            author: "[Austria] Victor Frank",
-            category: "Human",
-            location: "3 floor, bookcase No.22",
-            price: "47",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00008",
-            bookname: "Secret garden",
-            author: "Johanna Besford",
-            category: "Art",
-            location: "5 floor, bookcase No.37",
-            price: "75",
-            state: "Not loaned"
-          }
-        ];
-      }
-      this.total = 8;
+
+      this.$http.post("/api/user/search_all",{
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.booklist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.booklist.push(table[i]);
+            }
+            console.log(res);
+        });
+      
+
       this.$message.success("Fetching book list succeeded");
+      
     },
     judgeType(state) {
       if (state == "Not loaned") return "success";
@@ -289,13 +226,46 @@ export default {
       this.dialogVisible = false;
       this.$refs.addBookFormRef.resetFields();
     },
-    completeAddBook() {
-      this.$refs.addBookFormRef.validate(async valid => {
-        if (!valid) return false;
-        this.dialogVisible = false;
-        this.$refs.addBookFormRef.resetFields();
-        this.$message.success("Add a book successfully");
-      });
+
+    completeAddBook(){
+      var bookname=this.addBookForm.bookname;
+      var author=this.addBookForm.author;
+      var category=this.addBookForm.category;
+      var location=this.addBookForm.loctaion;
+      var price=this.addBookForm.price;
+      var state=this.addBookForm.state;
+
+      this.dialogVisible = false;
+      this.$refs.addBookFormRef.resetFields();
+
+      this.$http.post("/api/user/check_id",{
+          }).then((res) => {
+            var now=res.body[0].value;
+           
+            var book_id=now.toString();
+            var zero="";
+            for(var i=book_id.length;i<5;i++){
+              zero=zero+"0";
+            }
+            book_id=zero+book_id;
+            
+            this.$http.post("/api/user/addbook",{
+              book_id:book_id,
+              bookname:bookname,
+              author:author,
+              category:category,
+              location:location,
+              price:price,
+              state:state
+            }).then((res) => {
+              console.log(res);
+              this.$message.success("Add a book successfully");
+              this.$http.post("/api/user/change_id",{
+              }).then((res) => {
+                console.log(res);
+              });
+            });
+          });
     }
   }
 };

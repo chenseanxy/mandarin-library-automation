@@ -19,16 +19,15 @@ var jsonWrite = function (res, ret) {
     }
 }
 
-router.post('/check_isbn', (req, res) => {
-  var sql = $sql.book_man_api.check_isbn;
+router.post('/check_id', (req, res) => {
+  var sql = $sql.book_man_api.check_id;
   var param = req.body;
   console.log("sql", sql);
   console.log(param);
-  conn.query(sql, [param.isbn], function (err, doc) {
+  conn.query(sql, function (err, doc) {
     //console.log(doc);
     if (err) {
       console.log(err);
-      res.send('-1');
     }
     if (doc) {
       jsonWrite(res, doc);
@@ -36,28 +35,57 @@ router.post('/check_isbn', (req, res) => {
   })
 })
 
+router.post('/change_id', (req, res) => {
+  var sql = $sql.book_man_api.change_id;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
 
 router.post('/addbook',(req, res)=> {
     var sql = $sql.book_man_api.insert;
     var param = req.body;
     console.log("sql",sql);
     console.log(param);
-    conn.query(sql, [ param.booktitle, param.isbn,param.publisher,param.author,param.status], function (err, doc) {
-        //console.log(doc);
+    conn.query(sql, [ param.book_id, param.bookname,param.author,param.category,param.location,param.price,param.state], function (err, doc) {
+        console.log(doc);
         if (err) {
             console.log(err);
-            res.send('-1');
+            //res.send('-1');
         }
         if (doc) {
             jsonWrite(res,doc);
         }
     })
 })
+
+router.post('/search_all', (req, res) => {
+  var sql = $sql.book_man_api.search_all;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
 router.get('/getBookList', (req, res) => {
   var sql_name = $sql.book_man_api.search;
   var params = req.body;
   console.log(params);
-  
   if (params) {
     sql_name += "where username ='" + params.name + "'";
   }

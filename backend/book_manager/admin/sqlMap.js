@@ -1,20 +1,28 @@
 //sqlMap.js??sql??
 var sqlMap = {
     book_man_api: {
-      insert:'INSERT INTO book(booktitle,isbn,publisher,author,status) VALUES(?,?,?,?,?)',
-      search:'SELECT * FROM book',
-      check_isbn:'SELECT * FROM book WHERE isbn= ? '
+      insert:'INSERT INTO book(book_id,bookname,author,category,location,price,state) VALUES(?,?,?,?,?,?,?)',
+      search_all:'SELECT * FROM book ORDER BY book_id',
+      check_id:'SELECT * FROM book_id',
+      change_id:'UPDATE book_id SET value = value+1'
     }
   }
   module.exports = sqlMap;
 
 /*
- CREATE TABLE Book (
-      booktitle  varchar(255) NOT NULL,
-      isbn  varchar(255) NOT NULL,
-      publisher  varchar(255) NULL,
-      author  varchar(255) NULL,
-      status  varchar(255) NULL,
-      PRIMARY KEY (isbn)
+ CREATE TABLE book (
+  book_id varchar(255) NOT NULL,
+  bookname  varchar(255) NOT NULL,
+  author  varchar(255) ,
+  category varchar(255) NOT NULL,
+  location varchar(255) ,
+  price  int NOT NULL,
+  state  varchar(255) NOT NULL,
+  PRIMARY KEY (book_id)
 );
+
+CREATE TABLE book_id(
+   value int not NULL
+)
+Insert into book_id(value) VALUES(1);
 */
