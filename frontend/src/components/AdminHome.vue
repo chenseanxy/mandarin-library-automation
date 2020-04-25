@@ -22,10 +22,13 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-user"></i>
-                <span>Reader account management</span>
+                <span>LibAccount management</span>
               </template>
               <el-menu-item index="1-1">Register an account</el-menu-item>
-              <el-menu-item index="1-2">Manage account</el-menu-item>
+              <el-menu-item index="ManageAccount" @click="saveNavState('ManageLib')">Manage account</el-menu-item>
+               
+               
+               <!-- <el-menu-item index="SearchBook" @click="saveNavState('SearchBook')">Search for Books</el-menu-item> -->
               <el-menu-item index="1-3">Retrieve password</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
@@ -66,8 +69,25 @@ export default {
       this.$message.success("LogOut Succeed！");
       this.$router.push("/AdminLogin");
     },
+
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
+    },
+
+    //这是为了点击能出来，新加的
+    enterAside() {
+      this.isCollapse = false;
+    },
+    leaveAside() {
+      this.isCollapse = true;
+    },
+    saveNavState(activePath) {
+      this.componentLoading = true;
+      window.sessionStorage.setItem("activePath", activePath);
+      this.activePath = activePath;
+      setTimeout(() => {
+        this.componentLoading = false;
+      }, 500);
     }
   }
 };

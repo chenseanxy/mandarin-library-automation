@@ -78,13 +78,13 @@ export default {
   },
   methods: {
     startHacking () {
-    this.$http.post('/api/user/search_id_exist',{//这里是将input1的值传给接口search_id_exist，这个接口add在serve文件夹下lilrarian_api.js里定义
-      id: this.input1,
+    this.$http.post('/api/user/search_id_exist',{//调用接口search_id_exist
+      id: this.input1,//将input1的值（即账户）传给接口，后端服务器将会进行查找操作
     },{}).then(function(data){
-            console.log("search请求成功！ ",data.body);
-            var content=data.body;
-            if (content.length != 0) {//判断账户是否存在
-              this.$notify({
+            console.log("search请求成功！ ",data.body);//记录日志（可以不用管）
+            var content=data.body;//创建一个变量content储存该接口返回的数据
+            if (content.length != 0) {//判断账户是否存在：返回数据长度为零即没有查找到
+              this.$notify({//网页提示
               title: 'Error',
               type: 'error',
               message: 'Account has been used!',
@@ -92,8 +92,8 @@ export default {
               })
             }
             else{
-              this.$http.post('/api/user/add', {//这里是将input123的值传给接口add，这个接口add在serve文件夹下lilrarian_api.js里定义
-              id: this.input1,
+              this.$http.post('/api/user/add', {//调用接口add
+              id: this.input1,//将input1、2、3（即账户邮箱密码）的值传给接口add，后端服务器将会进行数据库的add操作
               em: this.input2,
               pw: this.input3
               },{}).then((response) => {

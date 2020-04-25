@@ -38,18 +38,20 @@
               v-model="collectFinesForm.readerID"
               clearable
               maxlength="20"
+              style="width:100%"
             ></el-input>
           </el-form-item>
-          <el-form-item label="Amount charged" prop="finesAmount">
-            <el-input
-              type="number"
+          <el-form-item label="Amount charged (￥)" prop="finesAmount">
+            <el-input-number
               placeholder="Please enter the charge amount"
-              maxlength="5"
-              clearable
+              :min="0" 
+              :max="10000"
+              :step="1"
+              step-strictly
               v-model="collectFinesForm.finesAmount"
+              style="width:100%"
             >
-              <template slot="prepend">￥</template>
-            </el-input>
+            </el-input-number>
           </el-form-item>
         </el-form>
         <span slot="footer" class="dialog-footer">
@@ -59,12 +61,13 @@
               title="Please confirm to submit?"
               @onConfirm="completeCollectFines"
               :disabled="popconfrimDisabled"
-              confirmButtonText="Confirm"
+              confirmButtonText="Submit"
+              confirmButtonType="success"
               cancelButtonText="Cancel"
-              icon="el-icon-warning"
-              iconColor="#8896B3"
+              icon="el-icon-question"
+              iconColor="#FF7B23"
             >
-              <el-button type="success" slot="reference" @click="finishCollectFines">Complete</el-button>
+              <el-button type="primary" slot="reference" @click="finishCollectFines">Complete</el-button>
             </el-popconfirm>
           </div>
         </span>

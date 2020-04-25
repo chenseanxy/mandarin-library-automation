@@ -138,7 +138,6 @@ export default {
                   console.log(res);
                });
         this.$message.success("Submit successfully!");
-        return this.$router.push("/LibrarianLogin");
       });
     }
   }

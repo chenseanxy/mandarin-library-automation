@@ -32,11 +32,11 @@
           label-width="140px"
           style="padding-right:40px;"
         >
-          <el-form-item label="Book title" prop="booktitle">
+          <el-form-item label="Book title" prop="bookname">
             <el-input
-              v-model.number="addBookForm.booktitle"
+              v-model="addBookForm.bookname"
               prefix-icon="el-icon-notebook-2"
-              placeholder="Please enter the booktitle"
+              placeholder="Please enter the book title"
               clearable
             ></el-input>
           </el-form-item>
@@ -48,29 +48,32 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="Publisher" prop="publisher">
+          <el-form-item label="Category" prop="category">
             <el-input
-              v-model="addBookForm.publisher"
-              prefix-icon="el-icon-office-building"
-              placeholder="Please enter the publisher"
+              v-model="addBookForm.category"
+              prefix-icon="el-icon-folder"
+              placeholder="Please enter the category"
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="ISBN" prop="isbn">
+          <el-form-item label="Location" prop="location">
             <el-input
-              v-model="addBookForm.isbn"
-              prefix-icon="el-icon-document-remove"
-              placeholder="Please enter the ISBN"
+              v-model="addBookForm.location"
+              prefix-icon="el-icon-location"
+              placeholder="Please enter the location"
               clearable
             ></el-input>
+          </el-form-item>
+          <el-form-item label="Price (￥)" prop="price">
+            <el-input-number
+              style="width:100%"
+              v-model="addBookForm.price"
+              placeholder="Please enter the price"
+              clearable
+              :min="1"
+            ></el-input-number>
           </el-form-item>
         </el-form>
-        <barcode
-          style="text-align:center;"
-          :value="this.addBookForm.isbn"
-          :margin="0"
-          :height="60"
-        >Enter ISBN to show barcode.</barcode>
         <span slot="footer">
           <div>
             <el-button @click="cancelAddBook">Cancel</el-button>
@@ -79,26 +82,62 @@
         </span>
       </el-dialog>
       <el-divider></el-divider>
-      <el-table stripe max-height="500" :data="booklist">
-        <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="Book title" prop="bookname"></el-table-column>
-        <el-table-column label="Author" prop="author"></el-table-column>
-        <el-table-column label="Publisher" prop="publisher"></el-table-column>
-        <el-table-column label="ISBN" prop="isbn">
+      <el-table stripe :data="booklist">
+        <el-table-column type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" inline class="booklist-expand">
+              <el-form-item label="Book id ">
+                <el-popover placement="right" width="300" close-delay="200" trigger="hover">
+                  <el-link :underline="false" slot="reference">{{scope.row.book_id}}</el-link>
+                  <barcode
+                    style="text-align:center"
+                    :value="scope.row.book_id"
+                  >Fail to show barcode.</barcode>
+                </el-popover>
+              </el-form-item>
+              <el-form-item label="Book title ">
+                <span>{{ scope.row.bookname }}</span>
+              </el-form-item>
+              <el-form-item label="Author ">
+                <span>{{ scope.row.author }}</span>
+              </el-form-item>
+              <el-form-item label="Category ">
+                <span>{{ scope.row.category }}</span>
+              </el-form-item>
+              <el-form-item label="Location ">
+                <span>{{ scope.row.location }}</span>
+              </el-form-item>
+              <el-form-item label="Price ">
+                <span>￥ {{ scope.row.price }}</span>
+              </el-form-item>
+              <el-form-item label="State ">
+                <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column label="Book id" prop="book_id" width="100">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-              <el-link slot="reference">{{scope.row.isbn}}</el-link>
-              <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
+              <el-link slot="reference">{{scope.row.book_id}}</el-link>
+              <barcode style="text-align:center" :value="scope.row.book_id">Fail to show barcode.</barcode>
             </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column label="Book title" prop="bookname"></el-table-column>
+        <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Category" prop="category"></el-table-column>
+        <el-table-column label="Price" prop="price">
+          <template slot-scope="scope">
+            <span>￥ {{ scope.row.price }}</span>
           </template>
         </el-table-column>
         <el-table-column label="State">
           <template slot-scope="scope">
-            <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
+            <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
           </template>
         </el-table-column>
       </el-table>
-
       <el-pagination
         layout="total, prev, pager, next, jumper"
         @current-change="handleCurrentChange"
@@ -119,37 +158,31 @@ export default {
       pagenum: 1,
       total: 0,
       addBookForm: {
-        booktitle: "",
+        bookname: "",
         author: "",
-        publisher: "",
-        isbn: ""
+        category: "",
+        location: "",
+        price: ""
       },
       addBookFormRules: {
-        booktitle: [
+        bookname: [
           {
             required: true,
-            message: "Please enter the booktitle",
+            message: "Please enter the book title",
             trigger: "blur"
           }
         ],
-        author: [
+        location: [
           {
             required: true,
-            message: "Please enter the author",
+            message: "Please enter the location",
             trigger: "blur"
           }
         ],
-        publisher: [
+        price: [
           {
             required: true,
-            message: "Please enter the publisher",
-            trigger: "blur"
-          }
-        ],
-        isbn: [
-          {
-            required: true,
-            message: "Please enter the ISBN",
+            message: "Please enter the price",
             trigger: "blur"
           }
         ]
@@ -165,73 +198,89 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
+            book_id: "00001",
             bookname: "Villa in heavy snow",
             author: "Higashino Keigo",
-            publisher: "Beijing October Literature and Art Publishing House",
-            isbn: "9787530216835",
-            status: "Not loaned"
+            category: "Math",
+            location: "2 floor, bookcase No.34",
+            price: "23",
+            state: "Not loaned"
           },
           {
+            book_id: "00002",
             bookname: "Ten Mile Peach",
             author: "Tang Qigongzi",
-            publisher: "Shenyang Publishing House",
-            isbn: "9787544138000",
-            status: "Not loaned"
+            category: "Geography",
+            location: "3 floor, bookcase No.44",
+            price: "34",
+            state: "Not loaned"
           },
           {
+            book_id: "00003",
             bookname: "Why Sheng Xiaomo",
             author: "Gu Man",
-            publisher: "Chaohua Publishing House",
-            isbn: "9787505414709",
-            status: "Lost"
+            category: "Science",
+            location: "5 floor, bookcase No.3",
+            price: "53",
+            state: "Lost"
           },
           {
+            book_id: "00004",
             bookname: "Brief history of humanity",
             author: "[Israel] Yuval Herali",
-            publisher: "CITIC Publishing House",
-            isbn: "9787508647357",
-            status: "Not loaned"
+            category: "History",
+            location: "2 floor, bookcase No.13",
+            price: "46",
+            state: "Not loaned"
           },
           {
+            book_id: "00005",
             bookname: "Those things in the Ming Dynasty",
             author: "DangNianMingyue",
-            publisher: "China Customs Press",
-            isbn: "9787801656087",
-            status: "Loaned out"
+            category: "History",
+            location: "1 floor, bookcase No.66",
+            price: "55",
+            state: "Loaned out"
           }
         ];
       }
       if (this.pagenum == 2) {
         this.booklist = [
           {
+            book_id: "00006",
             bookname: "Few people",
             author: "M. Scott Parker",
-            publisher: "Jilin Literature and History Press",
-            isbn: "9787807023777",
-            status: "Not loaned"
+            category: "Social",
+            location: "4 floor, bookcase No.43",
+            price: "53",
+            state: "Not loaned"
           },
           {
+            book_id: "00007",
             bookname: "Pursuing the meaning of life",
             author: "[Austria] Victor Frank",
-            publisher: "Xinhua Publishing House",
-            isbn: "9787501162734",
-            status: "Not loaned"
+            category: "Human",
+            location: "3 floor, bookcase No.22",
+            price: "47",
+            state: "Not loaned"
           },
           {
+            book_id: "00008",
             bookname: "Secret garden",
             author: "Johanna Besford",
-            publisher: "Beijing United Publishing Company",
-            isbn: "9787550252585",
-            status: "Not loaned"
+            category: "Art",
+            location: "5 floor, bookcase No.37",
+            price: "75",
+            state: "Not loaned"
           }
         ];
       }
       this.total = 8;
       this.$message.success("Fetching book list succeeded");
     },
-    judgeType(status) {
-      if (status == "Not loaned") return "success";
-      if (status == "Lost") return "danger";
+    judgeType(state) {
+      if (state == "Not loaned") return "success";
+      if (state == "Lost") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {
@@ -245,6 +294,18 @@ export default {
     completeAddBook() {
       this.$refs.addBookFormRef.validate(async valid => {
         if (!valid) return false;
+        // 在这里添加后端交互，下面是前端层面的新增操作
+        this.booklist.unshift({
+          book_id: (10000 + Math.floor(Math.random() * 90000)).toString(),
+          bookname: this.addBookForm.bookname,
+          author: this.addBookForm.author,
+          category: this.addBookForm.category,
+          location: this.addBookForm.location,
+          price: this.addBookForm.price,
+          state: "Not loaned"
+        });
+        this.booklist.pop();
+        // 上面是前端层面的新增操作，添加后端代码后删除上述代码并添加刷新页面操作
         this.dialogVisible = false;
         this.$refs.addBookFormRef.resetFields();
         this.$message.success("Add a book successfully");
@@ -268,5 +329,23 @@ export default {
 .el-alert {
   margin-bottom: 15px;
 }
+.booklist-expand {
+  font-size: 0;
+}
+.booklist-expand .el-form-item {
+  margin-right: 0;
+  margin-bottom: 0;
+  width: 100%;
+}
 </style>
+<style>
+/* <style>与<style scoped>的区别是前者会影响所有页面的样式，后者scoped属性会限制 */
+/* 该组件的style的作用域，无法作用于其他element组件。通常情况，使用<style scoped> */
+.booklist-expand label {
+  width: 120px;
+  font-weight: bold;
+  color: #99a9bf;
+}
+</style>
+
 

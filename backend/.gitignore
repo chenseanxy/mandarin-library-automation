@@ -108,3 +108,5 @@ dmypy.json
 .pyre/
 
 # End of https://www.gitignore.io/api/python
+/frontend/node_modules/
+/backend/admin_backend/server/node_modules/

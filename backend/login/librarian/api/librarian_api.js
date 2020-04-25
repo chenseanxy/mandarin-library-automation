@@ -45,11 +45,10 @@ router.post('/search_right',function(req, res, next) {
 router.post('/change_password',function(req, res, next) {
   var sql = $sql.librarian_api.change_password;
   var param = {
-    account : req.body.account,
-    password : req.body.password
+    account : req.body.account
   }
   console.log(param);
-  conn.query(sql, [param.account,param.password], function(err, doc) {
+  conn.query(sql, [param.account], function(err, doc) {
     console.log(doc);
     if (err) {
       res.json({
