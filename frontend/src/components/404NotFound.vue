@@ -11,15 +11,16 @@
       <div class="maininfo_box">
         <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
         <div class="word_box">
-          <h1>404 NOT FOUND</h1>
+          
+          <h1><i class="el-icon-warning" style="padding-right: 20px"></i>404 NOT FOUND</h1>
           <p>
             We are sorry, but the page you want to visit does not exist.
             <br>This may be because you entered a wrong URL.
-            <br>If you have any questions, please contact the webmaster.
+            <br>If you have any questions, please contact the administrator.
           </p>
         </div>
         <div class="btns">
-          <el-button type="plain" @click="$router.back(-1)">Go Back</el-button>
+          <el-button type="plain" @click="goBack">Go Back</el-button>
           <el-button type="primary" @click="goToMainPage">MainPage</el-button>
         </div>
       </div>
@@ -35,6 +36,15 @@ export default {
   methods: {
     goToMainPage() {
       return this.$router.push("/MainPage");
+    },
+    goBack() {
+      const loading = this.$loading({
+        lock: true
+      });
+      this.$router.back(-1);
+      setTimeout(() => {
+        loading.close();
+      }, 500);
     }
   }
 };
@@ -44,13 +54,13 @@ export default {
 .login_container {
   background: -webkit-linear-gradient(
     180deg,
-    #078f99,
-    #0484da
+    #FF6262,
+    #FF7B23
   ); /* Chrome 10+, Saf5.1+ */
-  background: -moz-linear-gradient(180deg, #078f99, #0484da); /* FF3.6+ */
-  background: -ms-linear-gradient(180deg, #078f99, #0484da); /* IE10 */
-  background: -o-linear-gradient(180deg, #078f99, #0484da); /* Opera 11.10+ */
-  background: linear-gradient(180deg, #078f99, #0484da); /* W3C */
+  background: -moz-linear-gradient(180deg, #FF6262, #FF7B23); /* FF3.6+ */
+  background: -ms-linear-gradient(180deg, #FF6262, #FF7B23); /* IE10 */
+  background: -o-linear-gradient(180deg, #FF6262, #FF7B23); /* Opera 11.10+ */
+  background: linear-gradient(180deg, #FF6262, #FF7B23); /* W3C */
   z-index: -1;
   height: 100%;
 }
@@ -63,6 +73,9 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 .btns {
   display: flex;
