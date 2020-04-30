@@ -75,7 +75,7 @@
               clearable
             ></el-input>
           </el-form-item>
-          <el-form-item label="Reader account" prop="password">
+          <el-form-item label="Reader password" prop="password">
             <el-input
               v-model.number="accountRegisterForm.password"
               prefix-icon="el-icon-password"
@@ -282,8 +282,15 @@ export default {
       this.$refs.accountRegisterFormRef.validate(async valid => {
         if (!valid) return false;
         this.dialogVisible2 = false;
-        this.$refs.depositFormRef.resetFields();
-        this.$refs.accountRegisterFormRef.resetFields();
+//        this.$refs.depositFormRef.resetFields();
+//        this.$refs.accountRegisterFormRef.resetFields();
+          this.$http.post("/api/user/register_account",{
+                  account: this.accountRegisterForm.username,
+                  password: this.accountRegisterForm.password,
+                  email: this.accountRegisterForm.email
+                }).then((res) => {
+                  console.log(res);
+               });
         return this.$message.success(
           "Register the reader account successfully"
         );
