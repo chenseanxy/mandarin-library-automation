@@ -69,10 +69,11 @@ router.post('/register_account',function(req, res, next) {
   var param = {
     account : req.body.account,
     password : req.body.password,
-    email : req.body.email
+    email : req.body.email,
+    status : "Normal"
   }
   console.log(param);
-  conn.query(sql, [param.account,param.password,param.email], function(err, doc) {
+  conn.query(sql, [param.account,param.password,param.email,param.status], function(err, doc) {
     console.log(doc);
     if (err) {
       res.json({
@@ -102,25 +103,5 @@ router.post('/search_all', (req, res) => {
   })
 })
 
-router.get('/getAccountList', (req, res) => {
-  var sql_name = $sql.librarian_api.getAccountList;
-  var params = req.body;
-  console.log(params);
-  if (params) {
-    sql_name += "where username ='" + params.name + "'";
-  }
-  conn.query(sql_name, params.name, function (err, result) {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-    if (result[0] === undefined) {
-      res.send('-1');
-    } else {
-      jsonWrite(res, result);
-    }
-  })
-}
-);
 
 module.exports = router

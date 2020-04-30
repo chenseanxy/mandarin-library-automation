@@ -113,9 +113,9 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="accountlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="Account" prop="readeraccount"></el-table-column>
-        <el-table-column label="Email" prop="readeremail"></el-table-column>
-        <el-table-column label="Status">
+        <el-table-column label="Account" prop="reader_account"></el-table-column>
+        <el-table-column label="Email" prop="email"></el-table-column>
+        <el-table-column label="Status" prop="status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
@@ -134,7 +134,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   created() {
     this.getAccountList();
@@ -201,6 +200,7 @@ export default {
       }
     };
   },
+
   methods: {
     getAccountList() {
       // 修改这里以从后端调取信息
@@ -254,7 +254,19 @@ export default {
       }
       this.total = 8;
       */
-
+             this.$http.post("/api/user/search_all",{
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.accountlist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.accountlist.push(table[i]);
+            }
+            console.log(res);
+        });
       this.$message.success("Getting reader list succeeded");
     },
     judgeType(status) {
