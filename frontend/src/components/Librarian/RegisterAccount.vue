@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   created() {
     this.getAccountList();
@@ -203,7 +204,7 @@ export default {
   methods: {
     getAccountList() {
       // 修改这里以从后端调取信息
-      if (this.pagenum == 1) {
+ /*     if (this.pagenum == 1) {
         this.accountlist = [
           {
             readeraccount: "18000000000",
@@ -252,6 +253,8 @@ export default {
         ];
       }
       this.total = 8;
+      */
+
       this.$message.success("Getting reader list succeeded");
     },
     judgeType(status) {

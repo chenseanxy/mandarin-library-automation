@@ -87,4 +87,40 @@ router.post('/register_account',function(req, res, next) {
     })
 })
 
+router.post('/search_all', (req, res) => {
+  var sql = $sql.librarian_api.search_all;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+router.get('/getAccountList', (req, res) => {
+  var sql_name = $sql.librarian_api.getAccountList;
+  var params = req.body;
+  console.log(params);
+  if (params) {
+    sql_name += "where username ='" + params.name + "'";
+  }
+  conn.query(sql_name, params.name, function (err, result) {
+    if (err) {
+      console.log(err);
+    }
+    console.log(result);
+    if (result[0] === undefined) {
+      res.send('-1');
+    } else {
+      jsonWrite(res, result);
+    }
+  })
+}
+);
+
 module.exports = router
