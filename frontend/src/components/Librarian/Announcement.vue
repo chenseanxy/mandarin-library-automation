@@ -7,10 +7,25 @@
     <el-card class="announcement-card" shadow="hover">
       <el-row :gutter="10">
         <el-col :span="12">
-          <el-input placeholder="Please enter announcement title / announcement content "></el-input>
+          <el-form
+            ref="searchAnnouncementRef"
+            :model="searchAnnouncementForm"
+            :rules="searchAnnouncementRules"
+          >
+            <el-form-item prop="searchcontenet">
+              <el-input
+                v-model="searchAnnouncementForm.searchcontenet"
+                placeholder="Please enter announcement title / announcement content "
+              ></el-input>
+            </el-form-item>
+          </el-form>
         </el-col>
         <el-col :span="12">
-          <el-button type="primary" style="width:45%">Search announcements</el-button>
+          <el-button
+            type="primary"
+            @click="searchAnnouncement()"
+            style="width:45%"
+          >Search announcements</el-button>
           <el-divider direction="vertical"></el-divider>
           <el-button
             type="success"
@@ -63,7 +78,7 @@
               icon="el-icon-question"
               iconColor="#FF7B23"
             >
-            <el-button type="primary" slot="reference" @click="publishAnnouncement">Publish</el-button>
+              <el-button type="primary" slot="reference" @click="publishAnnouncement">Publish</el-button>
             </el-popconfirm>
           </div>
         </span>
@@ -129,6 +144,18 @@ export default {
   },
   data() {
     return {
+      searchAnnouncementForm: {
+        searchcontenet: ""
+      },
+      searchAnnouncementRules: {
+        searchcontenet: [
+          {
+            required: true,
+            message: "Please enter the search content",
+            trigger: "blur"
+          }
+        ]
+      },
       announcementlist: [],
       pagenum: 1,
       total: 0,
@@ -240,6 +267,18 @@ export default {
         return this.$message.success(
           "The new announcement was published successfully"
         );
+      });
+    },
+    searchAnnouncement() {
+      this.$refs.searchAnnouncementRef.validate(async valid => {
+        if (!valid) return;
+        const loading = this.$loading({
+          lock: true,
+          text: "Searching for " + this.searchAnnouncementForm.searchcontenet + " ..."
+        });
+        setTimeout(() => {
+          loading.close();
+        }, 1000);
       });
     }
   }

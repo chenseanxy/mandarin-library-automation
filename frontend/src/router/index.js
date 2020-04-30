@@ -22,6 +22,7 @@ import LibrarianLogin from '../components/LibrarianLogin.vue'
 import LibrarianChangePassword from '../components/Librarian/LibrarianChangePassword.vue'
 import MainPage from '../components/MainPage.vue'
 import NotFound from '../components/404NotFound.vue'
+import Announcement from '../components/Announcement.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,7 @@ const routes = [
   { path: '/', redirect: '/MainPage' },
   { path: '/MainPage', component: MainPage },
   { path: '/Login', component: ReaderLogin },
+  { path: '/Announcement', component: Announcement },
   {
     path: '/ReaderHome',
     component: ReaderHome,
