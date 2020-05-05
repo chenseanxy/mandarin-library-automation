@@ -7,21 +7,6 @@
     </el-breadcrumb>
 
     <el-card class="registeraccount-card" shadow="hover">
-      <!-- <el-alert title="注册账户前，请确认读者已缴纳保证金" center type="warning" show-icon></el-alert> -->
-      <!-- <el-row :gutter="20">
-        <el-col :span="6">
-          <el-input placeholder="请输入账户"></el-input>
-        </el-col>
-        <el-col :span="8">
-          <el-input placeholder="请输入邮箱"></el-input>
-        </el-col>
-        <el-col :span="6">
-          <el-input placeholder="请输入密码"></el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-button type="primary">注册账户</el-button>
-        </el-col>
-      </el-row> -->
       
       <el-row :gutter="20">
         <el-col :span="6">
@@ -39,24 +24,7 @@
       </el-row>
       
       <el-divider></el-divider>
-      <!-- <el-table stripe max-height="500" :data="accountlist">
-        <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="账户" prop="readeraccount"></el-table-column>
-        <el-table-column label="邮箱" prop="readeremail"></el-table-column>
-        <el-table-column label="状态">
-          <template slot-scope="scope">
-            <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
-          </template>
-        </el-table-column>
-      </el-table>-->
-
-      <!-- <el-pagination
-        layout="total, prev, pager, next, jumper"
-        @current-change="handleCurrentChange"
-        :current-page="pagenum"
-        :total="total"
-        page-size="5"
-      ></el-pagination> -->
+      
     </el-card>
   </div>
 </template>
