@@ -24,8 +24,16 @@
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="accountlist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="Account" prop="readeraccount"></el-table-column>
-        <el-table-column label="Email" prop="readeremail"></el-table-column>
+        <el-table-column label="Account" prop="reader_account">
+        <template slot-scope="scope">
+          {{ scope.row.reader_account }}
+        </template>
+        </el-table-column>
+        <el-table-column label="Email" prop="email">
+        <template slot-scope="scope">
+          {{ scope.row.email }}
+        </template>
+        </el-table-column>
         <el-table-column label="Status">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
@@ -43,7 +51,7 @@
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
             </el-tooltip>
             <el-popconfirm
-              :title="'Are you sure to DELETE '+scope.row.readeraccount+' ?'"
+              :title="'Are you sure to DELETE '+scope.row.reader_account+' ?'"
               confirmButtonText="Delete"
               cancelButtonText="Cancel"
               confirmButtonType="danger"
@@ -52,6 +60,7 @@
             >
               <el-button
                 slot="reference"
+                @click="delete_account(scope.row.reader_account)"
                 style="margin-left:10px;"
                 type="danger"
                 icon="el-icon-delete"
@@ -88,6 +97,7 @@ export default {
   methods: {
     getAccountList() {
       // 修改这里以从后端调取信息
+/*      
       if (this.pagenum == 1) {
         this.accountlist = [
           {
@@ -137,7 +147,31 @@ export default {
         ];
       }
       this.total = 8;
+      */
+       this.$http.post("/api/user/search_all",{
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.accountlist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.accountlist.push(table[i]);
+            }
+            console.log(res);
+        });
+      
       this.$message.success("Getting reader list succeeded");
+    },
+    delete_account(the_account)
+    {
+         this.$http.post("/api/user/delete_reader_account",{
+                  account: the_account,
+                }).then((res) => {
+                  console.log(res);
+               });
+        this.$message.success("Delete successfully!");
     },
     judgeType(status) {
       if (status == "Normal") return "success";
