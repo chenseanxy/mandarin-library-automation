@@ -287,9 +287,9 @@ body {
   font-family: sans-serif;
   background: url(../../assets/guille.jpg);
   background-size: cover; */
-  padding-bottom: 58%;
+  padding-bottom: 65%;
   height: 0;
-  background: url("../../assets/guille.jpg") no-repeat center center fixed;
+  background: url("../../assets/susan.jpg") no-repeat center center fixed;
   background-size: cover;
   background-color: #0c1424;
   -webkit-background-size: cover;
