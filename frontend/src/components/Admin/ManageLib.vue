@@ -143,7 +143,6 @@
                     :total="total"
                     page-size="5"
             ></el-pagination>
-
         </el-card>
     </div>
 </template>
@@ -286,7 +285,7 @@
                     ];
                 }
                 if (this.pagenum == 2) {
-                    this.booklist = [
+                    this.liblist = [
                         {
                             account: "fhkadj",
                             Email: "faihd@qq.com",
@@ -324,7 +323,7 @@
                 this.pagenum = newPage;
                 this.getLibList();
             },
-
+            
 
             //添加账号
             startEditAccount(account, Email, password, status) {
