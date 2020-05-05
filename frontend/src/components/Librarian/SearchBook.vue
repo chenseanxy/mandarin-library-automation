@@ -9,10 +9,17 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input placeholder="Please enter book ID / book title / author / category "></el-input>
+          <el-form ref="searchBookRef" :model="searchBookForm" :rules="searchBookRules">
+            <el-form-item prop="searchcontenet">
+              <el-input
+                v-model="searchBookForm.searchcontenet"
+                placeholder="Please enter book ID / book title / author / category "
+              ></el-input>
+            </el-form-item>
+          </el-form>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" style="width:100%">Search</el-button>
+          <el-button type="primary" style="width:100%" @click="searchBook()">Search</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
@@ -201,6 +208,18 @@
 export default {
   data() {
     return {
+      searchBookForm: {
+        searchcontenet: ""
+      },
+      searchBookRules: {
+        searchcontenet: [
+          {
+            required: true,
+            message: "Please enter the search content",
+            trigger: "blur"
+          }
+        ]
+      },
       booklist: [],
       pagenum: 1,
       total: 0,
@@ -389,6 +408,18 @@ export default {
       this.total = this.total - 1;
       // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
       this.$message.success("Deleting book succeeded");
+    },
+    searchBook() {
+      this.$refs.searchBookRef.validate(async valid => {
+        if (!valid) return;
+        const loading = this.$loading({
+          lock: true,
+          text: "Searching for " + this.searchBookForm.searchcontenet + " ..."
+        });
+        setTimeout(() => {
+          loading.close();
+        }, 1000);
+      });
     }
   }
 };
