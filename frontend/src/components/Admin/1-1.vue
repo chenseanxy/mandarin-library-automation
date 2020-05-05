@@ -22,7 +22,7 @@
         <!--账号表单项-->
           <el-form-item label="Account" prop="account">
             <el-input
-              v-model.number="ruleForm.account"
+              v-model="ruleForm.account"
               placeholder="Please enter account"
               clearable
             ></el-input>
@@ -32,7 +32,7 @@
 
         <!--邮箱表单项-->
         <el-form-item label="Email" prop="email">
-          <el-input v-model.number="ruleForm.email" placeholder="Please enter email" clearable></el-input>
+          <el-input v-model="ruleForm.email" placeholder="Please enter email" clearable></el-input>
         </el-form-item>
         <h1></h1>
         <h1></h1>
@@ -160,7 +160,7 @@ export default {
           "/api/user/search_id_exist",
           {
             //调用接口search_id_exist
-            id: this.account //将input1的值（即账户）传给接口，后端服务器将会进行查找操作
+            id: this.ruleForm.account //将input1的值（即账户）传给接口，后端服务器将会进行查找操作
           },
           {}
         )
@@ -183,9 +183,9 @@ export default {
                   "/api/user/add",
                   {
                     //调用接口add
-                    id: this.account, //将input1、2、3（即账户邮箱密码）的值传给接口add，后端服务器将会进行数据库的add操作
-                    em: this.email,
-                    pw: this.pass
+                    id: this.ruleForm.account, //将input1、2、3（即账户邮箱密码）的值传给接口add，后端服务器将会进行数据库的add操作
+                    em: this.ruleForm.email,
+                    pw: this.ruleForm.pass
                   },
                   {}
                 )
