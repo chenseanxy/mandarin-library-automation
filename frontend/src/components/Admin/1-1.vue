@@ -287,6 +287,7 @@ body {
   font-family: sans-serif;
   background: url(../../assets/guille.jpg);
   background-size: cover; */
+  
   padding-bottom: 65%;
   height: 0;
   background: url("../../assets/susan.jpg") no-repeat center center fixed;
@@ -295,6 +296,11 @@ body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+
+  /* background: url("../../assets/susan.jpg")  no-repeat center center;
+   background-size:cover;
+   background-attachment:fixed;
+   background-color:#CCCCCC; */
 }
 </style>
 
