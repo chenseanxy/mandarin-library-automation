@@ -29,7 +29,7 @@
 <h1>DEAR ADMIN,HAVE A NICE DAY!</h1>
 
 
-<img src="../assets/taylor.jpg" alt="" width="100%" height="100%">
+<!-- <img src="../assets/taylor.jpg" alt="" width="100%" height="100%"> -->
 
 
 </div>
