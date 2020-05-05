@@ -21,21 +21,25 @@
         <el-form-item label="Account" prop="account">
           <el-input v-model.number="ruleForm.account" placeholder="Please enter account" clearable></el-input>
         </el-form-item>
+        <h1></h1>
 
         <!--邮箱表单项-->
         <el-form-item label="Email" prop="email">
           <el-input v-model.number="ruleForm.email" placeholder="Please enter email" clearable></el-input>
         </el-form-item>
+        <h1></h1>
 
         <!--密码表单项-->
         <el-form-item label="Password" prop="pass">
           <el-input type="password" v-model="ruleForm.pass" autocomplete="off" placeholder="Please input a password" clearable></el-input>
         </el-form-item>
+        <h1></h1>
 
         <!--确认密码表单项-->
         <el-form-item label="Confirm password" prop="checkPass">
           <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" placeholder="Please confirm password" clearable></el-input>
         </el-form-item>
+        <h1></h1>
 
 
         <el-form-item>
