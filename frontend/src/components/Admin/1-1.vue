@@ -19,7 +19,7 @@
         label-width="80px"
         class="demo-ruleForm"
       >
-        <!--账号表单项-->
+        <!--账号表单项, prop绑定验证规则-->
           <el-form-item label="Account" prop="account">
             <el-input
               v-model="ruleForm.account"
@@ -241,10 +241,12 @@ export default {
 }
 
 .Box {
+  /*让盒子进行位移*/
   position: absolute;
   top: 50%;
   left: 55%;
   transform: translate(-50%, -50%);
+  
   width: 400px;
   padding: 40px;
   background: rgba(0, 0, 0, 0.8);
