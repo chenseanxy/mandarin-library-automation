@@ -8,12 +8,15 @@
 
         <!--最上面的搜索栏-->
         <el-card class="searchbook-card" shadow="hover">
+            
+            <!--将输入框放到一列中，并利用span设置宽度, gutter设置间距-->
             <el-row :gutter="20">
                 <el-col :span="20">
-                    <el-input placeholder="Please enter librarian account "></el-input>
+                    <!--添加了搜索功能，需要后端重写getLibList-->
+                    <el-input placeholder="Please enter librarian account" v-model="editLibForm.account" clearable @clear="getLibList"></el-input>
                 </el-col>
                 <el-col :span="4">
-                    <el-button type="primary" style="width:100%">Search</el-button>
+                    <el-button type="primary" style="width:100%" @canplay="getLibList">Search</el-button>
                 </el-col>
             </el-row>
             <el-divider></el-divider>
@@ -28,7 +31,7 @@
 
 
 
-                <!--这是状态那一列-->
+                <!--这是状态那一列，使用了作用域插槽，scope.row可以获取到列表数据-->
                 <el-table-column label="State">
                     <template slot-scope="scope">
                         <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
@@ -135,7 +138,7 @@
                 </el-table-column>
             </el-table>
 
-            <!--最下面的导航栏，应该修改好了-->
+            <!--最下面的分页，应该修改好了-->
             <el-pagination
                     layout="total, prev, pager, next, jumper"
                     @current-change="handleCurrentChange"
@@ -380,6 +383,7 @@
         margin-bottom: 15px;
     }
     .searchbook-card {
+        /*设置card的阴影 */
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
         /* width: 700px; */
         margin: 0 auto;

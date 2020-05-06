@@ -211,6 +211,7 @@ export default {
 
 <style scoped>
 .el-breadcrumb {
+  /*面包屑下拉间隙*/
   margin-bottom: 15px;
 }
 .registeraccount-card {

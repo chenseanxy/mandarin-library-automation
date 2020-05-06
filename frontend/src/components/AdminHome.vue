@@ -51,6 +51,7 @@
           </el-menu>
         </el-aside>
         <el-main>
+          <!--路由占位符-->
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -70,6 +71,7 @@ export default {
       this.$router.push("/AdminLogin");
     },
 
+    //点击按钮使菜单折叠
     toggleCollapse() {
       this.isCollapse = !this.isCollapse;
     },
@@ -81,6 +83,8 @@ export default {
     leaveAside() {
       this.isCollapse = true;
     },
+
+    //保存链接的激活状态
     saveNavState(activePath) {
       this.componentLoading = true;
       window.sessionStorage.setItem("activePath", activePath);
