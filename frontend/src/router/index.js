@@ -15,6 +15,7 @@ import ReaderCurrentBorrow from '../components/Reader/ReaderCurrentBorrow.vue'
 import ReaderReturnedBooks from '../components/Reader/ReaderReturnedBooks.vue'
 import RetrievePassword from '../components/Reader/RetrievePassword.vue'
 import EstablishmentofFine from '../components/Reader/EstablishmentofFine.vue'
+import MarginPendingPayment from '../components/Reader/MarginPendingPayment.vue'
 
 
 import LibrarianHome from '../components/LibrarianHome.vue'
@@ -50,7 +51,8 @@ const routes = [
       { path: '/ReaderHome/ReaderCurrentBorrow', component: ReaderCurrentBorrow },
       { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks },
       { path: '/ReaderHome/RetrievePassword', component: RetrievePassword},
-      { path: '/ReaderHome/EstablishmentofFine', component: EstablishmentofFine}
+      { path: '/ReaderHome/EstablishmentofFine', component: EstablishmentofFine},
+      { path: '/ReaderHome/MarginPendingPayment', component: MarginPendingPayment}
     ]
   },
   

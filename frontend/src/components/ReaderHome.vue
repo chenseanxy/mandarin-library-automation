@@ -27,7 +27,7 @@
               </template>
               <el-menu-item index="ReaderCurrentBorrow" @click="saveNavState('ReaderCurrentBorrow')">Current borrowing books</el-menu-item>
               <el-menu-item index="ReaderReturnedBooks" @click="saveNavState('ReaderReturnedBooks')">Books returned</el-menu-item>
-              <el-menu-item index="1-3">Fine pending payment</el-menu-item>
+              <el-menu-item index="MarginPendingPayment" @click="saveNavState('MarginPendingPayment')">Margin Pending Payment</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
