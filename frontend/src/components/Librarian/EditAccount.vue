@@ -15,10 +15,17 @@
       ></el-alert>
       <el-row :gutter="20">
         <el-col :span="18">
-          <el-input placeholder="Please enter account / email "></el-input>
+          <el-input 
+              v-model="SearchForm.search_id"
+              placeholder="Please enter account / email ">
+              </el-input>
         </el-col>
         <el-col :span="6">
-          <el-button type="primary" style="width:100%">Search accounts</el-button>
+          <el-button 
+          type="primary" 
+          @click="search"
+          style="width:100%">Search accounts
+          </el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
@@ -89,6 +96,9 @@ export default {
   },
   data() {
     return {
+       SearchForm: {
+        search_id: ""
+      },
       accountlist: [],
       pagenum: 1,
       total: 0
@@ -172,6 +182,35 @@ export default {
                   console.log(res);
                });
         this.$message.success("Delete successfully!");
+    },
+    search()
+    {
+       /*  this.$http.post("/api/user/delete_reader_account",{
+                  account: this.SearchForm.search_id,
+                  email: this.SearchForm.search_id,
+                }).then((res) => {
+                  console.log(res);
+               });
+          this.getAccountList();
+        this.$message.success("Search successfully!");  */
+
+        this.$http.post("/api/user/search_from_id",{
+            account: this.SearchForm.search_id,
+            email: this.SearchForm.search_id,
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.accountlist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.accountlist.push(table[i]);
+            }
+            console.log(res);
+        });
+      
+      this.$message.success("Search successfully!");
     },
     judgeType(status) {
       if (status == "Normal") return "success";

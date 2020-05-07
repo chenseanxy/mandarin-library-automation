@@ -8,10 +8,15 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="14">
-          <el-input placeholder=" Enter book title / author / publisher / publishers / ISBN"></el-input>
+          <el-input 
+          v-model="SearchForm.search_id"
+          placeholder=" Enter book title / author / publisher / publishers / ISBN"></el-input>
         </el-col>
         <el-col :span="10">
-          <el-button type="primary" style="width:50%">Search for Books</el-button>
+          <el-button 
+          type="primary" 
+          @click="search_for_books"
+          style="width:50%">Search for Books</el-button>
           <el-divider direction="vertical"></el-divider>
           <el-button type="success" @click="openCollectFines" style="width:45%">Collect Fines</el-button>
         </el-col>
@@ -74,27 +79,21 @@
       </el-dialog>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="Book title" prop="bookname"></el-table-column>
-        <el-table-column label="Author" prop="author"></el-table-column>
+        <el-table-column label="Book title" prop="book_title"></el-table-column>
+        <el-table-column label="Author" prop="Author"></el-table-column>
         <el-table-column label="Publisher" prop="publisher"></el-table-column>
-        <el-table-column label="ISBN" prop="isbn">
-          <template slot-scope="scope">
-            <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-              <el-link slot="reference">{{scope.row.isbn}}</el-link>
-              <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
-            </el-popover>
-          </template>
+        <el-table-column label="ISBN" prop="ISBN">
         </el-table-column>
-        <el-table-column label="State">
+        <el-table-column label="State" prop="state">
           <template slot-scope="scope">
-            <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
+            <el-tag :type="judgeType(scope.row.state)" effect="dark">{{scope.row.state}}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="Operation" fixed="right" width="220px">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button type="primary" :disabled="judgeButtonDisabled1(scope.row.status)">Loan</el-button>
-              <el-button type="primary" :disabled="judgeButtonDisabled2(scope.row.status)">Return</el-button>
+              <el-button type="primary" :disabled="judgeButtonDisabled1(scope.row.state)">Loan</el-button>
+              <el-button type="primary" :disabled="judgeButtonDisabled2(scope.row.state)">Return</el-button>
             </el-button-group>
           </template>
         </el-table-column>
@@ -128,6 +127,9 @@ export default {
       }
     };
     return {
+      SearchForm: {
+        search_id: ""
+      },
       booklist: [],
       pagenum: 1,
       total: 0,
@@ -158,7 +160,7 @@ export default {
   methods: {
     getBookList() {
       // 修改这里以从后端调取信息
-      if (this.pagenum == 1) {
+ /*     if (this.pagenum == 1) {
         this.booklist = [
           {
             bookname: "Villa in heavy snow",
@@ -223,7 +225,43 @@ export default {
         ];
       }
       this.total = 8;
-      this.$message.success("Get book list successfully");
+      this.$message.success("Get book list successfully");  */
+       this.$http.post("/api/user/show_book",{
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.booklist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.booklist.push(table[i]);
+            }
+            console.log(res);
+        });
+      this.$message.success("Get book information!");
+    },
+    search_for_books()
+    {
+         this.$http.post("/api/user/search_for_books",{
+            book_title: this.SearchForm.search_id,
+            Author: this.SearchForm.search_id,
+            publisher: this.SearchForm.search_id,
+            ISBN: this.SearchForm.search_id,
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.booklist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.booklist.push(table[i]);
+            }
+            console.log(res);
+        });
+      
+      this.$message.success("Search successfully!");
     },
     judgeType(status) {
       if (status == "Not loaned") return "success";

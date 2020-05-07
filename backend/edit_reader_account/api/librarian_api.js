@@ -125,5 +125,131 @@ router.post('/delete_reader_account',function(req, res, next) {
     })
 })
 
+router.post('/search_from_id', (req, res) => {
+  var sql = $sql.librarian_api.search_from_id;
+  var param = {
+    account : req.body.account,
+    email : req.body.email
+  }
+  console.log(param);
+  conn.query(sql, [param.account,param.email], function(err, doc) {
+    console.log(doc);
+    if (err) {
+      res.json({
+        code: "1",
+        msg : "账号密码不对"
+      });
+    }
+      if(doc)
+      {
+        jsonWrite(res, doc);
+      }
+    })
+})
+
+
+router.post('/show_book_record', (req, res) => {
+  var sql = $sql.librarian_api.show_book_record;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+
+router.post('/search_for_loan_and_return', (req, res) => {
+  var sql = $sql.librarian_api.search_for_loan_and_return;
+  var param = {
+    operator : req.body.operator,
+    account : req.body.account,
+    book_id : req.body.book_id,
+    book_title : req.body.book_title
+  }
+  console.log(param);
+  conn.query(sql, [param.operator,param.account,param.book_id,param.book_title], function(err, doc) {
+    console.log(doc);
+    if (err) {
+      res.json({
+        code: "1",
+        msg : "账号密码不对"
+      });
+    }
+      if(doc)
+      {
+        jsonWrite(res, doc);
+      }
+    })
+})
+
+router.post('/search_for_penalty_records', (req, res) => {
+  var sql = $sql.librarian_api.search_for_penalty_records;
+  var param = {
+    operator : req.body.operator,
+    account : req.body.account,
+    book_id : req.body.book_id,
+    book_title : req.body.book_title
+  }
+  console.log(param);
+  conn.query(sql, [param.operator,param.account,param.book_id,param.book_title], function(err, doc) {
+    console.log(doc);
+    if (err) {
+      res.json({
+        code: "1",
+        msg : "账号密码不对"
+      });
+    }
+      if(doc)
+      {
+        jsonWrite(res, doc);
+      }
+    })
+})
+
+
+router.post('/show_book', (req, res) => {
+  var sql = $sql.librarian_api.show_book;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+router.post('/search_for_books', (req, res) => {
+  var sql = $sql.librarian_api.search_for_books;
+  var param = {
+    book_title : req.body.book_title,
+    Author : req.body.Author,
+    publisher : req.body.publisher,
+    ISBN : req.body.ISBN,
+  }
+  console.log(param);
+  conn.query(sql, [param.book_title,param.Author,param.publisher,param.ISBN], function(err, doc) {
+    console.log(doc);
+    if (err) {
+      res.json({
+        code: "1",
+        msg : "账号密码不对"
+      });
+    }
+      if(doc)
+      {
+        jsonWrite(res, doc);
+      }
+    })
+})
 
 module.exports = router

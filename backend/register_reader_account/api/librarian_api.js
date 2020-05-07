@@ -88,19 +88,26 @@ router.post('/register_account',function(req, res, next) {
     })
 })
 
-router.post('/search_all', (req, res) => {
-  var sql = $sql.librarian_api.search_all;
-  var param = req.body;
-  console.log("sql", sql);
+router.post('/search_from_id', (req, res) => {
+  var sql = $sql.librarian_api.search_from_id;
+  var param = {
+    account : req.body.account,
+    email : req.body.email
+  }
   console.log(param);
-  conn.query(sql, function (err, doc) {
+  conn.query(sql, [param.account,param.email], function(err, doc) {
+    console.log(doc);
     if (err) {
-      console.log(err);
+      res.json({
+        code: "1",
+        msg : "账号密码不对"
+      });
     }
-    if (doc) {
-      jsonWrite(res, doc);
-    }
-  })
+      if(doc)
+      {
+        jsonWrite(res, doc);
+      }
+    })
 })
 
 
