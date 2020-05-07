@@ -1,30 +1,49 @@
 <template>
-  <div>
-    
+  <div class="outer">
     <div class="block">
-      <!-- <span class="demonstration">自定义</span> -->
-      <el-image :src="src" :fit="fit">
-      <!-- <img height="35px" width="35px" src="../assets/logo.png" alt> -->
-        <div slot="placeholder" class="image-slot">
-          加载中
-          <span class="dot">...</span>
-        </div>
-      </el-image>
+      <el-card class="box-card">
+        <div v-for="o in 4" :key="o" class="text item">{{'列表内容 ' + o }}</div>
+      </el-card>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-    data() {
-      return {
-        fit: 'cover',
-        src: require('../../assets/susan.jpg')
-      }
-    }
+  data() {
+    return {
+      fit: "cover",
+      src: require("../../assets/susan.jpg")
+    };
+  }
 };
 </script>
 
 <style lang="less" scoped>
+.outer {
+  height: 100%;
+  width: 100%;
+}
+.block {
+  background-color: #2b4b6b;
+  height: 100%;
+  width: 100%;
+}
 
+.text {
+    font-size: 14px;
+  }
+
+  .item {
+    padding: 18px 0;
+  }
+
+  .box-card {
+    position: relative;
+    // position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+  }
 </style>

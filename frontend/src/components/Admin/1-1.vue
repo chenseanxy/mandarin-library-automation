@@ -210,6 +210,10 @@ export default {
 </script>
 
 <style scoped>
+.libRegister {
+  height: 100%;
+  width: 100%;
+}
 .el-breadcrumb {
   /*面包屑下拉间隙*/
   margin-bottom: 15px;
