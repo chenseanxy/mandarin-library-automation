@@ -36,7 +36,7 @@
                 <i class="el-icon-school"></i>
                 <span>Library management</span>
               </template>
-              <el-menu-item index="2-1">Setting overdue fines</el-menu-item>
+              <el-menu-item index="BorrowManage">Setting overdue fines</el-menu-item>
               <el-menu-item index="2-2">Set a return period</el-menu-item>
               <el-menu-item index="2-3">Set margin</el-menu-item>
             </el-submenu>
