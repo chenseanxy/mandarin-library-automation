@@ -247,9 +247,10 @@ export default {
 
 .Box {
   /*让盒子进行位移*/
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   top: 50%;
-  left: 55%;
+  left: 50%;
   transform: translate(-50%, -50%);
   
   width: 400px;
