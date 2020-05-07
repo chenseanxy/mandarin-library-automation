@@ -1,14 +1,9 @@
 <template>
-  <div class="login_container"> 
+  <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
       <el-breadcrumb-item>welcome page</el-breadcrumb-item>
     </el-breadcrumb>
-
-  <div class="inner_box">
-    <div class="stars">
-      <div class="star" ref="star" v-for="(item,index) in starsCount" :key="index"></div>
-    </div>
 
     <div class="main_container">
       <el-container>
@@ -18,8 +13,25 @@
         </el-main>
       </el-container>
     </div>
-  </div>
-    
+
+    <!-- <h1 id="app">
+     {{date}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <el-button type="text"   @click="dialogVisible = true">Summary</el-button>
+</h1>
+<el-dialog
+  title="摘要"
+  :visible.sync="dialogVisible"
+  width="80%"
+  :before-close="handleClose">
+  <span>超管能够对图书管理员账号进行管理，对图书馆进行管理，以及对超管密码进行修改，希望左边栏能够对你有帮助</span>
+  <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="dialogVisible = false">我知道了</el-button>
+  </span>
+</el-dialog>
+
+    <h1>DEAR ADMIN,HAVE A NICE DAY!</h1>-->
+
+    <!-- <img src="../assets/taylor.jpg" alt="" width="100%" height="100%"> -->
   </div>
 </template>
 <style scoped>
@@ -38,49 +50,16 @@
     background: #f0f9eb;
   } */
 
-.el-breadcrumb {
-  /*面包屑下拉间隙*/
-  margin-bottom: 15px;
-  /*颜色改不了啊*/
-  /* color: rgb(255, 255, 255);  */
-}
-
-.login_container {
-  /* background-color: gainsboro; */
-  height: 100%;
-  width: 100%;
-}
-.inner_box {
-  height: 100%;
-  width: 100%;
-
-  background: radial-gradient(
-    200% 100% at bottom center,
-    #f7f7b6,
-    #e96f92,
-    #75517d,
-    #1b2947
-  );
-  background: radial-gradient(
-    220% 105% at top center,
-    #1b2947 10%,
-    #75517d 40%,
-    #e96f92 65%,
-    #f7f7b6
-  );
-  background-attachment: fixed;
-  overflow: hidden;
-}
 .el-main {
-  /* background-color: #eee; */
-  color: rgb(255, 255, 255);
+  background-color: #eee;
+  color: #333;
   text-align: center;
   line-height: 40px;
   filter: alpha(Opacity=95);
   -moz-opacity: 0.95;
-  opacity: 0.95;
+  opacity: 0.95;/*透明度*/
 }
-/* .main_container {
+.main_container {
   padding-bottom: 65%;
   height: 0;
   background: url("../assets/taylor.jpg") no-repeat center center fixed;
@@ -89,36 +68,6 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-} */
-
-@keyframes rotate {
-  0% {
-    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
-  }
-  100% {
-    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg)
-      rotateY(-360deg);
-  }
-}
-
-.stars {
-  transform: perspective(500px);
-  transform-style: preserve-3d;
-  position: absolute;
-  bottom: 0;
-  perspective-origin: 50% 100%;
-  left: 50%;
-  animation: rotate 90s infinite linear;
-}
-
-.star {
-  width: 2px;
-  height: 2px;
-  background: #f7f7b6;
-  position: absolute;
-  top: 0;
-  left: 0;
-  backface-visibility: hidden;
 }
 </style>
 
@@ -140,31 +89,10 @@ export default {
 
   data() {
     return {
-      starsCount: 800,
-      distance: 800,
-
       timer: "", //定义一个定时器的变量
       currentTime: "" // 获取当前时间
     };
   },
-
-  mounted() {
-    let _this = this;
-    // 原生js
-    // let _starList = document.getElementsByClassName("star")
-    // let starArr = Array.prototype.slice.call(_starList)
-    // vue
-    let starArr = this.$refs.star;
-    // 遍历添加样式
-    starArr.forEach(item => {
-      var s = 0.2 + Math.random() * 1;
-      var thisDistance = _this.distance + Math.random() * 300;
-      item.style.transformOrigin = `0 0 ${thisDistance}px`;
-      item.style.transform = `translate3d(0,0,-${thisDistance}px) rotateY(${Math.random() *
-        360}deg) rotateX(${Math.random() * -50}deg) scale(${s},${s})`;
-    });
-  },
-
   created() {
     var _this = this; //声明一个变量指向Vue实例this，保证作用域一致
     this.timer = setInterval(function() {
