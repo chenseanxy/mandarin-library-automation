@@ -23,7 +23,7 @@ primary key(id)
 );
 
 初始化：
-insert into a_account(id,pw) values("root","root")
+insert into a_account(id,pw) values("root","root");
 
 
 书籍逾期罚金/归还期限/保证金表：
@@ -32,8 +32,12 @@ insert into a_account(id,pw) values("root","root")
 归还日期
 保证金
 create table borrow(
+id varchar(50),
 fine numeric(10,2),
-return_date int,
+period int,
 deposit numeric(10,2),
-primary key(fine)
+primary key(id)
 );
+
+初始化：
+insert into borrow(id,fine,period,deposit) values("1",1,30,300);
