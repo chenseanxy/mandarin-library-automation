@@ -22,7 +22,7 @@ pw varchar(50),
 primary key(id)
 );
 
-初始化：
+初始化(这一步必须有)：
 insert into a_account(id,pw) values("root","root");
 
 
@@ -39,5 +39,5 @@ deposit numeric(10,2),
 primary key(id)
 );
 
-初始化：
+初始化(这一步必须有)：
 insert into borrow(id,fine,period,deposit) values("1",1,30,300);

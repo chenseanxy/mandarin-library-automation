@@ -146,4 +146,46 @@ router.post('/change_deposit', (req, res) => {
   })
 })
 
+router.post('/select_fine', (req, res) => {
+  var sql = $sql.librarian_api.select_fine;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/select_period', (req, res) => {
+  var sql = $sql.librarian_api.select_period;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/select_deposit', (req, res) => {
+  var sql = $sql.librarian_api.select_deposit;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
 module.exports = router
