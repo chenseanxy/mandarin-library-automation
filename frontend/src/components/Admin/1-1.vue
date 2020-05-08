@@ -210,7 +210,12 @@ export default {
 </script>
 
 <style scoped>
+.libRegister {
+  height: 100%;
+  width: 100%;
+}
 .el-breadcrumb {
+  /*面包屑下拉间隙*/
   margin-bottom: 15px;
 }
 .registeraccount-card {
@@ -243,8 +248,12 @@ export default {
 .Box {
   /*让盒子进行位移*/
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 55%;
+
+  /* position: relative;
+  top: 50%;
+  left: 50%; */
   transform: translate(-50%, -50%);
   
   width: 400px;

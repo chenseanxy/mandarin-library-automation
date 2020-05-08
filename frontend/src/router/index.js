@@ -22,6 +22,7 @@ import LibrarianAnnouncement from '../components/Librarian/Announcement.vue'
 import RegisterAdminAccount from '../components/Admin/1-1.vue'
 import ManaLibrarianAccount from '../components/Admin/ManageLib.vue'
 import Admodify from '../components/Admin/3.vue'
+import BorrowManage from '../components/Admin/BorrowManage.vue'
 import LibrarianLogin from '../components/LibrarianLogin.vue'
 import LibrarianChangePassword from '../components/Librarian/LibrarianChangePassword.vue'
 import MainPage from '../components/MainPage.vue'
@@ -75,7 +76,8 @@ const routes = [
       { path: '/AdminHome/Welcome', component: AdminWelcome },
       { path: '/AdminHome/1-1', component: RegisterAdminAccount },
       { path: '/AdminHome/ManageAccount', component: ManaLibrarianAccount },
-      {path:'/AdminHome/3',component:Admodify}
+      {path:'/AdminHome/3',component:Admodify},
+      {path:'/AdminHome/BorrowManage',component:BorrowManage}
     ]
   },
   { path: '*', component: NotFound }
