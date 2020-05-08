@@ -104,4 +104,46 @@ router.post('/change_admin_pw', (req, res) => {
   })
 })
 
+router.post('/change_fine', (req, res) => {
+  var sql = $sql.librarian_api.change_fine;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.fine], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/change_period', (req, res) => {
+  var sql = $sql.librarian_api.change_period;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.period], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
+router.post('/change_deposit', (req, res) => {
+  var sql = $sql.librarian_api.change_deposit;
+  var params = req.body;
+  console.log(params);
+  conn.query(sql, [params.deposit], function(err, result) {
+    if (err) {
+      console.log(err);
+    }
+    if (result) {
+      jsonWrite(res, result);
+    }
+  })
+})
+
 module.exports = router

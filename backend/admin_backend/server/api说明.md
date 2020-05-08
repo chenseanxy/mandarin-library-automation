@@ -27,3 +27,13 @@ select_admin_pw
 change_admin_pw
 (获得一个pw 查找数据库中id=root的行并且修改该行pw)
 'update a_account set pw=? where id="root"'
+
+---------2020.05.08新增（用于修改罚金 期限 保证金）-----------
+（获得一个数值
+更新数据库中对应的
+罚金fine
+期限period
+保证金deposit）
+change_fine:'update borrow set fine=? where id="1"',
+change_period:'update borrow set period=? where id="1"',
+change_deposit:'update borrow set deposit=? where id="1"'
