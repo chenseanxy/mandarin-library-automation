@@ -210,8 +210,6 @@ export default {
             }
             console.log(res);
         });
-      
-
       this.$message.success("Fetching book list succeeded");
       
     },
@@ -261,6 +259,7 @@ export default {
             }).then((res) => {
               console.log(res);
               this.$message.success("Add a book successfully");
+              this.getBookList();
               this.$http.post("/api/user/change_id",{
               }).then((res) => {
                 console.log(res);
