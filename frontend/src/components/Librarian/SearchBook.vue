@@ -270,7 +270,7 @@ export default {
   },
   methods: {
     getBookList() {
-      this.$http.post("/api/user/search_all",{
+      this.$http.post("/api/book/search_all",{
           }).then((res) => {
             var table=res.body;
             this.total=table.length;
@@ -316,7 +316,7 @@ export default {
     completeEditBook(index) {
       this.$refs[`${index}-editBookFormRef`].validate(async valid => {
         if (!valid) return;
-        this.$http.post("/api/user/update_one",{
+        this.$http.post("/api/book/update_one",{
             book_id: this.editBookForm.book_id,
             bookname: this.editBookForm.booktitle,
             author: this.editBookForm.author,
@@ -338,17 +338,13 @@ export default {
     completeDeleteBook(index) {
       // 在这里添加后端交互，下面是前端层面的删除操作
       var book_id=this.booklist[index].book_id;
-      this.$http.post("/api/user/delete_one",{
+      this.$http.post("/api/book/delete_one",{
             book_id: book_id
           }).then((res) => {
             console.log(res);
             this.getBookList();
           });
-      /*
-      this.booklist.splice(index, 1);
-      this.total = this.total - 1;
-      */
-      // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
+     
       this.$message.success("Deleting book succeeded");
     },
     searchBook() {
@@ -362,7 +358,7 @@ export default {
           loading.close();
         }, 1000);
         var ask="%"+this.searchBookForm.searchcontenet+"%";
-        this.$http.post("/api/user/search_one",{
+        this.$http.post("/api/book/search_one",{
             ask:ask
           }).then((res) => {
             console.log(res);

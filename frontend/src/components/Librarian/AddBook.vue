@@ -197,7 +197,7 @@ export default {
   },
   methods: {
     getBookList() {
-      this.$http.post("/api/user/search_all",{
+      this.$http.post("/api/book/search_all",{
           }).then((res) => {
             var table=res.body;
             this.total=table.length;
@@ -238,7 +238,7 @@ export default {
       this.dialogVisible = false;
       this.$refs.addBookFormRef.resetFields();
 
-      this.$http.post("/api/user/check_id",{
+      this.$http.post("/api/book/check_id",{
           }).then((res) => {
             var now=res.body[0].value;
            
@@ -249,7 +249,7 @@ export default {
             }
             book_id=zero+book_id;
             
-            this.$http.post("/api/user/addbook",{
+            this.$http.post("/api/book/addbook",{
               book_id:book_id,
               bookname:bookname,
               author:author,
@@ -261,7 +261,7 @@ export default {
               console.log(res);
               this.$message.success("Add a book successfully");
               this.getBookList();
-              this.$http.post("/api/user/change_id",{
+              this.$http.post("/api/book/change_id",{
               }).then((res) => {
                 console.log(res);
               });

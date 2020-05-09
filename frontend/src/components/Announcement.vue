@@ -91,23 +91,15 @@ export default {
       }, 200);
     },
     getAnnouncement() {
-      if (this.pagenum == 1) {
-        this.announcementtitle = "关于冠状病毒等相关免费科研信息资源整理";
-        this.announcementcontent =
-          "近期新冠肺炎疫情的发展情况牵动着每个人的心。经过此次疫情，大众的工作生活发生了不小的改变，也收获了许多“防疫”经验。对科研工作者来说，疫情的发生可以局限科研空间，却无法阻止科研工作者进行学术研究的深度，“远距离”科研成为信息时代普遍的工作模式，并为科研工作提供更高效的科研机会。";
-        this.announcementtime = "2020-03-01 00:00:00";
-      } else if (this.pagenum == 2) {
-        this.announcementtitle = "信息时代如何做好“远距离”科研";
-        this.announcementcontent =
-          "面对“新型冠状病毒肺炎”疫情，国际相关学科领域学者也在密切关注，新的学术研究成果，也通过现代网络环境下催生的新的出版模式得到最快的传播。科研信息的快速传播，加速了人类对疾病的了解和研究进程，助力人们迅速有效的遏制疾病机器传播。";
-        this.announcementtime = "2020-03-01 00:00:00";
-      } else {
-        this.announcementtitle = "图书馆数字资源助您宅家决胜科研";
-        this.announcementcontent =
-          "疫情防控期间，继上期推出直接支持教学的数字资源汇总，图书馆“数字资源阅读推广工作组”本期围绕支持我校师生的科研活动，重新梳理了已购数字资源并精选整理了相应的免费网络资源，归纳成了以下五大类六个专题。";
-        this.announcementtime = "2020-03-01 00:00:00";
-      }
-      this.totalnum = 3;
+      this.$http.post("/api/announce/search_all",{
+          }).then((res) => {
+            var table=res.body;
+            this.totalnum=table.length;
+            this.announcementtitle = table[this.pagenum-1].title;
+            this.announcementcontent =table[this.pagenum-1].content;
+            this.announcementtime= table[this.pagenum-1].time.slice(0,10)+" "+table[this.pagenum-1].time.slice(11,19);
+            console.log(res);
+        });
     }
   }
 };
