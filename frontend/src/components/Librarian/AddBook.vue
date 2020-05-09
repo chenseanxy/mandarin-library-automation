@@ -196,7 +196,6 @@ export default {
   },
   methods: {
     getBookList() {
-
       this.$http.post("/api/user/search_all",{
           }).then((res) => {
             var table=res.body;
@@ -264,6 +263,7 @@ export default {
               }).then((res) => {
                 console.log(res);
               });
+              this.getBookList();
             });
           });
     }

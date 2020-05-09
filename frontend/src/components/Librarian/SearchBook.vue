@@ -9,10 +9,17 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input placeholder="Please enter book ID / book title / author / category "></el-input>
+          <el-form ref="searchBookRef" :model="searchBookForm" :rules="searchBookRules">
+            <el-form-item prop="searchcontenet">
+              <el-input
+                v-model="searchBookForm.searchcontenet"
+                placeholder="Please enter book ID / book title / author / category "
+              ></el-input>
+            </el-form-item>
+          </el-form>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" style="width:100%">Search</el-button>
+          <el-button type="primary" style="width:100%" @click="searchBook()">Search</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
@@ -201,6 +208,18 @@
 export default {
   data() {
     return {
+      searchBookForm: {
+        searchcontenet: ""
+      },
+      searchBookRules: {
+        searchcontenet: [
+          {
+            required: true,
+            message: "Please enter the search content",
+            trigger: "blur"
+          }
+        ]
+      },
       booklist: [],
       pagenum: 1,
       total: 0,
@@ -251,88 +270,20 @@ export default {
   },
   methods: {
     getBookList() {
-      // 修改这里以从后端调取信息
-      if (this.pagenum == 1) {
-        this.booklist = [
-          {
-            book_id: "00001",
-            bookname: "Villa in heavy snow",
-            author: "Higashino Keigo",
-            category: "Math",
-            location: "2 floor, bookcase No.34",
-            price: "23",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00002",
-            bookname: "Ten Mile Peach",
-            author: "Tang Qigongzi",
-            category: "Geography",
-            location: "3 floor, bookcase No.44",
-            price: "34",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00003",
-            bookname: "Why Sheng Xiaomo",
-            author: "Gu Man",
-            category: "Science",
-            location: "5 floor, bookcase No.3",
-            price: "53",
-            state: "Lost"
-          },
-          {
-            book_id: "00004",
-            bookname: "Brief history of humanity",
-            author: "[Israel] Yuval Herali",
-            category: "History",
-            location: "2 floor, bookcase No.13",
-            price: "46",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00005",
-            bookname: "Those things in the Ming Dynasty",
-            author: "DangNianMingyue",
-            category: "History",
-            location: "1 floor, bookcase No.66",
-            price: "55",
-            state: "Loaned out"
-          }
-        ];
-      }
-      if (this.pagenum == 2) {
-        this.booklist = [
-          {
-            book_id: "00006",
-            bookname: "Few people",
-            author: "M. Scott Parker",
-            category: "Social",
-            location: "4 floor, bookcase No.43",
-            price: "53",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00007",
-            bookname: "Pursuing the meaning of life",
-            author: "[Austria] Victor Frank",
-            category: "Human",
-            location: "3 floor, bookcase No.22",
-            price: "47",
-            state: "Not loaned"
-          },
-          {
-            book_id: "00008",
-            bookname: "Secret garden",
-            author: "Johanna Besford",
-            category: "Art",
-            location: "5 floor, bookcase No.37",
-            price: "75",
-            state: "Not loaned"
-          }
-        ];
-      }
-      this.total = 8;
+      this.$http.post("/api/user/search_all",{
+          }).then((res) => {
+            var table=res.body;
+            this.total=table.length;
+            var pagenow=this.pagenum;
+            var index = (pagenow-1)*5;
+            this.booklist=[];
+            
+            for(var i=index;i<this.total&& i<index+5;i++){
+              this.booklist.push(table[i]);
+            }
+            console.log(res);
+        });
+      
       this.$message.success("Fetching book list succeeded");
     },
     judgeType(state) {
@@ -389,6 +340,18 @@ export default {
       this.total = this.total - 1;
       // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
       this.$message.success("Deleting book succeeded");
+    },
+    searchBook() {
+      this.$refs.searchBookRef.validate(async valid => {
+        if (!valid) return;
+        const loading = this.$loading({
+          lock: true,
+          text: "Searching for " + this.searchBookForm.searchcontenet + " ..."
+        });
+        setTimeout(() => {
+          loading.close();
+        }, 1000);
+      });
     }
   }
 };

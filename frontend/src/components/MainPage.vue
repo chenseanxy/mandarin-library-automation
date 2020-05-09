@@ -15,7 +15,7 @@
             <span class="title_box">Mandarin Library Automation</span>
           </div>
           <div class="login_box">
-            <el-button>Announcement</el-button>
+            <el-button @click="goToAnnouncement">Announcement</el-button>
             <el-button type="primary" @click="readerLogin">Login</el-button>
           </div>
         </el-header>
@@ -24,8 +24,7 @@
             <img class="maininfo_img_box" width="152px" height="70px" src="../assets/mandarin.png">
             <div class="word_box">
               <h1>
-                Mandarin Library
-                <br>Automation
+                Mandarin Library Automation
               </h1>
               <p>Presenting Wonderful for You</p>
             </div>
@@ -54,7 +53,7 @@ export default {
       offset: 50,
       dangerouslyUseHTMLString: true,
       message: this.$createElement("div", null, [
-        this.$createElement("p", null, "此版本更新于2020年4月11日。"),
+        this.$createElement("p", null, "此版本更新于2020年4月26日。"),
         this.$createElement(
           "p",
           null,
@@ -187,6 +186,9 @@ export default {
     },
     goToVedio() {
       window.open("https://www.bilibili.com/video/av74592164");
+    },
+    goToAnnouncement() {
+      this.$router.push("/Announcement");
     }
   }
 };
@@ -197,7 +199,7 @@ export default {
   height: 100%;
 }
 .maininfo_box {
-  width: 450px;
+  width: 650px;
   height: 300px;
   background-color: #ffffff;
   border-radius: 5px;
@@ -211,7 +213,7 @@ export default {
 }
 .maininfo_img_box {
   text-align: center;
-  padding-left: 149px;
+  padding-left: 249px;
   padding-top: 20px;
 }
 .word_box {
