@@ -85,10 +85,39 @@ router.post('/search_all', (req, res) => {
 
 router.post('/search_one', (req, res) => {
   var sql = $sql.book_man_api.search_one;
-  var param = req.body;
+  var ask=req.body.ask;
+  var param = [ask, ask, ask, ask, ask];
   console.log("sql", sql);
   console.log(param);
-  conn.query(sql, function (err, doc) {
+  conn.query(sql,param,function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+router.post('/update_one', (req, res) => {
+  var sql = $sql.book_man_api.update_one;
+  var param = [req.body.bookname, req.body.author, req.body.category, req.body.location, req.body.price, req.body.state, req.body.book_id];
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, param, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+router.post('/delete_one', (req, res) => {
+  var sql = $sql.book_man_api.delete_one;
+  console.log("sql", sql);
+  conn.query(sql,req.body.book_id, function (err, doc) {
     if (err) {
       console.log(err);
     }

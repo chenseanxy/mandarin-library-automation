@@ -284,7 +284,7 @@ export default {
             console.log(res);
         });
       
-      this.$message.success("Fetching book list succeeded");
+      //this.$message.success("Fetching book list succeeded");
     },
     judgeType(state) {
       if (state == "Not loaned") return "success";
@@ -316,17 +316,18 @@ export default {
     completeEditBook(index) {
       this.$refs[`${index}-editBookFormRef`].validate(async valid => {
         if (!valid) return;
-        // 在这里添加后端交互，下面是前端层面的修改操作
-        this.booklist.splice(index, 1, {
-          book_id: this.editBookForm.book_id,
-          bookname: this.editBookForm.booktitle,
-          author: this.editBookForm.author,
-          category: this.editBookForm.category,
-          location: this.editBookForm.location,
-          price: this.editBookForm.price,
-          state: this.editBookForm.state
-        });
-        // 上面是前端层面的修改操作，添加后端代码后删除上述代码并添加刷新页面操作
+        this.$http.post("/api/user/update_one",{
+            book_id: this.editBookForm.book_id,
+            bookname: this.editBookForm.booktitle,
+            author: this.editBookForm.author,
+            category: this.editBookForm.category,
+            location: this.editBookForm.location,
+            price: this.editBookForm.price,
+            state: this.editBookForm.state
+          }).then((res) => {
+            console.log(res);
+            this.getBookList();
+          });
         document.querySelector("#app").click();
         this.$message.success("Modifying book succeeded");
         setTimeout(() => {
@@ -336,8 +337,17 @@ export default {
     },
     completeDeleteBook(index) {
       // 在这里添加后端交互，下面是前端层面的删除操作
+      var book_id=this.booklist[index].book_id;
+      this.$http.post("/api/user/delete_one",{
+            book_id: book_id
+          }).then((res) => {
+            console.log(res);
+            this.getBookList();
+          });
+      /*
       this.booklist.splice(index, 1);
       this.total = this.total - 1;
+      */
       // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
       this.$message.success("Deleting book succeeded");
     },
@@ -351,6 +361,25 @@ export default {
         setTimeout(() => {
           loading.close();
         }, 1000);
+        var ask="%"+this.searchBookForm.searchcontenet+"%";
+        this.$http.post("/api/user/search_one",{
+            ask:ask
+          }).then((res) => {
+            console.log(res);
+            var table=res.body;
+            if(table.length!=0){
+              this.total=table.length;
+              var pagenow=this.pagenum;
+              var index = (pagenow-1)*5;
+              this.booklist=[];
+              for(var i=index;i<this.total&& i<index+5;i++)
+                this.booklist.push(table[i]);
+              this.$message.success("Successfully found the result");
+            }else {
+              this.$message.error("Not successfully found the result");
+              this.getBookList();
+            }
+          });
       });
     }
   }

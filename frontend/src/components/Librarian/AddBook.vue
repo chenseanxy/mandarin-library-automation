@@ -193,6 +193,7 @@ export default {
   },
   created() {
     this.getBookList();
+    this.$message.success("Fetching book list succeeded");
   },
   methods: {
     getBookList() {
@@ -209,7 +210,7 @@ export default {
             }
             console.log(res);
         });
-      this.$message.success("Fetching book list succeeded");
+      //this.$message.success("Fetching book list succeeded");
       
     },
     judgeType(state) {
@@ -220,6 +221,7 @@ export default {
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
       this.getBookList();
+      this.$message.success("Fetching book list succeeded");
     },
     cancelAddBook() {
       this.dialogVisible = false;
@@ -229,7 +231,7 @@ export default {
       var bookname=this.addBookForm.bookname;
       var author=this.addBookForm.author;
       var category=this.addBookForm.category;
-      var location=this.addBookForm.loctaion;
+      var location=this.addBookForm.location;
       var price=this.addBookForm.price;
       var state=this.addBookForm.state;
 
