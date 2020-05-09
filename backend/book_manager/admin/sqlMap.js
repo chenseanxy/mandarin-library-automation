@@ -4,7 +4,8 @@ var sqlMap = {
       insert:'INSERT INTO book(book_id,bookname,author,category,location,price,state) VALUES(?,?,?,?,?,?,?)',
       search_all:'SELECT * FROM book ORDER BY book_id',
       check_id:'SELECT * FROM book_id',
-      change_id:'UPDATE book_id SET value = value+1'
+      change_id:'UPDATE book_id SET value = value+1',
+      search_one:'SELECT * FROM book WHERE {book_id LIKE ? OR bookname LIKE ? OR author LIKE ? OR category LIKE ?}  ORDER BY BOOK_id'
     }
   }
   module.exports = sqlMap;

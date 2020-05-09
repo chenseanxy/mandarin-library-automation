@@ -38,9 +38,10 @@ router.post('/check_id', (req, res) => {
 router.post('/change_id', (req, res) => {
   var sql = $sql.book_man_api.change_id;
   var param = req.body;
+  
   console.log("sql", sql);
   console.log(param);
-  conn.query(sql, function (err, doc) {
+  conn.query(sql,[], function (err, doc) {
     if (err) {
       console.log(err);
     }
@@ -69,6 +70,21 @@ router.post('/addbook',(req, res)=> {
 
 router.post('/search_all', (req, res) => {
   var sql = $sql.book_man_api.search_all;
+  var param = req.body;
+  console.log("sql", sql);
+  console.log(param);
+  conn.query(sql, function (err, doc) {
+    if (err) {
+      console.log(err);
+    }
+    if (doc) {
+      jsonWrite(res, doc);
+    }
+  })
+})
+
+router.post('/search_one', (req, res) => {
+  var sql = $sql.book_man_api.search_one;
   var param = req.body;
   console.log("sql", sql);
   console.log(param);
