@@ -3,9 +3,28 @@
 
     从网上找到了一个可以适合咱们这个系统的后端（即b站电商项目实战的一模一样的后端） 并做了一点点修改
 
-    本项目前端的api配置在frontend/src/main.js 18-21行 我这里提供了两个选择：
-    一个本地（需要在自己电脑安装 下面会讲）
-    一个是云端（别人写好的）嫌麻烦的可以直接改成云端 但注意尽量不要进行修改数据的操作！！！
+    注意：需要把admin_backend/config/default中
+    "db_config" : {
+		"protocol" : "mysql",
+		"host" : "127.0.0.1",
+		"database" : "mydb",
+		"user" : "root",
+		"password" : "XXXX",（XXXX处修改为你们本机mysql密码）
+		"port" : 3306
+	}
+
+    本项目前端的api配置在frontend/src/main.js 18行左右
+
+    后端安装：
+
+    先配置本地数据库：
+
+    （1）创建数据库mydb
+        create database mybd;
+        use mybd;
+
+    （2）执行数据库命令文件 在：db -> mysdb.sql（或者直接复制到命令行）
+
 
     本地的后端项目路径为依旧在backend/admin_backend 初次使用需要在该路径下安装依赖（依赖已经写在package.json里了）:
     npm install
