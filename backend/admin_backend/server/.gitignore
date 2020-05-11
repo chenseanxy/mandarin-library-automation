@@ -1,4 +1,0 @@
-/node_modules/*
-/node_modules/mime-db/
-/node_modules/mime-types/
-package-lock.json

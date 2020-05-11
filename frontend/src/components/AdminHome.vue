@@ -24,7 +24,7 @@
                 <i class="el-icon-user"></i>
                 <span>LibAccount management</span>
               </template>
-              <el-menu-item index="1-1">Register an account</el-menu-item>
+              <!--el-menu-item index="1-1">Register an account</el-menu-item-->
               <el-menu-item index="ManageAccount" @click="saveNavState('ManageLib')">Manage account</el-menu-item>
                
                

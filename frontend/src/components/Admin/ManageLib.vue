@@ -5,401 +5,310 @@
       <el-breadcrumb-item>Lib management</el-breadcrumb-item>
       <el-breadcrumb-item>Manage Accounts</el-breadcrumb-item>
     </el-breadcrumb>
+ <!-- 卡片视图 -->
+    <el-card>
+      <!-- 搜索 添加 -->
+      <el-row :gutter="20">
+        <el-col :span="6">
+          <el-input placeholder="Please input account" v-model="queryInfo.query" clearable @clear="getUserList">
+            <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click="addDialogVisible = true">Add Account</el-button>
+        </el-col>
+      </el-row>
+      <!-- 用户列表区域 -->
+      <el-table :data="userlist" border stripe>
+        <!-- stripe: 斑马条纹
+        border：边框-->
+        <el-table-column type="index" label="#"></el-table-column>
+        <el-table-column prop="username" label="Account"></el-table-column>
+        <el-table-column prop="email" label="Email"></el-table-column>
+        <el-table-column prop="mobile" label="Password"></el-table-column>
+        <el-table-column label="State">
+          <template slot-scope="scope">
+            <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
+          </template>
+        </el-table-column>
+        <el-table-column label="Todo">
+          <template slot-scope="scope">
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              size="mini"
+              circle
+              @click="showEditDialog(scope.row.id)"
+            ></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              size="mini"
+              circle
+              @click="removeUserById(scope.row.id)"
+            ></el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- 分页区域 -->
+      <el-pagination
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+        :current-page="queryInfo.pagenum"
+        :page-sizes="[2, 5, 10, 15]"
+        :page-size="queryInfo.pagesize"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="totle"
+      ></el-pagination>
+    </el-card>
 
-    <!--最上面的搜索栏-->
-    <div class="block">
-      <el-card class="searchbook-card" shadow="hover">
-        <!--将输入框放到一列中，并利用span设置宽度, gutter设置间距-->
-        <el-row :gutter="20">
-          <el-col :span="20">
-            <!--添加了搜索功能，需要后端重写getLibList-->
-            <el-input
-              placeholder="Please enter librarian account"
-              v-model="editLibForm.account"
-              clearable
-              @clear="getLibList"
-            ></el-input>
-          </el-col>
-          <el-col :span="4">
-            <el-button type="primary" style="width:100%" @canplay="getLibList">Search</el-button>
-          </el-col>
-        </el-row>
-        <el-divider></el-divider>
+    <!-- 添加用户的对话框 -->
+    <el-dialog title="Add Account" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+      <!-- 内容主体 -->
+      <el-form
+        :model="addUserForm"
+        ref="addUserFormRef"
+        :rules="addUserFormRules"
+        label-width="100px"
+      >
+        <el-form-item label="Account" prop="username">
+          <el-input v-model="addUserForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="Email" prop="email">
+          <el-input v-model="addUserForm.email"></el-input>
+        </el-form-item>
+        <!-- 这里用数据库中的mobile当作前端的password 后面同 -->
+        <el-form-item label="Password" prop="mobile">
+          <el-input v-model="addUserForm.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="addDialogVisible = false">CANCEL</el-button>
+        <el-button type="primary" @click="addUser">OK</el-button>
+      </span>
+    </el-dialog>
 
-        <!--这里是table的内容，这里把data改成liblist -->
-        <el-table stripe max-height="500" :data="liblist">
-          <el-table-column label="#" type="index"></el-table-column>
-          <el-table-column label="Account" prop="account"></el-table-column>
-          <el-table-column label="Email" prop="Email"></el-table-column>
-          <el-table-column label="Password" prop="password"></el-table-column>
+    <!-- 修改用户的对话框 -->
+    <el-dialog
+      title="Modify Info"
+      :visible.sync="editDialogVisible"
+      width="50%"
+      @close="editDialogClosed"
+    >
+      <!-- 内容主体 -->
+      <el-form
+        :model="editUserForm"
+        ref="editUserFormRef"
+        :rules="editUserFormRules"
+        label-width="70px"
+      >
+        <el-form-item label="Account">
+          <el-input v-model="editUserForm.username" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="Email" prop="email">
+          <el-input v-model="editUserForm.email"></el-input>
+        </el-form-item>
+        <el-form-item label="Password" prop="mobile">
+          <el-input v-model="editUserForm.mobile"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editDialogVisible = false">CANCEL</el-button>
+        <el-button type="primary" @click="editUser">OK</el-button>
+      </span>
+    </el-dialog>
 
-          <!--这是状态那一列，使用了作用域插槽，scope.row可以获取到列表数据-->
-          <el-table-column label="State">
-            <template slot-scope="scope">
-              <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
-            </template>
-          </el-table-column>
-
-          <!--两个操作那一列，在这里admin也要实现编辑和删除-->
-          <el-table-column label="Operation" fixed="right" width="160px">
-            <template slot-scope="scope">
-              <el-popover placement="left" width="500" trigger="click">
-                <el-button
-                  slot="reference"
-                  type="primary"
-                  icon="el-icon-edit"
-                  @click="startEditAccount(scope.row.account,scope.row.Email,scope.row.password,scope.row.status)"
-                  circle
-                ></el-button>
-
-                <!--这是弹出来的修改框,我先暂时注释掉了-->
-                <h3 style="text-align: center;">Edit Account</h3>
-                <el-form
-                  :ref="`${scope.$index}-editAccountFormRef`"
-                  :model="editLibForm"
-                  :rules="editLibFormRules"
-                  label-width="120px"
-                  style="padding-right:20px;"
-                  size="small"
-                >
-                  <el-form-item label="Account" prop="account">
-                    <el-input
-                      v-model="editLibForm.account"
-                      placeholder="Please enter the account"
-                      clearable
-                    ></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="Email" prop="email">
-                    <el-input
-                      v-model="editLibForm.Email"
-                      placeholder="Please enter the email"
-                      clearable
-                    ></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="Password" prop="password">
-                    <el-input
-                      type="textarea"
-                      v-model="editLibForm.password"
-                      placeholder="Please enter the password"
-                      clearable
-                    ></el-input>
-                  </el-form-item>
-
-                  <el-form-item label="Status" prop="status">
-                    <el-select
-                      v-model="editLibForm.status"
-                      style="width:100%"
-                      placeholder="Please choose the status"
-                    >
-                      <el-option value="Normal"></el-option>
-                      <el-option value="Lost"></el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-form>
-
-                <div style="text-align: right; margin: 0">
-                  <el-button type="text" @click="cancelEditAccount()" size="mini">Cancel</el-button>
-                  <el-button
-                    style="margin-left:10px;"
-                    type="primary"
-                    @click="completeEditAccount(scope.$index)"
-                    size="mini"
-                  >Modify</el-button>
-                </div>
-              </el-popover>
-
-              <!--account删除时的弹框，应该修改好了-->
-              <el-popconfirm
-                :title="'Are you sure to DELETE '+scope.row.account+' ?'"
-                confirmButtonText="Delete"
-                @onConfirm="completeDeleteAccount(scope.$index)"
-                cancelButtonText="Cancel"
-                confirmButtonType="danger"
-              >
-                <el-button
-                  slot="reference"
-                  style="margin-left:10px;"
-                  type="danger"
-                  icon="el-icon-delete"
-                  circle
-                ></el-button>
-              </el-popconfirm>
-            </template>
-          </el-table-column>
-        </el-table>
-
-        <!--最下面的分页，应该修改好了-->
-        <el-pagination
-          layout="total, prev, pager, next, jumper"
-          @current-change="handleCurrentChange"
-          :current-page="pagenum"
-          :total="total"
-          page-size="5"
-        ></el-pagination>
-      </el-card>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
+    // 自定义邮箱规则
+    var checkEmail = (rule, value, callback) => {
+      const regEmail = /^\w+@\w+(\.\w+)+$/
+      if (regEmail.test(value)) {
+        // 合法邮箱
+        return callback()
+      }
+      callback(new Error('Please input valid email'))
+    }
+    // 自定义手机号(密码)规则
+    var checkMobile = (rule, value, callback) => {
+      const regMobile = /^\w+$/
+      if (regMobile.test(value)) {
+        return callback()
+      }
+      // 返回一个错误提示
+      callback(new Error('Please input valid password'))
+    }
     return {
-      pagenum: 1,
-      editaccountformvisible: false,
-      total: 0,
-      editBookForm: {
-        booktitle: "",
-        author: "",
-        publisher: "",
-        isbn: "",
-        status: ""
+      
+      // 获取用户列表查询参数对象
+      queryInfo: {
+        query: '',
+        // 当前页数
+        pagenum: 1,
+        // 每页显示多少数据
+        pagesize: 5
       },
-
-      //lib属性1
-      liblist: [],
-      editLibForm: {
-        account: "",
-        Email: "",
-        password: "",
-        status: ""
+      userlist: [],
+      totle: 0,
+      // 添加用户对话框
+      addDialogVisible: false,
+      // 用户添加
+      addUserForm: {
+        username: '',
+        email: '',
+        mobile: '',
+        password: this.mobile,//这里将我们用来替代的mobile值立即赋值给真正的password 从而添加到数据库中的password中
+        
       },
-
-      editBookFormRules: {
-        booktitle: [
+      // 用户添加表单验证规则
+      addUserFormRules: {
+        username: [
+          { required: true, message: 'Please input Account', trigger: 'blur' },
           {
-            required: true,
-            message: "Please enter the booktitle",
-            trigger: "blur"
+            min: 2,
+            max: 10,
+            message: '2~10 letters',
+            trigger: 'blur'
           }
         ],
-        author: [
-          {
-            required: true,
-            message: "Please enter the author",
-            trigger: "blur"
-          }
+        email: [
+          { required: true, message: 'Please input Email', trigger: 'blur' },
+          { validator: checkEmail, trigger: 'blur' }
         ],
-        publisher: [
-          {
-            required: true,
-            message: "Please enter the publisher",
-            trigger: "blur"
-          }
-        ],
-        isbn: [
-          {
-            required: true,
-            message: "Please enter the ISBN",
-            trigger: "blur"
-          }
-        ],
-        status: [
-          {
-            required: true,
-            message: "Please choose the status",
-            trigger: "blur"
-          }
+        mobile: [
+          { required: true, message: 'Please input Password', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
         ]
       },
-
-      //lib属性2
-      editLibFormRules: {
-        account: [
-          {
-            required: true,
-            message: "Please enter account",
-            trigger: "blur"
-          }
+      // 修改用户
+      editDialogVisible: false,
+      editUserForm: {},
+      // 编辑用户表单验证
+      editUserFormRules: {
+        email: [
+          { required: true, message: 'Please input Email', trigger: 'blur' },
+          { validator: checkEmail, trigger: 'blur' }
         ],
-        Email: [
-          {
-            required: true,
-            message: "Please enter the Email",
-            trigger: "blur"
-          }
-        ],
-        password: [
-          {
-            required: true,
-            message: "Please enter the password",
-            trigger: "blur"
-          }
-        ],
-        status: [
-          {
-            required: true,
-            message: "Please choose the status",
-            trigger: "blur"
-          }
+        mobile: [
+          { required: true, message: 'Please input Password', trigger: 'blur' },
+          { validator: checkMobile, trigger: 'blur' }
         ]
       }
-    };
+    }
   },
-  created() {
-    this.getLibList();
-  },
+  created () {
 
+    this.getUserList()
+  },
   methods: {
-    //这里返回lib信息
-    getLibList() {
-      // 修改这里以从后端调取信息
-      if (this.pagenum == 1) {
-        this.liblist = [
-          {
-            account: "Villa",
-            Email: "abcde@qq.com",
-            password: "Beijing",
-            status: "Normal"
-          },
-          {
-            account: "Sheng",
-            Email: "GuMan@qq.com",
-            password: "Beijing",
-            status: "Lost"
-          },
-          {
-            account: "Brief",
-            Email: "Yuval@qq.com",
-            password: "9787508647357",
-            status: "Normal"
-          },
-          {
-            account: "Ming",
-            Email: "ang@qq.com",
-            password: "0165608",
-            status: "Normal"
-          },
-          {
-            account: "ghadfjksdh",
-            Email: "dsakh@qq.com",
-            password: "0ajdksl",
-            status: "Normal"
-          }
-        ];
+    
+    async getUserList () {
+      const { data: res } = await this.$http.get('users', {
+        params: this.queryInfo
+      })
+      if (res.meta.status !== 200) {
+        return this.$message.error('Failed！')
       }
-      if (this.pagenum == 2) {
-        this.liblist = [
-          {
-            account: "fhkadj",
-            Email: "faihd@qq.com",
-            password: "fkhjas",
-            status: "Normal"
-          },
-          {
-            account: "lfadhs",
-            Email: "lfkhasj@qq.com",
-            password: "falcsdjakl",
-            status: "Normal"
-          },
-          {
-            account: "flhask",
-            Email: "iuyfdsjkfhd@qq.com",
-            password: "fidushifs",
-            status: "Normal"
-          }
-        ];
+      this.userlist = res.data.users
+      this.totle = res.data.totle
+    },
+    // 监听 pagesize改变的事件
+    handleSizeChange (newSize) {
+      // console.log(newSize)
+      this.queryInfo.pagesize = newSize
+      this.getUserList()
+    },
+    // 监听 页码值 改变事件
+    handleCurrentChange (newSize) {
+      // console.log(newSize)
+      this.queryInfo.pagenum = newSize
+      this.getUserList()
+    },
+    // 监听 添加用户对话框的关闭事件
+    addDialogClosed () {
+      this.$refs.addUserFormRef.resetFields()
+    },
+    // 添加用户
+    addUser () {
+      // 提交请求前，表单预验证
+      this.$refs.addUserFormRef.validate(async valid => {
+        // console.log(valid)
+        // 表单预校验失败
+        if (!valid) return
+        const { data: res } = await this.$http.post('users', this.addUserForm)
+        if (res.meta.status !== 201) {
+          this.$message.error('Failed！')
+        }
+        this.$message.success('Succeed！')
+        // 隐藏添加用户对话框
+        this.addDialogVisible = false
+        this.getUserList()
+      })
+    },
+    // 编辑用户信息
+    async showEditDialog (id) {
+      const { data: res } = await this.$http.get('users/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error('Failed！')
       }
-      this.total = 8;
-      this.$message.success("Fetching book list succeeded");
+      this.editUserForm = res.data
+      this.editDialogVisible = true
     },
-
-    //给状态设置底色
-    judgeType(status) {
-      if (status == "Normal") return "success";
-      if (status == "Lost") return "danger";
-      else return "info";
+    // 监听修改用户对话框的关闭事件
+    editDialogClosed () {
+      this.$refs.editUserFormRef.resetFields()
     },
-
-    //跳到下一页获取信息
-    handleCurrentChange(newPage) {
-      this.pagenum = newPage;
-      this.getLibList();
+    // 修改用户信息
+    editUser () {
+      // 提交请求前，表单预验证
+      this.$refs.editUserFormRef.validate(async valid => {
+        // console.log(valid)
+        // 表单预校验失败
+        if (!valid) return
+        const { data: res } = await this.$http.put(
+          'users/' + this.editUserForm.id,
+          {
+            email: this.editUserForm.email,
+            mobile: this.editUserForm.mobile
+          }
+        )
+        if (res.meta.status !== 200) {
+          this.$message.error('Failed！')
+        }
+        // 隐藏添加用户对话框
+        this.editDialogVisible = false
+        this.$message.success('Succeed！')
+        this.getUserList()
+      })
     },
-
-    //添加账号
-    startEditAccount(account, Email, password, status) {
-      this.editLibForm.account = account;
-      this.editLibForm.Email = Email;
-      this.editLibForm.password = password;
-      this.editLibForm.status = status;
-    },
-    //关闭窗口
-    completeEditAccount(index) {
-      this.$refs[`${index}-editAccountFormRef`].validate(async valid => {
-        if (!valid) return;
-        // 在这里添加后端交互，下面是前端层面的修改操作
-        this.liblist.splice(index, 1, {
-          account: this.editLibForm.account,
-          Email: this.editLibForm.Email,
-          password: this.editLibForm.password,
-          status: this.editLibForm.status
-        });
-        // 上面是前端层面的修改操作，添加后端代码后删除上述代码并添加刷新页面操作
-        document.querySelector("#app").click();
-        this.$message.success("Modifying Account succeeded");
-        setTimeout(() => {
-          this.editaccountformvisible = false;
-        }, 200);
-      });
-    },
-    cancelEditAccount(index) {
-      // 下面这行语句用于关闭popover窗口
-      document.querySelector("#app").click();
-      this.$refs[`${index}-editAccountFormRef`].resetFields();
-      setTimeout(() => {
-        this.editaccountformvisible = false;
-      }, 200);
-    },
-
-    //删除账号
-    completeDeleteAccount(index) {
-      // 在这里添加后端交互，下面是前端层面的删除操作
-      this.liblist.splice(index, 1);
-      this.total = this.total - 1;
-      // 上面是前端层面的删除操作，添加后端代码后删除上述代码并添加刷新页面操作
-      this.$message.success("Deleting Account succeeded");
+    // 删除用户
+    async removeUserById (id) {
+      const confirmResult = await this.$confirm(
+        'Are you sure to delete?',
+        'Tips',
+        {
+          confirmButtonText: 'OK',
+          cancelButtonText: 'CANCEL',
+          type: 'warning'
+        }
+      ).catch(err => err)
+      // 点击确定 返回值为：confirm
+      // 点击取消 返回值为： cancel
+      if (confirmResult !== 'confirm') {
+        return this.$message.info('Cancel')
+      }
+      const { data: res } = await this.$http.delete('users/' + id)
+      if (res.meta.status !== 200) return this.$message.error('Failed！')
+      this.$message.success('Succeed!')
+      this.getUserList()
     }
   }
-};
+}
 </script>
 
-<style scoped>
-.outer {
-  height: 100%;
-  width: 100%;
-}
-
-.block {
-  background-color: #2b4b6b;
-  background: url("../../assets/susan.jpg") no-repeat center center fixed;
-  /* background-size: 100% 100%; */
-  background-size: cover;
-  /* background-repeat: no-repeat; */
-  height: 100%;
-  width: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-}
-
-.el-breadcrumb {
-  margin-bottom: 15px;
-}
-.searchbook-card {
-  /*设置card的阴影 */
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-  width: 800px;
-  /* margin: 0 auto; */
-  position: relative;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.el-pagination {
-  margin-top: 15px;
-}
+<style lang="less" scoped>
 </style>
-
