@@ -22,23 +22,21 @@
             <el-submenu index="1">
               <template slot="title">
                 <i class="el-icon-user"></i>
-                <span>LibAccount management</span>
+                <span>Librarian management</span>
               </template>
               <!--el-menu-item index="1-1">Register an account</el-menu-item-->
-              <el-menu-item index="ManageAccount" @click="saveNavState('ManageLib')">Manage account</el-menu-item>
+              <el-menu-item index="ManageAccount" @click="saveNavState('ManageLib')">Manage Account</el-menu-item>
                
                
                <!-- <el-menu-item index="SearchBook" @click="saveNavState('SearchBook')">Search for Books</el-menu-item> -->
-              <el-menu-item index="1-3">Retrieve password</el-menu-item>
+              <!--el-menu-item index="1-3">Retrieve password</el-menu-item-->
             </el-submenu>
             <el-submenu index="2">
               <template slot="title">
                 <i class="el-icon-school"></i>
                 <span>Library management</span>
               </template>
-              <el-menu-item index="BorrowManage">Setting overdue fines</el-menu-item>
-              <el-menu-item index="2-2">Set a return period</el-menu-item>
-              <el-menu-item index="2-3">Set margin</el-menu-item>
+              <el-menu-item index="BorrowManage">Setting</el-menu-item>
             </el-submenu>
             <el-menu-item index="3">
               <i class="el-icon-key"></i>

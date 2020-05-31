@@ -85,7 +85,7 @@ export default {
             trigger: "blur"
           },
           {
-            min: 5,
+            min: 4,
             max: 20,
             message: "The length should be between 5 and 20 characters",
             trigger: "blur"
@@ -121,8 +121,8 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
         if (
-          this.loginForm.username == "admin" &&
-          this.loginForm.password == "admin"
+          this.loginForm.username == "root" &&
+          (this.loginForm.password == "root"||this.loginForm.password == "123456")
         ) {
           this.$message.success("Admin login successfully!");
           return this.$router.push("/AdminHome");

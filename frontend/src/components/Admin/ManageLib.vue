@@ -2,7 +2,7 @@
   <div class="outer">
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item>Admin Home Page</el-breadcrumb-item>
-      <el-breadcrumb-item>Lib management</el-breadcrumb-item>
+      <el-breadcrumb-item>Librarian Management</el-breadcrumb-item>
       <el-breadcrumb-item>Manage Accounts</el-breadcrumb-item>
     </el-breadcrumb>
  <!-- 卡片视图 -->
@@ -26,7 +26,8 @@
         <el-table-column prop="username" label="Account"></el-table-column>
         <el-table-column prop="email" label="Email"></el-table-column>
         <el-table-column prop="mobile" label="Password"></el-table-column>
-        <el-table-column label="State">
+        <el-table-column prop="role_name" label="Role" v-if="false"></el-table-column>
+        <el-table-column label="State" v-if="false">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.mg_state" @change="userStateChanged(scope.row)"></el-switch>
           </template>
@@ -47,6 +48,22 @@
               circle
               @click="removeUserById(scope.row.id)"
             ></el-button>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="角色分配"
+              :enterable="false"
+              placement="top"
+              v-if="false"
+            >
+              <el-button
+                type="warning"
+                icon="el-icon-setting"
+                size="mini"
+                circle
+                @click="showSetRole(scope.row)"
+              ></el-button>
+            </el-tooltip>
           </template>
         </el-table-column>
       </el-table>
@@ -77,8 +94,10 @@
         <el-form-item label="Email" prop="email">
           <el-input v-model="addUserForm.email"></el-input>
         </el-form-item>
-        <!-- 这里用数据库中的mobile当作前端的password 后面同 -->
-        <el-form-item label="Password" prop="mobile">
+        <el-form-item label="Password" prop="password" >
+          <el-input v-model="addUserForm.password"></el-input>
+        </el-form-item>
+        <el-form-item label="Mobile" prop="mobile" v-if="false">
           <el-input v-model="addUserForm.mobile"></el-input>
         </el-form-item>
       </el-form>
@@ -118,6 +137,34 @@
       </span>
     </el-dialog>
 
+<!-- 分配角色对话框 -->
+    <el-dialog title="分配角色" :visible.sync="setRoleDialogVisible" width="50%" @close="setRoleDialogClosed">
+      <div>
+        <p>当前用户：{{userInfo.username}}</p>
+        <p>当前角色：{{userInfo.role_name}}</p>
+        <p>
+          分配角色：
+          <el-select
+            v-model="selectRoleId"
+            filterable
+            allow-create
+            default-first-option
+            placeholder="请选择文章标签"
+          >
+            <el-option
+              v-for="item in rolesLsit"
+              :key="item.id"
+              :label="item.roleName"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -143,7 +190,6 @@ export default {
       callback(new Error('Please input valid password'))
     }
     return {
-      
       // 获取用户列表查询参数对象
       queryInfo: {
         query: '',
@@ -160,9 +206,8 @@ export default {
       addUserForm: {
         username: '',
         email: '',
-        mobile: '',
-        password: this.mobile,//这里将我们用来替代的mobile值立即赋值给真正的password 从而添加到数据库中的password中
-        
+        password: '00010001',
+        mobile: this.password
       },
       // 用户添加表单验证规则
       addUserFormRules: {
@@ -172,6 +217,15 @@ export default {
             min: 2,
             max: 10,
             message: '2~10 letters',
+             trigger: 'blur'
+          }
+        ],
+        password: [
+          { required: true, message: 'Please input password', trigger: 'blur' },
+          {
+            min: 6,
+            max: 18,
+            message: 'Lenth between 6～18',
             trigger: 'blur'
           }
         ],
@@ -197,15 +251,21 @@ export default {
           { required: true, message: 'Please input Password', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
-      }
+      },
+      // 分配角色对话框
+      setRoleDialogVisible: false,
+      // 当前需要被分配角色的用户
+      userInfo: {},
+      // 所有角色数据列表
+      rolesLsit: [],
+      // 已选中的角色Id值
+      selectRoleId: ''
     }
   },
   created () {
-
     this.getUserList()
   },
   methods: {
-    
     async getUserList () {
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo
@@ -228,6 +288,18 @@ export default {
       this.queryInfo.pagenum = newSize
       this.getUserList()
     },
+    // 监听 switch开关 状态改变
+    async userStateChanged (userInfo) {
+      // console.log(userInfo)
+      const { data: res } = await this.$http.put(
+        `users/${userInfo.id}/state/${userInfo.mg_state}`
+      )
+      if (res.meta.status !== 200) {
+        userInfo.mg_state = !userInfo.mg_state
+        return this.$message.error('更新用户状态失败')
+      }
+      this.$message.success('更新用户状态成功！')
+    },
     // 监听 添加用户对话框的关闭事件
     addDialogClosed () {
       this.$refs.addUserFormRef.resetFields()
@@ -238,12 +310,13 @@ export default {
       this.$refs.addUserFormRef.validate(async valid => {
         // console.log(valid)
         // 表单预校验失败
+        this.addUserForm.mobile = this.addUserForm.password
         if (!valid) return
         const { data: res } = await this.$http.post('users', this.addUserForm)
         if (res.meta.status !== 201) {
           this.$message.error('Failed！')
         }
-        this.$message.success('Succeed！')
+        //this.$message.success('Add Succeed！')
         // 隐藏添加用户对话框
         this.addDialogVisible = false
         this.getUserList()
@@ -305,6 +378,35 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('Failed！')
       this.$message.success('Succeed!')
       this.getUserList()
+    },
+    // 展示分配角色的对话框
+    async showSetRole (role) {
+      this.userInfo = role
+      // 展示对话框之前，获取所有角色列表
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取角色列表失败！')
+      }
+      this.rolesLsit = res.data
+      this.setRoleDialogVisible = true
+    },
+    // 分配角色
+    async saveRoleInfo () {
+      if (!this.selectRoleId) {
+        return this.$message.error('请选择要分配的角色')
+      }
+      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectRoleId })
+      if (res.meta.status !== 200) {
+        return this.$message.error('更新用户角色失败！')
+      }
+      this.$message.success('更新角色成功！')
+      this.getUserList()
+      this.setRoleDialogVisible = false
+    },
+    // 分配角色对话框关闭事件
+    setRoleDialogClosed () {
+      this.selectRoleId = ''
+      this.userInfo = {}
     }
   }
 }
