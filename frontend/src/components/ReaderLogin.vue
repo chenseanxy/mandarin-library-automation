@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -102,16 +103,33 @@ export default {
     },
     //！！！修改 login() 调用后端 API 以对账户密码进行验证 ！！！
     login() {
+     
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
-        if (
-          this.loginForm.username == "user" &&
-          this.loginForm.password == "user"
-        ) {
-          this.$router.push("/ReaderHome");
-          return this.$message.success("Login successful");
+        // if (
+        //   this.loginForm.username == "user" &&
+        //   this.loginForm.password == "user"
+        // ) {
+        //   this.$router.push("/ReaderHome");
+        //   return this.$message.success("Login successful");
+        // }
+        // return this.$message.error("Wrong account number or password!");
+        
+      axios.get('http://127.0.0.1:8888/api/private/v1/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(
+        response=>{
+          let res = response.data
+          if (res.meta.status == 200) {
+            let token = res.data.token;
+            window.sessionStorage.setItem("token", token);
+            this.$router.push("/ReaderHome");
+          } else {
+            alert(res.meta.msg)
+          }
         }
-        return this.$message.error("Wrong account number or password!");
+      ).catch(
+
+      )
+
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中
         //window.sessionStorage.setItem("token", 后端返回的token);
