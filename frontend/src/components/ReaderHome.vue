@@ -9,8 +9,15 @@
         <el-button type="primary" @click="logout">Exit</el-button>
       </el-header>
       <el-container>
-        <el-aside :width="isCollapse ? '65px' : '250px' ">
-          <div class="toggle-button" @click="toggleCollapse">&gt;&gt;&gt;&emsp;&lt;&lt;&lt;</div>
+        <el-aside
+          @mouseenter.native="enterAside()"
+          @mouseleave.native="leaveAside()"
+          :width="isCollapse ? '65px' : '300px' "
+        >
+          <div
+            :style="isCollapse ? 'visibility:' : 'visibility:hidden' "
+            class="toggle-button"
+          >{{collapsetext}}</div>
           <!-- 侧边栏菜单区域 -->
           <el-menu
             background-color="whitesmoke"
@@ -62,7 +69,7 @@
 <script>
 export default {
   data() {
-    return { isCollapse: false };
+    return { isCollapse: true };
   },
  
   methods: {
@@ -81,7 +88,13 @@ export default {
       setTimeout(() => {
         this.componentLoading = false;
       }, 500);
-    }
+    },
+    enterAside() {
+      this.isCollapse = false;
+    },
+    leaveAside() {
+      this.isCollapse = true;
+    },
   }
 };
 </script>
