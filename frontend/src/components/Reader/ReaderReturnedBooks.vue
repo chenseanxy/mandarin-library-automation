@@ -22,13 +22,6 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="Operation" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="Reborrow" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-reading" circle></el-button>
-            </el-tooltip>
-          </template>
-        </el-table-column>
       </el-table>
 
       <el-pagination

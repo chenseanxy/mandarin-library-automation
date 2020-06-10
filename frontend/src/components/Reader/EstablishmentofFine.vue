@@ -1,10 +1,5 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>Reader Main Page</el-breadcrumb-item>
-      <el-breadcrumb-item>Account Management</el-breadcrumb-item>
-      <el-breadcrumb-item>Fine To Pay</el-breadcrumb-item>
-    </el-breadcrumb>
 
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">

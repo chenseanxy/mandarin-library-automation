@@ -1,26 +1,21 @@
 <template>
   <div>
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>读者首页</el-breadcrumb-item>
-      <el-breadcrumb-item>书籍管理</el-breadcrumb-item>
-      <el-breadcrumb-item>搜索书籍</el-breadcrumb-item>
-    </el-breadcrumb>
-
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input v-model="input" placeholder="请输入 图书名 / 作者 / 出版社 / ISBN "></el-input>
+          <el-input v-model="input" placeholder="Please enter title / author / publisher / ISBN "></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="search">搜索书籍</el-button>
+          <el-button type="primary" @click="search">Search</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
-        <el-table-column label="图书名" prop="bookname"></el-table-column>
-        <el-table-column label="作者" prop="author"></el-table-column>
-        <el-table-column label="出版社" prop="publisher"></el-table-column>
+        <el-table-column label="title" prop="bookname"></el-table-column>
+        <el-table-column label="author" prop="author"></el-table-column>
+        <el-table-column label="Categroy" prop="publisher"></el-table-column>
+        
         <el-table-column label="ISBN" prop="isbn">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
@@ -29,20 +24,17 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column label="状态">
+        
+        <el-table-column label="state">
           <template slot-scope="scope">
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="操作" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="借阅" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-reading" circle></el-button>
+        
+        <el-table-column label="operation" fixed="right">
+           <el-tooltip class="item" effect="dark" placement="top" :enterable="false">
+              <el-button type="primary" icon="el-icon-reading" @click="reserve" circle></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="归还" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-minus" circle></el-button>
-            </el-tooltip>
-          </template>
         </el-table-column>
       </el-table>
 
@@ -71,82 +63,85 @@ export default {
     this.getBookList();
   },
   methods: {
+    reserve() {
+      this.$router.push("/ReaderHome/ReaderReserveBook");
+      return this.$message.success("Go to reserve the book!");
+    },
     search() {
-    this.$message.success("Go to search page!");
-		return this.$router.push("/ReaderSearchNewBook");	
+    this.$router.push("/ReaderHome/ReaderSearchNewBook");
+    return this.$message.success("Go to search page!");
 	},
     getBookList() {
       // 修改这里以从后端调取信息
       if (this.pagenum == 1) {
         this.booklist = [
           {
-            bookname: "大雪中的山庄",
-            author: "东野圭吾",
-            publisher: "北京十月文艺出版社",
-            isbn: "9787530216835",
-            status: "在馆"
+            bookname: "Villa in heavy snow",
+            author: "Higashino Keigo",
+            publisher: "Math",
+            isbn: "00001",
+            status: "Not loaned"
           },
           {
-            bookname: "三生三世 十里桃花",
-            author: "唐七公子",
-            publisher: "沈阳出版社",
-            isbn: "9787544138000",
-            status: "在馆"
+            bookname: "Ten Mile Peach",
+            author: "Tang Qigongzi",
+            publisher: "Geography",
+            isbn: "00002",
+            status: "Not loaned"
           },
           {
-            bookname: "何以笙箫默",
-            author: "顾漫",
-            publisher: "朝华出版社",
-            isbn: "9787505414709",
-            status: "遗失"
+            bookname: "Why Sheng XiaoMo",
+            author: "Gu Man",
+            publisher: "Science",
+            isbn: "00003",
+            status: "loaned out"
           },
           {
-            bookname: "人类简史",
-            author: "[以色列] 尤瓦尔·赫拉利",
-            publisher: "中信出版社",
-            isbn: "9787508647357",
-            status: "在馆"
+            bookname: "Brief history of humanity",
+            author: "[Israel] Yuval Herali",
+            publisher: "History",
+            isbn: "00004",
+            status: "Not loaned"
           },
           {
-            bookname: "明朝那些事儿",
-            author: "当年明月",
-            publisher: "中国海关出版社",
-            isbn: "9787801656087",
-            status: "已借出"
+            bookname: "Those things in the Ming Dynasty",
+            author: "DangNianMingYue",
+            publisher: "History",
+            isbn: "00005",
+            status: "loaned out"
           }
         ];
       }
       if (this.pagenum == 2) {
         this.booklist = [
           {
-            bookname: "少有人走的路",
-            author: "M·斯科特·派克",
-            publisher: "吉林文史出版社",
-            isbn: "9787807023777",
-            status: "在馆"
+            bookname: "The road less traveled",
+            author: "M. Scott Peck",
+            publisher: "History",
+            isbn: "00006",
+            status: "Not loaned",
           },
           {
-            bookname: "追寻生命的意义",
-            author: "[奥] 维克多·弗兰克",
-            publisher: "新华出版社",
-            isbn: "9787501162734",
-            status: "在馆"
+            bookname: "The search for meaning in life",
+            author: " Victor Frank",
+            publisher: "History",
+            isbn: "00007",
+            status: "Not loaned"
           },
           {
-            bookname: "秘密花园",
-            author: "乔汉娜·贝斯福",
-            publisher: "北京联合出版公司",
-            isbn: "9787550252585",
-            status: "在馆"
+            bookname: "Secret Garden",
+            author: " Johanna Basford",
+            publisher: "Math",
+            isbn: "00008",
+            status: "Not loaned"
           }
         ];
       }
       this.total = 8;
-      this.$message.success("获取书籍列表成功");
     },
     judgeType(status) {
-      if (status == "在馆") return "success";
-      if (status == "遗失") return "danger";
+      if (status == "loaned out") return "success";
+      if (status == "reserved") return "danger";
       else return "info";
     },
     handleCurrentChange(newPage) {

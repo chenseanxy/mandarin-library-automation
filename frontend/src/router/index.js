@@ -11,12 +11,14 @@ import ReaderWelcome from '../components/ReaderWelcome.vue'
 import ReaderHome from '../components/ReaderHome.vue'
 import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
 import ModifyPersonalInformation from '../components/Reader/ModifyPersonalInformation.vue'
+import PersonalInformationModified from '../components/Reader/PersonalInformationModified.vue'
 import ReaderCurrentBorrow from '../components/Reader/ReaderCurrentBorrow.vue'
 import ReaderReturnedBooks from '../components/Reader/ReaderReturnedBooks.vue'
 import RetrievePassword from '../components/Reader/RetrievePassword.vue'
 import EstablishmentofFine from '../components/Reader/EstablishmentofFine.vue'
 import MarginPendingPayment from '../components/Reader/MarginPendingPayment.vue'
 import ReaderSearchNewBook from '../components/Reader/ReaderSearchNewBook.vue'
+import ReaderReserveBook from '../components/Reader/ReaderReserveBook.vue'
 
 import LibrarianHome from '../components/LibrarianHome.vue'
 import LibrarianWelcome from '../components/LibrarianWelcome.vue'
@@ -48,12 +50,14 @@ const routes = [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome },
       { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook },
       { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation },
+      { path: '/ReaderHome/PersonalInformationModified', component: PersonalInformationModified },
       { path: '/ReaderHome/ReaderCurrentBorrow', component: ReaderCurrentBorrow },
       { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks },
       { path: '/ReaderHome/RetrievePassword', component: RetrievePassword},
       { path: '/ReaderHome/EstablishmentofFine', component: EstablishmentofFine},
       { path: '/ReaderHome/ReaderSearchNewBook', component: ReaderSearchNewBook},
-      { path: '/ReaderHome/MarginPendingPayment', component: MarginPendingPayment}
+      { path: '/ReaderHome/MarginPendingPayment', component: MarginPendingPayment},
+      { path: '/ReaderHome/ReaderReserveBook', component: ReaderReserveBook}
     ]
   },
   
