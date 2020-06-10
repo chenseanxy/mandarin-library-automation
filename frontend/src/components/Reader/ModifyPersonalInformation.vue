@@ -1,9 +1,9 @@
 <template>
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item>读者首页</el-breadcrumb-item>
-      <el-breadcrumb-item>账户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>更改个人信息</el-breadcrumb-item>
+      <el-breadcrumb-item>Reader MainPage</el-breadcrumb-item>
+      <el-breadcrumb-item>Account Management</el-breadcrumb-item>
+      <el-breadcrumb-item>Modify Personal Information</el-breadcrumb-item>
     </el-breadcrumb>
     <el-container>
     <el-header>Reader Information</el-header>
@@ -15,7 +15,7 @@
       <el-divider></el-divider>
       <el-table stripe max-height="400" :data="userinformationlist">
         <el-table-column label="username" prop="username"></el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="operation">
           <template>
             <el-tooltip class="item" effect="dark" content="修改" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
@@ -30,7 +30,7 @@
 
 
         <el-table-column label="email" prop="email"></el-table-column>
-        <el-table-column label="操作" >
+        <el-table-column label="operation" >
           <template>
             <el-tooltip class="item" effect="dark" content="修改" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
@@ -43,7 +43,7 @@
 
 
         <el-table-column label="position" prop="position"></el-table-column>
-        <el-table-column label="操作" >
+        <el-table-column label="operation" >
           <template>
             <el-tooltip class="item" effect="dark" content="修改" placement="top" :enterable="false">
               <el-button type="primary" icon="el-icon-edit" circle></el-button>
