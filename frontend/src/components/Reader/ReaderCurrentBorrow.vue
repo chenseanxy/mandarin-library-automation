@@ -1,6 +1,12 @@
 <template>
   <div>
 
+    <el-container>
+      <el-main>
+        <h2>There will be an email alert 30 days before the due date！</h2>
+      </el-main>
+    </el-container>
+
     <el-card class="searchbook-card" shadow="hover">
       
       <el-divider></el-divider>
@@ -22,13 +28,6 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column label="Operation" fixed="right">
-          <template>
-            <el-tooltip class="item" effect="dark" content="归还" placement="top" :enterable="false">
-              <el-button type="danger" icon="el-icon-minus" circle></el-button>
-            </el-tooltip>
-          </template>
-        </el-table-column>
       </el-table>
 
       <el-pagination
@@ -39,6 +38,7 @@
         page-size="5"
       ></el-pagination>
     </el-card>
+
   </div>
 </template>
 
@@ -96,6 +96,15 @@ export default {
 }
 .el-pagination {
   margin-top: 15px;
+}
+.el-main {
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 20px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
 }
 </style>
 

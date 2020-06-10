@@ -46,7 +46,6 @@
           </el-form-item>
           <el-form-item class="btns">
             <el-button type="primary" @click="login">Login</el-button>
-            <el-button type="primary" @click="register">Register</el-button>
             <el-button type="info" @click="resetLoginForm">Reset</el-button>
             <el-link :underline="false" @click="changePassword">Forget your password?</el-link>
           </el-form-item>
@@ -57,7 +56,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+//import axios from 'axios'
 export default {
   data() {
     return {
@@ -106,29 +105,29 @@ export default {
      
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
-        // if (
-        //   this.loginForm.username == "user" &&
-        //   this.loginForm.password == "user"
-        // ) {
-        //   this.$router.push("/ReaderHome");
-        //   return this.$message.success("Login successful");
-        // }
-        // return this.$message.error("Wrong account number or password!");
+         if (
+           this.loginForm.username == "user" &&
+           this.loginForm.password == "user"
+         ) {
+           this.$router.push("/ReaderHome");
+           return this.$message.success("Login successful");
+         }
+         return this.$message.error("Wrong account number or password!");
         
-      axios.get('http://127.0.0.1:8888/api/private/v1/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(
-        response=>{
-          let res = response.data
-          if (res.meta.status == 200) {
-            let token = res.data.token;
-            window.sessionStorage.setItem("token", token);
-            this.$router.push("/ReaderHome");
-          } else {
-            alert(res.meta.msg)
-          }
-        }
-      ).catch(
+      //axios.get('http://127.0.0.1:8888/api/private/v1/login?username=' + this.loginForm.username + '&password=' + this.loginForm.password).then(
+      //  response=>{
+      //    let res = response.data
+      //    if (res.meta.status == 200) {
+      //      let token = res.data.token;
+      //      window.sessionStorage.setItem("token", token);
+      //      this.$router.push("/ReaderHome");
+      //    } else {
+      //      alert(res.meta.msg)
+      //    }
+      //  }
+      //).catch(
 
-      )
+      //)
 
         //登录成功后应返回一个 token 标志该用户以正确的权限访问其它页面
         //token应保存在 sessionStorage 中

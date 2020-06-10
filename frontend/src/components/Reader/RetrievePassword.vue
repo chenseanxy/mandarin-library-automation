@@ -1,48 +1,14 @@
 <template>
-  <div class="change_container">
-    <el-header>
-      <div class="header_box">
-        <img width="101px" height="47px" src="../../assets/mandarin.png">
-        <span class="title_box">Mandarin Library Automation</span>
-      </div>
-    </el-header>
+  
     <div>
       <div class="change_box">
-        <div class="avatar_box">
-          <div class="sign_box">
-            <img
-              height="70px"
-              width="70px"
-              border-radius="50%"
-              background-color="#eee"
-              src="../../assets/reader.png"
-              alt
-            >
-          </div>
-        </div>
         <el-form
           ref="changeFormRef"
           :model="changeForm"
           :rules="changeFormRules"
           label-width="0px"
           class="change_form"
-        >
-          <el-form-item prop="username">
-            <el-input
-              v-model="changeForm.username"
-              prefix-icon="el-icon-user"
-              placeholder="Please enter the reader account (default: user)"
-              clearable
-            ></el-input>
-          </el-form-item>
-           <el-form-item prop="email">
-            <el-input
-              v-model="changeForm.email"
-              prefix-icon="el-icon-message"
-              placeholder="Please enter the reader email (default: user@126.com）"
-              clearable
-            ></el-input>
-          </el-form-item>
+        >  
           <el-form-item prop="password">
             <el-input
               v-model="changeForm.password"
@@ -68,7 +34,7 @@
         </el-form>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -106,10 +72,8 @@ export default {
       this.$refs.changeFormRef.validate(async valid => {
         if (!valid) return;
         if (
-          this.changeForm.username == "user" &&
           this.changeForm.password == "user" &&
-          this.changeForm.repassword == "user" &&
-          this.changeForm.email == "user@126.com" 
+          this.changeForm.repassword == "user" 
         ) {
           this.$router.push("/Login");
           return this.$message.success("Password changed successfully");
@@ -135,11 +99,11 @@ export default {
 }
 .change_box {
   width: 450px;
-  height: 400px;
+  height: 250px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
-  left: 50%;
+  left: 60%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
@@ -171,10 +135,6 @@ export default {
 .btns {
   display: flex;
   justify-content: flex-end;
-}
-.header_box {
-  display: flex;
-  align-items: center;
 }
 .title_box {
   margin-left: 12px;

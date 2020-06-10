@@ -1,7 +1,14 @@
 <template>
   <div>
-
     <el-card class="searchbook-card" shadow="hover">
+      <el-row :gutter="20">
+        <el-col :span="20">
+          <el-input v-model="input" placeholder="Please enter title / author / publisher / ISBN "></el-input>
+        </el-col>
+        <el-col :span="4">
+          <el-button type="primary" @click="search">Search</el-button>
+        </el-col>
+      </el-row>
       <el-divider></el-divider>
       <el-table stripe max-height="500" :data="booklist">
         <el-table-column label="#" type="index"></el-table-column>
@@ -21,8 +28,15 @@
             <el-tag :type="judgeType(scope.row.status)" effect="dark">{{scope.row.status}}</el-tag>
           </template>
         </el-table-column>
+        <el-table-column label="operation" fixed="right">
+          <template>
+            <el-tooltip class="item" effect="dark" placement="top" :enterable="false">
+              <el-button type="primary" icon="el-icon-reading" @click="reserve" circle></el-button>
+            </el-tooltip>
+          </template>
+        </el-table-column>
       </el-table>
-      
+
       <el-pagination
         layout="total, prev, pager, next, jumper"
         @current-change="handleCurrentChange"
@@ -30,7 +44,6 @@
         :total="total"
         page-size="5"
       ></el-pagination>
-      
     </el-card>
   </div>
 </template>
@@ -49,6 +62,10 @@ export default {
     this.getBookList();
   },
   methods: {
+    reserve() {
+      this.$router.push("/ReaderHome/ReaderSearchBook");
+      return this.$message.success("Cancel the reservation!");
+    },
     search() {
     this.$router.push("/ReaderHome/ReaderSearchNewBook");
     return this.$message.success("Go to search page!");
@@ -58,7 +75,35 @@ export default {
       if (this.pagenum == 1) {
         this.booklist = [
           {
-           bookname: "Those things in the Ming Dynasty",
+            bookname: "Villa in heavy snow",
+            author: "Higashino Keigo",
+            publisher: "Math",
+            isbn: "00001",
+            status: "reserved"
+          },
+          {
+            bookname: "Ten Mile Peach",
+            author: "Tang Qigongzi",
+            publisher: "Geography",
+            isbn: "00002",
+            status: "Not loaned"
+          },
+          {
+            bookname: "Why Sheng XiaoMo",
+            author: "Gu Man",
+            publisher: "Science",
+            isbn: "00003",
+            status: "loaned out"
+          },
+          {
+            bookname: "Brief history of humanity",
+            author: "[Israel] Yuval Herali",
+            publisher: "History",
+            isbn: "00004",
+            status: "Not loaned"
+          },
+          {
+            bookname: "Those things in the Ming Dynasty",
             author: "DangNianMingYue",
             publisher: "History",
             isbn: "00005",
@@ -66,7 +111,32 @@ export default {
           }
         ];
       }
-      this.total = 1;
+      if (this.pagenum == 2) {
+        this.booklist = [
+          {
+            bookname: "The road less traveled",
+            author: "M. Scott Peck",
+            publisher: "History",
+            isbn: "00006",
+            status: "Not loaned",
+          },
+          {
+            bookname: "The search for meaning in life",
+            author: " Victor Frank",
+            publisher: "History",
+            isbn: "00007",
+            status: "Not loaned"
+          },
+          {
+            bookname: "Secret Garden",
+            author: " Johanna Basford",
+            publisher: "Math",
+            isbn: "00008",
+            status: "Not loaned"
+          }
+        ];
+      }
+      this.total = 8;
     },
     judgeType(status) {
       if (status == "loaned out") return "success";

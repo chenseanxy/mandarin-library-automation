@@ -1,6 +1,20 @@
 <template>
     <div>
+      <el-container>
+      <el-main>
+        <h2>Information Modified！</h2>
+      </el-main>
+     </el-container>
+
       <div class="change_box">
+        <el-container>
+      <el-main>
+        <h3>Current nickname : user2</h3>
+        <h3>Current gender : male</h3>
+        <h3>Current age : 19</h3>
+        <h3>Current phone : 87654321</h3>
+      </el-main>
+    </el-container>
         <el-form
           ref="changeFormRef"
           :model="changeForm"
@@ -8,38 +22,6 @@
           label-width="0px"
           class="change_form"
         >
-          <el-form-item prop="username">
-            <el-input
-              v-model="changeForm.username"
-              placeholder="Current nickname : user1"
-              clearable
-            ></el-input>
-          </el-form-item>
-           <el-form-item prop="email">
-            <el-input
-              v-model="changeForm.email"
-              placeholder="Current gender : male"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password">
-            <el-input
-              v-model="changeForm.password"
-              placeholder="Current age : 19"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="repassword">
-            <el-input
-              v-model="changeForm.repassword"
-              placeholder="Current phone : 12345678"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item class="btns">
-            <el-button type="info" @click="cancel">Cancel</el-button>
-            <el-button type="primary" @click="modify">Modify</el-button>
-          </el-form-item>
         </el-form>
       </div>
     </div>
@@ -58,12 +40,6 @@ export default {
     };
   },
   methods: {
-    cancel() {
-      this.$router.push("/ReaderHome");
-    },
-    modify() {
-      this.$router.push("/ReaderHome/PersonalInformationModified");
-    }
   }
 };
 </script>
@@ -75,7 +51,7 @@ export default {
 }
 .change_box {
   width: 450px;
-  height: 350px;
+  height: 280px;
   background-color: #ffffff;
   border-radius: 5px;
   position: absolute;
@@ -131,6 +107,13 @@ export default {
   -moz-opacity: 0.95;
   opacity: 0.95;
 }
-
+.el-main {
+  background-color: #eee;
+  color: #333;
+  text-align: center;
+  line-height: 20px;
+  filter: alpha(Opacity=95);
+  -moz-opacity: 0.95;
+  opacity: 0.95;
+}
 </style>
-
