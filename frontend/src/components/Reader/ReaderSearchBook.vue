@@ -9,10 +9,10 @@
     <el-card class="searchbook-card" shadow="hover">
       <el-row :gutter="20">
         <el-col :span="20">
-          <el-input placeholder="请输入 图书名 / 作者 / 出版社 / ISBN "></el-input>
+          <el-input v-model="input" placeholder="请输入 图书名 / 作者 / 出版社 / ISBN "></el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary">搜索书籍</el-button>
+          <el-button type="primary" @click="search">搜索书籍</el-button>
         </el-col>
       </el-row>
       <el-divider></el-divider>
@@ -61,6 +61,7 @@
 export default {
   data() {
     return {
+      input: '',
       booklist: [],
       pagenum: 1,
       total: 0
@@ -70,6 +71,10 @@ export default {
     this.getBookList();
   },
   methods: {
+    search() {
+    this.$message.success("Go to search page!");
+		return this.$router.push("/ReaderSearchNewBook");	
+	},
     getBookList() {
       // 修改这里以从后端调取信息
       if (this.pagenum == 1) {
