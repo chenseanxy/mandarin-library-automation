@@ -19,7 +19,7 @@
         <el-table-column label="ISBN" prop="isbn">
           <template slot-scope="scope">
             <el-popover placement="right" width="300" close-delay="200" trigger="hover">
-              <el-link slot="reference">{{scope.row.isbn}}</el-link>
+              <el-tag slot="reference">{{scope.row.isbn}}</el-tag>
               <barcode style="text-align:center" :value="scope.row.isbn">Fail to show barcode.</barcode>
             </el-popover>
           </template>
@@ -31,10 +31,12 @@
           </template>
         </el-table-column>
         
-        <el-table-column label="operation" fixed="right">
-           <el-tooltip class="item" effect="dark" placement="top" :enterable="false">
-              <el-button type="primary" icon="el-icon-reading" @click="reserve" circle></el-button>
+        <el-table-column label="operation"  fixed="right">
+          <template slot-scope="scope">
+           <el-tooltip class="item" effect="dark" placement="top" :enterable="true" :content="bttncontent(scope.row.status)">
+              <el-button type="primary" icon="el-icon-reading" @click="reserve(scope.row)" circle></el-button>
             </el-tooltip>
+          </template>
         </el-table-column>
       </el-table>
 
@@ -63,9 +65,30 @@ export default {
     this.getBookList();
   },
   methods: {
-    reserve() {
-      this.$router.push("/ReaderHome/ReaderReserveBook");
-      return this.$message.success("Go to reserve the book!");
+    reserve(row) {
+      if(row.status == "loaned out"){
+        return this.$message.warning("Books have been loaned out!");
+      } else if(row.status == "Not loaned") {
+        row.status = "reserved"
+        return this.$message.success("reserve the book!");
+      }
+      else{
+        row.status = "Not loaned"
+        return this.$message.success("unreserve the book!");
+      }
+
+      // this.$router.push("/ReaderHome/ReaderReserveBook");
+      // return this.$message.success("Go to reserve the book!");
+    },
+    bttncontent(st){
+      if(st == "loaned out"){
+        return "No Operation";
+      } else if(st == "Not loaned") {
+        return "reserve";
+      }
+      else{
+        return "unreserve";
+      }
     },
     search() {
     this.$router.push("/ReaderHome/ReaderSearchNewBook");
@@ -140,9 +163,9 @@ export default {
       this.total = 8;
     },
     judgeType(status) {
-      if (status == "loaned out") return "success";
-      if (status == "reserved") return "danger";
-      else return "info";
+      if (status == "loaned out") return "danger";
+      if (status == "Not loaned") return "info";
+      if (status == "reserved") return "success";
     },
     handleCurrentChange(newPage) {
       this.pagenum = newPage;
