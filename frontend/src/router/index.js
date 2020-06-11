@@ -9,9 +9,7 @@ import ReaderRegisterAccount from '../components/Reader/ReaderRegisterAccount.vu
 import ReaderChangePassword from '../components/Reader/ReaderChangePassword.vue'
 import ReaderWelcome from '../components/ReaderWelcome.vue'
 import ReaderHome from '../components/ReaderHome.vue'
-import ReaderSearchBook from '../components/Reader/ReaderSearchBook.vue'
 import ModifyPersonalInformation from '../components/Reader/ModifyPersonalInformation.vue'
-import PersonalInformationModified from '../components/Reader/PersonalInformationModified.vue'
 import ReaderCurrentBorrow from '../components/Reader/ReaderCurrentBorrow.vue'
 import ReaderReturnedBooks from '../components/Reader/ReaderReturnedBooks.vue'
 import RetrievePassword from '../components/Reader/RetrievePassword.vue'
@@ -48,9 +46,7 @@ const routes = [
     redirect: '/ReaderHome/Welcome',
     children: [
       { path: '/ReaderHome/Welcome', component: ReaderWelcome },
-      { path: '/ReaderHome/ReaderSearchBook', component: ReaderSearchBook },
       { path: '/ReaderHome/ModifyPersonalInformation', component: ModifyPersonalInformation },
-      { path: '/ReaderHome/PersonalInformationModified', component: PersonalInformationModified },
       { path: '/ReaderHome/ReaderCurrentBorrow', component: ReaderCurrentBorrow },
       { path: '/ReaderHome/ReaderReturnedBooks', component: ReaderReturnedBooks },
       { path: '/ReaderHome/RetrievePassword', component: RetrievePassword},

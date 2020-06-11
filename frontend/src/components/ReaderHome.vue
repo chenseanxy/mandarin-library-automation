@@ -50,12 +50,12 @@
                 <i class="el-icon-user"></i>
                 <span>Search-Reserve Books</span>
               </template>
-              <el-menu-item index="ReaderSearchBook" @click="saveNavState('ReaderSearchBook')">Search-Reserve for Books</el-menu-item>
+              <el-menu-item index="ReaderReserveBook" @click="saveNavState('ReaderReserveBook')">Search-Reserve for Books</el-menu-item>
             </el-submenu>
-            <el-menu-item index="4" disabled>
+            <!-- <el-menu-item index="4" disabled>
               <i class="el-icon-setting"></i>
               <span slot="title">Other functions</span>
-            </el-menu-item>
+            </el-menu-item> -->
           </el-menu>
         </el-aside>
         <el-main>
